@@ -44,6 +44,16 @@ AAvioaneBlock::AAvioaneBlock()
 	BaseMaterial = ConstructorStatics.BaseMaterial.Get();
 	BlueMaterial = ConstructorStatics.BlueMaterial.Get();
 	OrangeMaterial = ConstructorStatics.OrangeMaterial.Get();
+
+	/*
+	FVector scala;
+	scala.X = 1;
+	scala.Y = 1;
+	scala.Z = 0.001;
+	this->SetActorScale3D(scala);
+	*/
+
+	this->SetActorScale3D({ 1,1,0 });
 }
 
 void AAvioaneBlock::BlockClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)

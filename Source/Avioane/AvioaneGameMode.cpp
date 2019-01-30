@@ -3,6 +3,7 @@
 #include "AvioaneGameMode.h"
 #include "AvioanePlayerController.h"
 #include "AvioanePawn.h"
+#include "Engine.h"
 
 AAvioaneGameMode::AAvioaneGameMode()
 {
@@ -10,4 +11,6 @@ AAvioaneGameMode::AAvioaneGameMode()
 	DefaultPawnClass = AAvioanePawn::StaticClass();
 	// use our own player controller class
 	PlayerControllerClass = AAvioanePlayerController::StaticClass();
+	
 }
+

@@ -1,19 +1,34 @@
 // Fill out your copyright notice in the Description page of Project Settings.
 
 #include "Avion_Mic.h"
+#include "UObject/ConstructorHelpers.h"
+#include "Components/StaticMeshComponent.h"
+#include "Engine/StaticMesh.h"
+#include "Materials/MaterialInstance.h"
 
 // Sets default values
 AAvion_Mic::AAvion_Mic()
 {
- 	// Set this actor to call Tick() every frame.  You can turn this off to improve performance if you don't need it.
-	PrimaryActorTick.bCanEverTick = true;
+	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("meshhhh"));
+	mesh->OnClicked.AddDynamic(this, &AAvion_Mic::Rotire);
 
+	val_rot = 0;
+}
+
+void AAvion_Mic::Rotire(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
+{
+	
+	val_rot = val_rot + 90;
+	
+	this->SetActorRotation({ 0, val_rot, 0 });
 }
 
 // Called when the game starts or when spawned
 void AAvion_Mic::BeginPlay()
 {
 	Super::BeginPlay();
+
+
 	
 }
 

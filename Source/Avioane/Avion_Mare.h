@@ -11,44 +11,22 @@ class AVIOANE_API AAvion_Mare : public AActor
 {
 	GENERATED_BODY()
 
-		/** Dummy root component */
-		UPROPERTY(Category = Grid, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-		class USceneComponent* DummyRoot;
-
 
 public:
 	AAvion_Mare();
 
-	/** How many blocks have been clicked */
-	int32 Score;
+	UPROPERTY(EditAnywhere)
+		class UStaticMeshComponent* mesh;
 
-	/** Number of blocks along each side of grid */
-	UPROPERTY(Category = Grid, EditAnywhere, BlueprintReadOnly)
-		int32 Size;
-
-	/** Spacing of blocks */
-	UPROPERTY(Category = Grid, EditAnywhere, BlueprintReadOnly)
-		float BlockSpacing;
-
-	UPROPERTY(Category = Grid, EditAnywhere, BlueprintReadOnly)
-		float scala_x;
-	UPROPERTY(Category = Grid, EditAnywhere, BlueprintReadOnly)
-		float scala_y;
-	UPROPERTY(Category = Grid, EditAnywhere, BlueprintReadOnly)
-		float scala_z;
-
-	class AAvioaneBlock* tabla[9][9];
+	UPROPERTY(EditAnywhere)
+		float val_rot;
 
 protected:
 	// Begin AActor interface
+	UFUNCTION()
+	void Rotire(UPrimitiveComponent * ClickedComp, FKey ButtonClicked);
 	virtual void BeginPlay() override;
 	void Tick(float DeltaTime);
 	// End AActor interface
-
-public:
-
-
-	/** Returns DummyRoot subobject **/
-	FORCEINLINE class USceneComponent* GetDummyRoot() const { return DummyRoot; }
 
 };

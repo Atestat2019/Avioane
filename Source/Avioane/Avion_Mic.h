@@ -10,17 +10,29 @@ UCLASS()
 class AVIOANE_API AAvion_Mic : public AActor
 {
 	GENERATED_BODY()
+
+
+public:
 	
-public:	
-	// Sets default values for this actor's properties
 	AAvion_Mic();
 
-protected:
-	// Called when the game starts or when spawned
-	virtual void BeginPlay() override;
+	UPROPERTY(EditAnywhere)
+	class UStaticMeshComponent* mesh;
 
-public:	
-	// Called every frame
-	virtual void Tick(float DeltaTime) override;
+	UPROPERTY(EditAnywhere)
+		float val_rot;
+
+
+
+protected:
+	
+	UFUNCTION()
+	void Rotire(UPrimitiveComponent * ClickedComp, FKey ButtonClicked);
+	// Begin AActor interface
+	virtual void BeginPlay() override;
+	void Tick(float DeltaTime);
+	// End AActor interface
+
+
 
 };

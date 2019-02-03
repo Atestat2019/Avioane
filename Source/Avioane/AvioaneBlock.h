@@ -26,7 +26,6 @@ public:
 	/** Are we currently active? */
 	bool bIsActive;
 
-	bool nimerit;
 
 	/** Pointer to white material used on the focused block */
 	UPROPERTY()
@@ -43,6 +42,9 @@ public:
 	/** Grid that owns us */
 	UPROPERTY()
 	class AAvioaneBlockGrid* OwningGrid;
+
+	UPROPERTY()
+		class AAvion_Mare* Grida_Avionului_Mare;
 
 	/** Handle the block being clicked */
 	UFUNCTION()

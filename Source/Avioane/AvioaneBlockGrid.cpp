@@ -23,6 +23,7 @@ AAvioaneBlockGrid::AAvioaneBlockGrid()
 	// Set defaults
 	Size = 3;
 	BlockSpacing = 300.f;
+	scala_x = scala_y = scala_z = 1;
 }
 
 
@@ -33,24 +34,43 @@ void AAvioaneBlockGrid::BeginPlay()
 	// Number of blocks
 	const int32 NumBlocks = Size * Size;
 
+	int32 nr=0;
+
 	// Loop to spawn each block
-	for(int32 BlockIndex=0; BlockIndex<NumBlocks; BlockIndex++)
+	for(int32 i=0; i<Size; i++)
 	{
-		const float XOffset = (BlockIndex/Size) * BlockSpacing; // Divide by dimension
-		const float YOffset = (BlockIndex%Size) * BlockSpacing; // Modulo gives remainder
-
-		// Make position vector, offset from Grid location
-		const FVector BlockLocation = FVector(XOffset, YOffset, 0.f) + GetActorLocation();
-
-		// Spawn a block
-		AAvioaneBlock* NewBlock = GetWorld()->SpawnActor<AAvioaneBlock>(BlockLocation, FRotator(0,0,0));
-
-		// Tell the block about its owner
-		if (NewBlock != nullptr)
+		
+		
+		for (int32 j = 0; j < Size; j++)
 		{
-			NewBlock->OwningGrid = this;
+			
+			
+			const float XOffset = (nr / Size) * BlockSpacing; // Divide by dimension
+			const float YOffset = (nr%Size) * BlockSpacing; // Modulo gives remainder
+
+			nr++;
+
+			// Make position vector, offset from Grid location
+			const FVector BlockLocation = FVector(XOffset, YOffset, 0.f) + GetActorLocation();
+
+			// Spawn a block
+			AAvioaneBlock* NewBlock = GetWorld()->SpawnActor<AAvioaneBlock>(BlockLocation, FRotator(0, 0, 0));
+			NewBlock->SetActorScale3D({ scala_x,scala_y,scala_z });
+			
+			
+			tabla[i][j] = NewBlock;
+
+
+			// Tell the block about its owner
+			if (NewBlock != nullptr)
+			{
+				NewBlock->OwningGrid = this;
+			}
+
 		}
+		
 	}
+
 }
 
 

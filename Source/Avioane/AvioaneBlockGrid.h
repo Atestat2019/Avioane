@@ -34,6 +34,15 @@ public:
 	UPROPERTY(Category=Grid, EditAnywhere, BlueprintReadOnly)
 	float BlockSpacing;
 
+	UPROPERTY(Category = Grid, EditAnywhere, BlueprintReadOnly)
+		float scala_x;
+	UPROPERTY(Category = Grid, EditAnywhere, BlueprintReadOnly)
+		float scala_y;
+	UPROPERTY(Category = Grid, EditAnywhere, BlueprintReadOnly)
+		float scala_z;
+
+	class AAvioaneBlock* tabla[21][21];
+
 protected:
 	// Begin AActor interface
 	virtual void BeginPlay() override;

@@ -53,7 +53,7 @@ AAvioaneBlock::AAvioaneBlock()
 	this->SetActorScale3D(scala);
 	*/
 
-	this->SetActorScale3D({ 1,1,0 });
+	//this->SetActorScale3D({ 0.5, 0.5, 0 });
 }
 
 void AAvioaneBlock::BlockClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)

@@ -12,11 +12,15 @@
 // Sets default values
 AAvion_Mare::AAvion_Mare()
 {
+	
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("meshhhh"));
 	mesh->OnClicked.AddDynamic(this, &AAvion_Mare::Rotire);
-
+	mesh->OnComponentBeginOverlap.AddDynamic(this, &AAvion_Mare::OnOverlapBegin);
 	val_rot = 0;
 
+	SetActorEnableCollision(true);
+	
+	
 }
 
 	
@@ -33,7 +37,7 @@ void AAvion_Mare::Rotire(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 void AAvion_Mare::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
 
 
 }
@@ -43,5 +47,14 @@ void AAvion_Mare::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+void AAvion_Mare::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
+{
+	UE_LOG(LogTemp, Warning, TEXT("lalalalal"));
+	if (OtherActor && (OtherActor != this) && OtherComp)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("lalalalal"));
+	}
 }
 

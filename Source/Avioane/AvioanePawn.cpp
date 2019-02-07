@@ -34,9 +34,10 @@ void AAvioanePawn::Tick(float DeltaSeconds)
 			FVector Start, Dir, End;
 			PC->DeprojectMousePositionToWorld(Start, Dir);
 			End = Start + (Dir * 8000.0f);
-			TraceForBlock(Start, End, false);
+			TraceForBlock(Start, End, true);
 		}
 	}
+	
 }
 
 void AAvioanePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -75,6 +76,9 @@ void AAvioanePawn::TraceForBlock(const FVector& Start, const FVector& End, bool 
 	{
 		DrawDebugLine(GetWorld(), Start, HitResult.Location, FColor::Red);
 		DrawDebugSolidBox(GetWorld(), HitResult.Location, FVector(20.0f), FColor::Red);
+		
+		//UE_LOG(LogTemp, Warning, TEXT("Locatie1: %s"), *Start.ToString());
+		//UE_LOG(LogTemp, Warning, TEXT("Locatie2: %s"), *End.ToString());
 	}
 	if (HitResult.Actor.IsValid())
 	{

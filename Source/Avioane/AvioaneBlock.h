@@ -58,6 +58,7 @@ public:
 
 	void Highlight(bool bOn);
 
+
 public:
 	/** Returns DummyRoot subobject **/
 	FORCEINLINE class USceneComponent* GetDummyRoot() const { return DummyRoot; }

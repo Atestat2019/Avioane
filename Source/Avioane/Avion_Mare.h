@@ -27,6 +27,10 @@ protected:
 	void Rotire(UPrimitiveComponent * ClickedComp, FKey ButtonClicked);
 	virtual void BeginPlay() override;
 	void Tick(float DeltaTime);
+	
+	UFUNCTION()
+	void OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
+	
 	// End AActor interface
 
 };

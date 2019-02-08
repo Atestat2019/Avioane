@@ -21,18 +21,19 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		float val_rot;
+	
+	bool selectat_mic;
 
+	class AAvioanePawn* blabla;
 
-
+	UFUNCTION()
+		void Rotire_Mic();
 protected:
 	
 	UFUNCTION()
-	void Rotire(UPrimitiveComponent * ClickedComp, FKey ButtonClicked);
+	void Click_Mic(UPrimitiveComponent * ClickedComp, FKey ButtonClicked);
 	// Begin AActor interface
 	virtual void BeginPlay() override;
 	void Tick(float DeltaTime);
 	// End AActor interface
-
-
-
 };

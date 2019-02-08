@@ -19,11 +19,19 @@ public:
 
 	virtual void CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult) override;
 
+	UPROPERTY(EditAnywhere)
+		bool este_avion_selectat;
+
+	
 protected:
 	void OnResetVR();
 	void TriggerClick();
+	void Rotire();
 	void TraceForBlock(const FVector& Start, const FVector& End, bool bDrawDebugHelpers);
 
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite)
 	class AAvioaneBlock* CurrentBlockFocus;
+
+	class AAvion_Mare* avion_mare;
+	class AAvion_Mic* avion_mic;
 };

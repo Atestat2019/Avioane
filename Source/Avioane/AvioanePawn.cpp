@@ -7,11 +7,18 @@
 #include "GameFramework/PlayerController.h"
 #include "Engine/World.h"
 #include "DrawDebugHelpers.h"
+#include "Avion_Mare.h"
+#include "Avion_Mic.h"
+#include "EngineUtils.h"
+#include <vector>
 
 AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer) 
 	: Super(ObjectInitializer)
 {
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
+
+	este_avion_selectat = false;
+
 }
 
 void AAvioanePawn::Tick(float DeltaSeconds)
@@ -46,6 +53,9 @@ void AAvioanePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 
 	PlayerInputComponent->BindAction("OnResetVR", EInputEvent::IE_Pressed, this, &AAvioanePawn::OnResetVR);
 	PlayerInputComponent->BindAction("TriggerClick", EInputEvent::IE_Pressed, this, &AAvioanePawn::TriggerClick);
+	PlayerInputComponent->BindAction("Rotire", EInputEvent::IE_Pressed, this, &AAvioanePawn::Rotire);
+
+
 }
 
 void AAvioanePawn::CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult)
@@ -67,6 +77,28 @@ void AAvioanePawn::TriggerClick()
 		CurrentBlockFocus->HandleClicked();
 	}
 }
+
+void AAvioanePawn::Rotire()
+{
+	for (TActorIterator<AAvion_Mare> it(GetWorld()); it; ++it)
+	{
+		avion_mare = *it;
+		if (avion_mare->selectat_mare == true)
+			avion_mare->Rotire_Mare();
+		break;
+	}
+
+	for (TActorIterator<AAvion_Mic> it(GetWorld()); it; ++it)
+	{
+		avion_mic = *it;
+		if (avion_mic->selectat_mic == true)
+			avion_mic->Rotire_Mic();
+	}
+
+	//UE_LOG(LogTemp, Warning, TEXT("poate aici?"));	
+}
+
+
 
 void AAvioanePawn::TraceForBlock(const FVector& Start, const FVector& End, bool bDrawDebugHelpers)
 {

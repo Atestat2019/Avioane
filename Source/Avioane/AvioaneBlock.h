@@ -26,6 +26,9 @@ public:
 	/** Are we currently active? */
 	bool bIsActive;
 
+	UPROPERTY(EditAnywhere)
+	bool atins;
+
 
 	/** Pointer to white material used on the focused block */
 	UPROPERTY()

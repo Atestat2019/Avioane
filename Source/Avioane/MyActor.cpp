@@ -21,7 +21,7 @@ AMyActor::AMyActor()
 
 	box->SetupAttachment(mesh);
 
-	//box->OnComponentBeginOverlap.AddDynamic(this, &AMyActor::OnOverlapBegin);
+	box->OnComponentBeginOverlap.AddDynamic(this, &AMyActor::OnOverlapBegin);
 
 	
 }
@@ -32,7 +32,7 @@ AMyActor::AMyActor()
 void AMyActor::BeginPlay()
 {
 	Super::BeginPlay();
-	box->OnComponentBeginOverlap.AddDynamic(this, &AMyActor::OnOverlapBegin);
+	//box->OnComponentBeginOverlap.AddDynamic(this, &AMyActor::OnOverlapBegin);
 	
 }
 

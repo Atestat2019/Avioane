@@ -54,6 +54,8 @@ AAvioaneBlock::AAvioaneBlock()
 	*/
 
 	//this->SetActorScale3D({ 0.5, 0.5, 0 });
+
+	atins = false;
 }
 
 void AAvioaneBlock::BlockClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)

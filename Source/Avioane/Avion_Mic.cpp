@@ -1,6 +1,7 @@
 #include "Avion_Mic.h"
 #include "AvioanePawn.h"
 #include "Avion_Mare.h"
+#include "AvioaneBlock.h"
 #include "EngineUtils.h"
 #include "Engine/StaticMesh.h"
 #include "Components/StaticMeshComponent.h"
@@ -75,6 +76,9 @@ void AAvion_Mic::BeginPlay()
 {
 	Super::BeginPlay();
 
+	mesh->OnComponentBeginOverlap.AddDynamic(this, &AAvion_Mic::OnOverlapBegin);
+	mesh->OnComponentEndOverlap.AddDynamic(this, &AAvion_Mic::OnOverlapExit);
+
 	for (TActorIterator<AAvioanePawn> it(GetWorld()); it; ++it)
 	{
 		acces_selectat = *it;
@@ -85,4 +89,27 @@ void AAvion_Mic::BeginPlay()
 void AAvion_Mic::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+}
+
+void AAvion_Mic::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult)
+{
+	if (OtherActor && (OtherActor != this) && OtherComp)
+	{
+		obiect_atins = Cast<AAvioaneBlock>(OtherActor);
+
+		if (obiect_atins != nullptr)
+		{
+			if (obiect_atins->atins == false)
+			{
+				obiect_atins->atins = true;
+
+				UE_LOG(LogTemp, Warning, TEXT("A intrat avion mic"));
+			}
+		}
+	}
+}
+
+void AAvion_Mic::OnOverlapExit(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex)
+{
+
 }

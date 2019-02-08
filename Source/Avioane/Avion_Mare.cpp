@@ -93,7 +93,7 @@ void AAvion_Mare::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, clas
 			{
 				obiect_atins->atins = true;
 
-				//UE_LOG(LogTemp, Warning, TEXT("A intrat in if"));
+				UE_LOG(LogTemp, Warning, TEXT("A intrat avion mare"));
 			}
 		}
 	}

@@ -17,6 +17,9 @@ public:
 		class UStaticMeshComponent* mesh;
 
 	UPROPERTY(EditAnywhere)
+		class AAvioaneBlock* obiect_atins;
+
+	UPROPERTY(EditAnywhere)
 		float val_rot;
 
 	UFUNCTION()
@@ -34,4 +37,10 @@ protected:
 
 	virtual void BeginPlay() override;
 	void Tick(float DeltaTime);
+	
+	UFUNCTION()
+		void OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
+
+	UFUNCTION()
+		void OnOverlapExit(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 };

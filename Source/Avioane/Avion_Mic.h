@@ -1,5 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -11,29 +9,29 @@ class AVIOANE_API AAvion_Mic : public AActor
 {
 	GENERATED_BODY()
 
-
 public:
 	
 	AAvion_Mic();
 
 	UPROPERTY(EditAnywhere)
-	class UStaticMeshComponent* mesh;
+		class UStaticMeshComponent* mesh;
 
 	UPROPERTY(EditAnywhere)
 		float val_rot;
-	
-	bool selectat_mic;
-
-	class AAvioanePawn* blabla;
 
 	UFUNCTION()
 		void Rotire_Mic();
-protected:
-	
+
 	UFUNCTION()
-	void Click_Mic(UPrimitiveComponent * ClickedComp, FKey ButtonClicked);
-	// Begin AActor interface
+		void Click_Mic(UPrimitiveComponent * ClickedComp, FKey ButtonClicked);
+
+	class AAvioanePawn* acces_selectat;
+
+	bool selectat_mic;
+
+
+protected:
+
 	virtual void BeginPlay() override;
 	void Tick(float DeltaTime);
-	// End AActor interface
 };

@@ -1,5 +1,3 @@
-// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
-
 #pragma once
 
 #include "CoreMinimal.h"
@@ -22,8 +20,9 @@ public:
 	UPROPERTY(EditAnywhere)
 		bool este_avion_selectat;
 
-	
+
 protected:
+
 	void OnResetVR();
 	void TriggerClick();
 	void Rotire();

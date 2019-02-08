@@ -1,15 +1,13 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
 #include "Avion_Mic.h"
-#include "Avion_Mare.h"
-#include "UObject/ConstructorHelpers.h"
-#include "Components/StaticMeshComponent.h"
-#include "Engine/StaticMesh.h"
-#include "Materials/MaterialInstance.h"
-#include "EngineUtils.h"
 #include "AvioanePawn.h"
+#include "Avion_Mare.h"
+#include "EngineUtils.h"
+#include "Engine/StaticMesh.h"
+#include "Components/StaticMeshComponent.h"
+#include "Materials/MaterialInstance.h"
+#include "UObject/ConstructorHelpers.h"
 
-// Sets default values
+
 AAvion_Mic::AAvion_Mic()
 {
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("meshhhh"));
@@ -20,41 +18,43 @@ AAvion_Mic::AAvion_Mic()
 
 void AAvion_Mic::Click_Mic(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 {
-	UE_LOG(LogTemp, Warning, TEXT("aproape mic aici?"));
-	if (blabla->este_avion_selectat == false)
+	//UE_LOG(LogTemp, Warning, TEXT("aproape mic aici?"));
+
+	if (acces_selectat->este_avion_selectat == false)
 	{
 		selectat_mic = true;
-		blabla->este_avion_selectat = true;
+		acces_selectat->este_avion_selectat = true;
 
-		UE_LOG(LogTemp, Warning, TEXT("mic aici?"));
+		//UE_LOG(LogTemp, Warning, TEXT("mic aici?"));
 	}
-	else if (blabla->este_avion_selectat == true && selectat_mic == true)
+	else if (acces_selectat->este_avion_selectat == true && selectat_mic == true)
 	{
 		selectat_mic = false;
-		blabla->este_avion_selectat = false;
+		acces_selectat->este_avion_selectat = false;
 	}
-	else if (blabla->este_avion_selectat == true && selectat_mic == false)
+	else if (acces_selectat->este_avion_selectat == true && selectat_mic == false)
 	{
 		selectat_mic = true;
-		AAvion_Mic* test;
+		AAvion_Mic* cautare1;
+
 		for (TActorIterator<AAvion_Mic> it(GetWorld()); it; ++it)
 		{
-			test = *it;
+			cautare1 = *it;
 
-			if (test != this && test->selectat_mic==true)
+			if (cautare1 != this && cautare1->selectat_mic==true)
 			{
-				test->selectat_mic = false;
+				cautare1->selectat_mic = false;
 			}
 		}
+		AAvion_Mare* cautare2;
 
-		AAvion_Mare* test3;
 		for (TActorIterator<AAvion_Mare> it(GetWorld()); it; ++it)
 		{
-			test3 = *it;
+			cautare2 = *it;
 
-			if (test3->selectat_mare == true)
+			if (cautare2->selectat_mare == true)
 			{
-				test3->selectat_mare = false;
+				cautare2->selectat_mare = false;
 			}
 		}
 	}
@@ -66,23 +66,22 @@ void AAvion_Mic::Rotire_Mic()
 	{
 		val_rot = val_rot + 90;
 		this->SetActorRotation({ 0, val_rot, 0 });
-		UE_LOG(LogTemp, Warning, TEXT("sau mic aici?"));
+		
+		//UE_LOG(LogTemp, Warning, TEXT("sau mic aici?"));
 	}
 }
 
-	// Called when the game starts or when spawned
 void AAvion_Mic::BeginPlay()
 {
 	Super::BeginPlay();
 
 	for (TActorIterator<AAvioanePawn> it(GetWorld()); it; ++it)
 	{
-		blabla = *it;
+		acces_selectat = *it;
 		break;
 	}
 }
 
-// Called every frame
 void AAvion_Mic::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);

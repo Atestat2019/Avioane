@@ -1,5 +1,3 @@
-// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
-
 #include "AvioanePawn.h"
 #include "AvioaneBlock.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
@@ -10,7 +8,6 @@
 #include "Avion_Mare.h"
 #include "Avion_Mic.h"
 #include "EngineUtils.h"
-#include <vector>
 
 AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer) 
 	: Super(ObjectInitializer)
@@ -18,7 +15,6 @@ AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer)
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
 	este_avion_selectat = false;
-
 }
 
 void AAvioanePawn::Tick(float DeltaSeconds)
@@ -54,8 +50,6 @@ void AAvioanePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAction("OnResetVR", EInputEvent::IE_Pressed, this, &AAvioanePawn::OnResetVR);
 	PlayerInputComponent->BindAction("TriggerClick", EInputEvent::IE_Pressed, this, &AAvioanePawn::TriggerClick);
 	PlayerInputComponent->BindAction("Rotire", EInputEvent::IE_Pressed, this, &AAvioanePawn::Rotire);
-
-
 }
 
 void AAvioanePawn::CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult)
@@ -87,7 +81,6 @@ void AAvioanePawn::Rotire()
 			avion_mare->Rotire_Mare();
 		break;
 	}
-
 	for (TActorIterator<AAvion_Mic> it(GetWorld()); it; ++it)
 	{
 		avion_mic = *it;
@@ -97,8 +90,6 @@ void AAvioanePawn::Rotire()
 
 	//UE_LOG(LogTemp, Warning, TEXT("poate aici?"));	
 }
-
-
 
 void AAvioanePawn::TraceForBlock(const FVector& Start, const FVector& End, bool bDrawDebugHelpers)
 {

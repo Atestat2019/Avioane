@@ -12,22 +12,28 @@ class AAvioaneBlock : public AActor
 {
 	GENERATED_BODY()
 
-	/** Dummy root component */
-	UPROPERTY(Category = Block, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	class USceneComponent* DummyRoot;
-
-	/** StaticMesh component for the clickable block */
-	UPROPERTY(Category = Block, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	class UStaticMeshComponent* BlockMesh;
+	
 
 public:
 	AAvioaneBlock();
 
+	
+	/** Dummy root component */
+	UPROPERTY(Category = Block, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+		class USceneComponent* DummyRoot;
+
+	/** StaticMesh component for the clickable block */
+	UPROPERTY(Category = Block, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+		class UStaticMeshComponent* BlockMesh;
+	
 	/** Are we currently active? */
 	bool bIsActive;
 
 	UPROPERTY(EditAnywhere)
 	bool atins;
+
+	UPROPERTY(EditAnywhere)
+		bool clicked;
 
 
 	/** Pointer to white material used on the focused block */
@@ -60,6 +66,10 @@ public:
 	void HandleClicked();
 
 	void Highlight(bool bOn);
+
+	void Change_Mat(bool bOn);
+
+	class AAvion_Mare* avion;
 
 
 public:

@@ -1,14 +1,16 @@
 #include "Avion_Mare.h"
 #include "Avion_Mic.h"
 #include "AvioaneBlock.h"
+#include "AvioanePawn.h"
+#include "EngineUtils.h"
+
 #include "Components/TextRenderComponent.h"
 #include "Engine/World.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Materials/MaterialInstance.h"
-#include "AvioanePawn.h"
-#include "EngineUtils.h"
+
 
 AAvion_Mare::AAvion_Mare()
 {
@@ -16,6 +18,7 @@ AAvion_Mare::AAvion_Mare()
 	mesh->OnClicked.AddDynamic(this, &AAvion_Mare::Click_Mare);
 
 	val_rot = 0;
+	go = false;
 }
 
 void AAvion_Mare::Click_Mare(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
@@ -89,11 +92,16 @@ void AAvion_Mare::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, clas
 
 		if (obiect_atins != nullptr)
 		{
-			if (obiect_atins->atins == false)
+			//mesh->bVisible = false;
+			if (obiect_atins->atins == false && this->selectat_mare==true)
 			{
+				mesh->bVisible = false;
 				obiect_atins->atins = true;
+				obiect_atins->Change_Mat(true);
+				if (go == true)
+					UE_LOG(LogTemp, Warning, TEXT("go"));
 
-				UE_LOG(LogTemp, Warning, TEXT("A intrat avion mare"));
+				//UE_LOG(LogTemp, Warning, TEXT("A intrat avion mare"));
 			}
 		}
 	}
@@ -102,4 +110,16 @@ void AAvion_Mare::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, clas
 void AAvion_Mare::OnOverlapExit(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	//UE_LOG(LogTemp, Warning, TEXT("A iesit din if"));
+	obiect_atins = Cast<AAvioaneBlock>(OtherActor);
+	if (obiect_atins != nullptr)
+	{
+		//if (obiect_atins->atins == true)
+		if (obiect_atins->clicked==false)
+		{
+			obiect_atins->atins = false;
+			obiect_atins->Change_Mat(false);
+
+			//UE_LOG(LogTemp, Warning, TEXT("A iesit avion mare"));
+		}
+	}
 }

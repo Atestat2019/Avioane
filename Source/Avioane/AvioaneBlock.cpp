@@ -6,6 +6,8 @@
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Materials/MaterialInstance.h"
+#include "Avion_Mare.h"
+#include "EngineUtils.h"
 
 AAvioaneBlock::AAvioaneBlock()
 {
@@ -56,6 +58,7 @@ AAvioaneBlock::AAvioaneBlock()
 	//this->SetActorScale3D({ 0.5, 0.5, 0 });
 
 	atins = false;
+	clicked = false;
 }
 
 void AAvioaneBlock::BlockClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
@@ -71,6 +74,33 @@ void AAvioaneBlock::OnFingerPressedBlock(ETouchIndex::Type FingerIndex, UPrimiti
 
 void AAvioaneBlock::HandleClicked()
 {
+	
+	//trebuie schimbata - e ineficienta
+	
+	AAvioaneBlock* test;
+	
+	for (TActorIterator<AAvion_Mare> it(GetWorld()); it; ++it)
+	{
+		avion = *it;
+		break;
+	}
+	for (TActorIterator<AAvioaneBlock> it(GetWorld()); it; ++it)
+	{
+		
+		
+		
+		
+		test = *it;
+		if (test->atins == true)
+		{
+			test->BlockMesh->SetMaterial(0, OrangeMaterial);
+			test->clicked = true;
+		}
+
+
+	}
+	
+
 	// Check we are not already active
 	if (!bIsActive)
 	{
@@ -78,6 +108,8 @@ void AAvioaneBlock::HandleClicked()
 
 		// Change material
 		BlockMesh->SetMaterial(0, OrangeMaterial);
+
+		avion->go = true;
 
 		// Tell the Grid
 		if (OwningGrid != nullptr)
@@ -90,14 +122,36 @@ void AAvioaneBlock::HandleClicked()
 void AAvioaneBlock::Highlight(bool bOn)
 {
 	// Do not highlight if the block has already been activated.
+	
+	for (TActorIterator<AAvion_Mare> it(GetWorld()); it; ++it)
+	{
+		avion = *it;
+		break;
+	}
+
 	if (bIsActive)
 	{
 		return;
 	}
+	if (bOn)
+	{
 
+		FVector loc = this->GetActorLocation();
+		
+		if (avion->selectat_mare == true)
+		{
+			avion->SetActorLocation({ loc.X - 50, loc.Y + 80, 0 });
+		}
+	}
+
+}
+
+void AAvioaneBlock::Change_Mat(bool bOn)
+{
 	if (bOn)
 	{
 		BlockMesh->SetMaterial(0, BaseMaterial);
+
 	}
 	else
 	{

@@ -33,6 +33,8 @@ public:
 
 	bool selectat_mare;
 
+	bool go;
+
 
 protected:
 	

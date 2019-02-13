@@ -13,14 +13,9 @@ public:
 	
 	AAvion_Mic();
 
-	UPROPERTY(EditAnywhere)
-		class UStaticMeshComponent* mesh;
+	class AAvioanePawn* acces_selectat;
 
-	UPROPERTY(EditAnywhere)
-		class AAvioaneBlock* obiect_atins;
-
-	UPROPERTY(EditAnywhere)
-		float val_rot;
+	bool selectat_mic;
 
 	UFUNCTION()
 		void Rotire_Mic();
@@ -28,11 +23,19 @@ public:
 	UFUNCTION()
 		void Click_Mic(UPrimitiveComponent * ClickedComp, FKey ButtonClicked);
 
-	class AAvioanePawn* acces_selectat;
+	UPROPERTY(EditAnywhere)
+		class UStaticMeshComponent* mesh;
 
-	bool selectat_mic;
+	UPROPERTY(EditAnywhere)
+		class AAvioaneBlock* obiect_atins;
 
+	UPROPERTY(EditAnywhere)
+		class AMyActor3* mesh_fals;
 
+	UPROPERTY(EditAnywhere)
+		float val_rot;
+
+	
 protected:
 
 	virtual void BeginPlay() override;
@@ -40,7 +43,6 @@ protected:
 	
 	UFUNCTION()
 		void OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult & SweepResult);
-
 	UFUNCTION()
 		void OnOverlapExit(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex);
 };

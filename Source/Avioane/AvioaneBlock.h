@@ -33,27 +33,35 @@ public:
 	bool atins;
 
 	UPROPERTY(EditAnywhere)
-		bool clicked;
+		bool ocupat;
 
 
 	/** Pointer to white material used on the focused block */
 	UPROPERTY()
-	class UMaterial* BaseMaterial;
+		class UMaterial* BaseMaterial;
 
 	/** Pointer to blue material used on inactive blocks */
 	UPROPERTY()
-	class UMaterialInstance* BlueMaterial;
+		class UMaterialInstance* BlueMaterial;
 
 	/** Pointer to orange material used on active blocks */
 	UPROPERTY()
-	class UMaterialInstance* OrangeMaterial;
+		class UMaterialInstance* OrangeMaterial;
+
+	UPROPERTY()
+		class UMaterialInstance* Material_Rosu;
+	UPROPERTY()
+		class UMaterialInstance* Material_Albastru;
+	UPROPERTY()
+		class UMaterialInstance* Material_Verde;
+	UPROPERTY()
+		class UMaterialInstance* Material_Galben;
+
+	TArray<UMaterialInstance*> materiale;
 
 	/** Grid that owns us */
 	UPROPERTY()
 	class AAvioaneBlockGrid* OwningGrid;
-
-	UPROPERTY()
-		class AAvion_Mare* Grida_Avionului_Mare;
 
 	/** Handle the block being clicked */
 	UFUNCTION()
@@ -69,7 +77,11 @@ public:
 
 	void Change_Mat(bool bOn);
 
-	class AAvion_Mare* avion;
+	class AAvion_Mare* avion_mare;
+
+	class AAvion_Mic* avion_mic;
+
+	static int i;
 
 
 public:

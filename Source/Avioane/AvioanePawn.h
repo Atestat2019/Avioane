@@ -23,14 +23,14 @@ public:
 
 protected:
 
+	void TraceForBlock(const FVector& Start, const FVector& End, bool bDrawDebugHelpers);
 	void OnResetVR();
 	void TriggerClick();
 	void Rotire();
-	void TraceForBlock(const FVector& Start, const FVector& End, bool bDrawDebugHelpers);
-
-	UPROPERTY(EditInstanceOnly, BlueprintReadWrite)
-	class AAvioaneBlock* CurrentBlockFocus;
 
 	class AAvion_Mare* avion_mare;
 	class AAvion_Mic* avion_mic;
+
+	UPROPERTY(EditInstanceOnly, BlueprintReadWrite)
+		class AAvioaneBlock* CurrentBlockFocus;
 };

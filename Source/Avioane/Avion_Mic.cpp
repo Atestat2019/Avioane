@@ -53,9 +53,12 @@ void AAvion_Mic::Click_Mic(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 		{
 			cautare2 = *it;
 
-			if (cautare2->selectat_mare == true)
+			if (cautare2 != nullptr)
 			{
-				cautare2->selectat_mare = false;
+				if(cautare2->selectat_mare == true)
+				{
+					cautare2->selectat_mare = false;
+				}
 			}
 		}
 	}
@@ -75,7 +78,8 @@ void AAvion_Mic::Rotire_Mic()
 void AAvion_Mic::BeginPlay()
 {
 	Super::BeginPlay();
-
+	
+	mesh->SetVisibility(false);
 	mesh->OnComponentBeginOverlap.AddDynamic(this, &AAvion_Mic::OnOverlapBegin);
 	mesh->OnComponentEndOverlap.AddDynamic(this, &AAvion_Mic::OnOverlapExit);
 
@@ -99,11 +103,12 @@ void AAvion_Mic::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * O
 
 		if (obiect_atins != nullptr)
 		{
-			if (obiect_atins->atins == false)
+			if (obiect_atins->atins == false && obiect_atins->ocupat == false && this->selectat_mic==true)
 			{
 				obiect_atins->atins = true;
-
-				UE_LOG(LogTemp, Warning, TEXT("A intrat avion mic"));
+				obiect_atins->Change_Mat(true);
+				
+				//UE_LOG(LogTemp, Warning, TEXT("A intrat avion_mare mic"));
 			}
 		}
 	}
@@ -111,5 +116,13 @@ void AAvion_Mic::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * O
 
 void AAvion_Mic::OnOverlapExit(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex)
 {
-
+	obiect_atins = Cast<AAvioaneBlock>(OtherActor);
+	if (obiect_atins != nullptr)
+	{
+		if (obiect_atins->ocupat == false)
+		{
+			obiect_atins->atins = false;
+			obiect_atins->Change_Mat(false);		
+		}
+	}
 }

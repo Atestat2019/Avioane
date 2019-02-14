@@ -7,7 +7,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Materials/MaterialInstance.h"
 #include "UObject/ConstructorHelpers.h"
-
+#include "Avion_Fals.h"
 
 AAvion_Mic::AAvion_Mic()
 {
@@ -70,7 +70,8 @@ void AAvion_Mic::Rotire_Mic()
 	{
 		val_rot = val_rot + 90;
 		this->SetActorRotation({ 0, val_rot, 0 });
-		
+		mesh_fals->SetActorRotation({ 0, val_rot, 0 });
+
 		//UE_LOG(LogTemp, Warning, TEXT("sau mic aici?"));
 	}
 }

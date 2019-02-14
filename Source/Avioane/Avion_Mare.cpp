@@ -9,7 +9,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Materials/MaterialInstance.h"
-#include "MyActor3.h"
+#include "Avion_Fals.h"
 
 
 
@@ -19,8 +19,6 @@ AAvion_Mare::AAvion_Mare()
 	mesh->OnClicked.AddDynamic(this, &AAvion_Mare::Click_Mare);
 
 	val_rot = 0;
-	
-	
 }
 
 void AAvion_Mare::Click_Mare(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
@@ -66,6 +64,7 @@ void AAvion_Mare::Rotire_Mare()
 		val_rot = val_rot + 90;
 		this->SetActorRotation({ 0, val_rot, 0 });
 		mesh_fals->SetActorRotation({ 0, val_rot, 0 });
+
 		//UE_LOG(LogTemp, Warning, TEXT("sau aici?"));
 	}
 }

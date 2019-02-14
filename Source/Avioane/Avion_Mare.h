@@ -28,10 +28,10 @@ public:
 		class UStaticMeshComponent* mesh;
 
 	UPROPERTY(EditAnywhere)
-		class AMyActor3* mesh_fals;
-
-	UPROPERTY(EditAnywhere)
 		class AAvioaneBlock* obiect_atins;
+	
+	UPROPERTY(EditAnywhere)
+		class AAvion_Fals* mesh_fals;
 
 	UPROPERTY(EditAnywhere)
 		float val_rot;

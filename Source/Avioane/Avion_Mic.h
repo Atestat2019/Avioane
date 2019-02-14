@@ -30,7 +30,7 @@ public:
 		class AAvioaneBlock* obiect_atins;
 
 	UPROPERTY(EditAnywhere)
-		class AMyActor3* mesh_fals;
+		class AAvion_Fals* mesh_fals;
 
 	UPROPERTY(EditAnywhere)
 		float val_rot;

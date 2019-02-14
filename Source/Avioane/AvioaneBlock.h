@@ -17,34 +17,26 @@ class AAvioaneBlock : public AActor
 public:
 	AAvioaneBlock();
 
-	
-	/** Dummy root component */
 	UPROPERTY(Category = Block, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 		class USceneComponent* DummyRoot;
 
-	/** StaticMesh component for the clickable block */
 	UPROPERTY(Category = Block, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 		class UStaticMeshComponent* BlockMesh;
 	
-	/** Are we currently active? */
 	bool bIsActive;
 
 	UPROPERTY(EditAnywhere)
-	bool atins;
+		bool atins;
 
 	UPROPERTY(EditAnywhere)
 		bool ocupat;
 
-
-	/** Pointer to white material used on the focused block */
 	UPROPERTY()
 		class UMaterial* BaseMaterial;
 
-	/** Pointer to blue material used on inactive blocks */
 	UPROPERTY()
 		class UMaterialInstance* BlueMaterial;
 
-	/** Pointer to orange material used on active blocks */
 	UPROPERTY()
 		class UMaterialInstance* OrangeMaterial;
 

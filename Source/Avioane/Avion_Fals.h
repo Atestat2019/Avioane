@@ -4,16 +4,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "MyActor3.generated.h"
+#include "Avion_Fals.generated.h"
 
 UCLASS()
-class AVIOANE_API AMyActor3 : public AActor
+class AVIOANE_API AAvion_Fals : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 	// Sets default values for this actor's properties
-	AMyActor3();
+	AAvion_Fals();
 
 protected:
 	// Called when the game starts or when spawned

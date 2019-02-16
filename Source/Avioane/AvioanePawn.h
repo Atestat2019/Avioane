@@ -21,18 +21,18 @@ public:
 
 	class AAvion_Mare* avion_mare;
 
-
 	TArray<AAvion_Mic*> avioane_mici;
 	
-	virtual void BeginPlay() override;
-
 	UPROPERTY(EditAnywhere)
 		bool este_avion_selectat;
 
 
 protected:
 
+	virtual void BeginPlay() override;
+
 	void TraceForBlock(const FVector& Start, const FVector& End, bool bDrawDebugHelpers);
+	
 	void Rotire();
 
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite)

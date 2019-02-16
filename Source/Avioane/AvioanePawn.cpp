@@ -9,6 +9,7 @@
 #include "Avion_Mic.h"
 #include "EngineUtils.h"
 
+
 AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
@@ -40,7 +41,6 @@ void AAvioanePawn::Tick(float DeltaSeconds)
 			TraceForBlock(Start, End, true);
 		}
 	}
-
 }
 
 void AAvioanePawn::BeginPlay()
@@ -71,9 +71,6 @@ void AAvioanePawn::CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResul
 	OutResult.Rotation = FRotator(-90.0f, -90.0f, 0.0f);
 }
 
-
-
-
 void AAvioanePawn::Rotire()
 {
 	if (avion_mare != nullptr)
@@ -94,6 +91,7 @@ void AAvioanePawn::TraceForBlock(const FVector& Start, const FVector& End, bool 
 {
 	FHitResult HitResult;
 	GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECC_Visibility);
+
 	if (bDrawDebugHelpers)
 	{
 		DrawDebugLine(GetWorld(), Start, HitResult.Location, FColor::Red);
@@ -105,6 +103,7 @@ void AAvioanePawn::TraceForBlock(const FVector& Start, const FVector& End, bool 
 	if (HitResult.Actor.IsValid())
 	{
 		AAvioaneBlock* HitBlock = Cast<AAvioaneBlock>(HitResult.Actor.Get());
+
 		if (CurrentBlockFocus != HitBlock)
 		{
 			if (CurrentBlockFocus)

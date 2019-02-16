@@ -1,5 +1,3 @@
-// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
-
 #include "AvioaneBlock.h"
 #include "AvioaneBlockGrid.h"
 #include "UObject/ConstructorHelpers.h"
@@ -17,7 +15,6 @@ AAvioanePawn* AAvioaneBlock::acces;
 
 AAvioaneBlock::AAvioaneBlock()
 {
-	// Structure to hold one-time initialization
 	struct FConstructorStatics
 	{
 		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> PlaneMesh;
@@ -38,17 +35,14 @@ AAvioaneBlock::AAvioaneBlock()
 			, Material_Albastru(TEXT("/Game/Puzzle/Meshes/Material_Albastru.Material_Albastru"))
 			, Material_Verde(TEXT("/Game/Puzzle/Meshes/Material_Verde.Material_Verde"))
 			, Material_Galben(TEXT("/Game/Puzzle/Meshes/Material_Galben.Material_Galben"))
-		{
-		}
+		{}
 	};
 
 	static FConstructorStatics ConstructorStatics;
 
-	// Create dummy root scene component
 	DummyRoot = CreateDefaultSubobject<USceneComponent>(TEXT("Dummy0"));
 	RootComponent = DummyRoot;
 
-	// Create static mesh component
 	BlockMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BlockMesh0"));
 	BlockMesh->SetStaticMesh(ConstructorStatics.PlaneMesh.Get());
 	BlockMesh->SetRelativeScale3D(FVector(1.f, 1.f, 0.25f));
@@ -89,7 +83,6 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 	if (acces->este_avion_selectat == true)
 	{
 		AAvioaneBlock* patrat;
-	
 
 		for (i = 0; i < grida->Size; i++)
 		{
@@ -106,55 +99,54 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 			}
 		}
 		k++;
-		
-		//UE_LOG(LogTemp, Warning, TEXT("k are valoarea: %d"), k);	
-	}
-	acces->este_avion_selectat = false;
 
-	if (acces->avion_mare->selectat_mare == true)
-	{
-		acces->avion_mare->mesh->SetGenerateOverlapEvents(false);
-		acces->avion_mare->mesh_fals->Destroy();
-		acces->avion_mare->selectat_mare = false;
-	}
-	else
-	{
-		for (i = 0; i < acces->avioane_mici.Num(); i++)
+		//UE_LOG(LogTemp, Warning, TEXT("k are valoarea: %d"), k);	
+
+		acces->este_avion_selectat = false;
+
+		if (acces->avion_mare->selectat_mare == true)
 		{
-			if (acces->avioane_mici[i]->selectat_mic == true)
+			acces->avion_mare->mesh->SetGenerateOverlapEvents(false);
+			acces->avion_mare->mesh_fals->Destroy();
+			acces->avion_mare->selectat_mare = false;
+		}
+		else
+		{
+			for (i = 0; i < acces->avioane_mici.Num(); i++)
 			{
-				avion_mic = acces->avioane_mici[i];
-				break;
+				if (acces->avioane_mici[i]->selectat_mic == true)
+				{
+					avion_mic = acces->avioane_mici[i];
+					break;
+				}
+			}
+			if (avion_mic->selectat_mic == true)
+			{
+				avion_mic->mesh->SetGenerateOverlapEvents(false);
+				avion_mic->mesh_fals->Destroy();
+				avion_mic->selectat_mic = false;
 			}
 		}
-		if (avion_mic->selectat_mic == true)
-		{
-			avion_mic->mesh->SetGenerateOverlapEvents(false);
-			avion_mic->mesh_fals->Destroy();
-			avion_mic->selectat_mic = false;
-		}
+
+		//avion_mare->Destroy(); de studiat
 	}
-	
-	//avion_mare->Destroy(); de studiat
 }
 
 void AAvioaneBlock::Evidentiere(bool bOn)
 {
-
 	if (acces->avion_mare->selectat_mare == true)
 	{
 		if (bOn)
 		{
-
 			FVector loc = this->GetActorLocation();
 			acces->avion_mare->SetActorLocation({ loc.X - 50 , loc.Y + 80 , 0 });
 		}
-
 	}
 	else
 	{
 		int i;
 		avion_mic = nullptr;
+
 		for (i = 0; i < acces->avioane_mici.Num(); i++)
 		{
 			if (acces->avioane_mici[i]->selectat_mic == true)
@@ -165,14 +157,10 @@ void AAvioaneBlock::Evidentiere(bool bOn)
 		}
 		if (avion_mic!= nullptr && avion_mic->selectat_mic == true)
 		{
-			
 			if (bOn)
 			{
-
 				FVector loc = this->GetActorLocation();
-
 				avion_mic->SetActorLocation({ loc.X - 22, loc.Y , 0 });
-
 			}
 		}
 	}
@@ -183,7 +171,6 @@ void AAvioaneBlock::Change_Mat(bool bOn)
 	if (bOn)
 	{
 		BlockMesh->SetMaterial(0, BaseMaterial);
-
 	}
 	else
 	{

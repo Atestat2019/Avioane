@@ -12,7 +12,6 @@
 #include "Avion_Fals.h"
 
 
-
 AAvion_Mare::AAvion_Mare()
 {
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("mesh"));
@@ -74,7 +73,6 @@ void AAvion_Mare::BeginPlay()
 	Super::BeginPlay();
 
 	mesh->SetVisibility(false); // facem INVIZIBIL MESHUL
-	
 	mesh->OnComponentBeginOverlap.AddDynamic(this, &AAvion_Mare::OnOverlapBegin);
 	mesh->OnComponentEndOverlap.AddDynamic(this, &AAvion_Mare::OnOverlapExit);
 
@@ -99,11 +97,12 @@ void AAvion_Mare::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, clas
 		if (obiect_atins != nullptr)
 		{
 			//mesh->bVisible = false;
+
 			if (obiect_atins->atins == false && obiect_atins->ocupat==false && this->selectat_mare==true)
 			{
-				
 				obiect_atins->atins = true;
 				obiect_atins->Change_Mat(true);
+
 				//UE_LOG(LogTemp, Warning, TEXT("A intrat avion_mare mare"));
 			}
 		}
@@ -113,10 +112,13 @@ void AAvion_Mare::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, clas
 void AAvion_Mare::OnOverlapExit(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
 	//UE_LOG(LogTemp, Warning, TEXT("A iesit din if"));
+
 	obiect_atins = Cast<AAvioaneBlock>(OtherActor);
+
 	if (obiect_atins != nullptr)
 	{
 		//if (obiect_atins->atins == true)
+
 		if (obiect_atins->ocupat==false)
 		{
 			obiect_atins->atins = false;

@@ -2,17 +2,16 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "Avion_Fals.generated.h"
+#include "Test.generated.h"
 
 UCLASS()
-class AVIOANE_API AAvion_Fals : public AActor
+class AVIOANE_API ATest : public AActor
 {
 	GENERATED_BODY()
 	
 public:	
 
-	AAvion_Fals();
-
+	ATest();
 
 protected:
 

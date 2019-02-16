@@ -1,9 +1,8 @@
-// Copyright 1998-2018 Epic Games, Inc. All Rights Reserved.
-
 #include "AvioaneGameMode.h"
 #include "AvioanePlayerController.h"
 #include "AvioanePawn.h"
 #include "Engine.h"
+
 
 AAvioaneGameMode::AAvioaneGameMode()
 {

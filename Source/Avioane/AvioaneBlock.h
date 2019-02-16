@@ -11,10 +11,8 @@ class AAvioaneBlock : public AActor
 	GENERATED_BODY()
 
 public:
-	AAvioaneBlock();
 
-	UFUNCTION()
-	void HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked);
+	AAvioaneBlock();
 
 	void Evidentiere(bool bOn);
 
@@ -29,6 +27,9 @@ public:
 	static int k;
 
 	TArray<UMaterialInstance*> materiale;
+
+	UFUNCTION()
+		void HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked);
 
 	UPROPERTY(Category = Block, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 		class USceneComponent* DummyRoot;

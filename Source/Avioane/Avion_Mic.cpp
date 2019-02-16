@@ -9,6 +9,7 @@
 #include "UObject/ConstructorHelpers.h"
 #include "Avion_Fals.h"
 
+
 AAvion_Mic::AAvion_Mic()
 {
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("meshhhh"));
@@ -118,6 +119,7 @@ void AAvion_Mic::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * O
 void AAvion_Mic::OnOverlapExit(UPrimitiveComponent * OverlappedComp, AActor * OtherActor, UPrimitiveComponent * OtherComp, int32 OtherBodyIndex)
 {
 	obiect_atins = Cast<AAvioaneBlock>(OtherActor);
+
 	if (obiect_atins != nullptr)
 	{
 		if (obiect_atins->ocupat == false)

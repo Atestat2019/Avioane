@@ -9,7 +9,7 @@
 #include "Avion_Mic.h"
 #include "EngineUtils.h"
 
-AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer) 
+AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer)
 	: Super(ObjectInitializer)
 {
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
@@ -40,15 +40,27 @@ void AAvioanePawn::Tick(float DeltaSeconds)
 			TraceForBlock(Start, End, true);
 		}
 	}
-	
+
+}
+
+void AAvioanePawn::BeginPlay()
+{
+	Super::BeginPlay();
+
+	for (TActorIterator<AAvion_Mare> it(GetWorld()); it; ++it)
+	{
+		avion_mare = *it;
+	}
+	for (TActorIterator<AAvion_Mic> it(GetWorld()); it; ++it)
+	{
+		avioane_mici.Add(*it);
+	}
 }
 
 void AAvioanePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
-	PlayerInputComponent->BindAction("OnResetVR", EInputEvent::IE_Pressed, this, &AAvioanePawn::OnResetVR);
-	PlayerInputComponent->BindAction("TriggerClick", EInputEvent::IE_Pressed, this, &AAvioanePawn::TriggerClick);
 	PlayerInputComponent->BindAction("Rotire", EInputEvent::IE_Pressed, this, &AAvioanePawn::Rotire);
 }
 
@@ -59,33 +71,20 @@ void AAvioanePawn::CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResul
 	OutResult.Rotation = FRotator(-90.0f, -90.0f, 0.0f);
 }
 
-void AAvioanePawn::OnResetVR()
-{
-	UHeadMountedDisplayFunctionLibrary::ResetOrientationAndPosition();
-}
 
-void AAvioanePawn::TriggerClick()
-{
-	if (CurrentBlockFocus)
-	{
-		CurrentBlockFocus->HandleClicked();
-	}
-}
+
 
 void AAvioanePawn::Rotire()
 {
-	for (TActorIterator<AAvion_Mare> it(GetWorld()); it; ++it)
+	if (avion_mare != nullptr)
 	{
-		avion_mare = *it;
 		if (avion_mare->selectat_mare == true)
 			avion_mare->Rotire_Mare();
-		break;
 	}
-	for (TActorIterator<AAvion_Mic> it(GetWorld()); it; ++it)
+	for (int i = 0; i < avioane_mici.Num(); i++)
 	{
-		avion_mic = *it;
-		if (avion_mic->selectat_mic == true)
-			avion_mic->Rotire_Mic();
+		if (avioane_mici[i]->selectat_mic == true)
+			avioane_mici[i]->Rotire_Mic();
 	}
 
 	//UE_LOG(LogTemp, Warning, TEXT("poate aici?"));	
@@ -99,7 +98,7 @@ void AAvioanePawn::TraceForBlock(const FVector& Start, const FVector& End, bool 
 	{
 		DrawDebugLine(GetWorld(), Start, HitResult.Location, FColor::Red);
 		DrawDebugSolidBox(GetWorld(), HitResult.Location, FVector(20.0f), FColor::Red);
-		
+
 		//UE_LOG(LogTemp, Warning, TEXT("Locatie1: %s"), *Start.ToString());
 		//UE_LOG(LogTemp, Warning, TEXT("Locatie2: %s"), *End.ToString());
 	}
@@ -110,18 +109,18 @@ void AAvioanePawn::TraceForBlock(const FVector& Start, const FVector& End, bool 
 		{
 			if (CurrentBlockFocus)
 			{
-				CurrentBlockFocus->Highlight(false);
+				CurrentBlockFocus->Evidentiere(false);
 			}
 			if (HitBlock)
 			{
-				HitBlock->Highlight(true);
+				HitBlock->Evidentiere(true);
 			}
 			CurrentBlockFocus = HitBlock;
 		}
 	}
 	else if (CurrentBlockFocus)
 	{
-		CurrentBlockFocus->Highlight(false);
+		CurrentBlockFocus->Evidentiere(false);
 		CurrentBlockFocus = nullptr;
 	}
 }

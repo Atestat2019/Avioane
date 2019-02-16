@@ -14,7 +14,7 @@ public:
 	
 	AAvion_Mare();
 	
-	class AAvioanePawn* acces_selectat;
+	class AAvioanePawn* acces;
 
 	bool selectat_mare;
 

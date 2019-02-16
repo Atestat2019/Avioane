@@ -64,7 +64,7 @@ void AAvioaneBlockGrid::BeginPlay()
 			// Tell the block about its owner
 			if (NewBlock != nullptr)
 			{
-				NewBlock->OwningGrid = this;
+				NewBlock->grida = this;
 			}
 
 		}

@@ -11,7 +11,9 @@
 #include "Avion_Fals.h"
 #include "Avion_Mic.h"
 
-int AAvioaneBlock::i;
+
+int AAvioaneBlock::k;
+AAvioanePawn* AAvioaneBlock::acces;
 
 AAvioaneBlock::AAvioaneBlock()
 {
@@ -49,12 +51,11 @@ AAvioaneBlock::AAvioaneBlock()
 	// Create static mesh component
 	BlockMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BlockMesh0"));
 	BlockMesh->SetStaticMesh(ConstructorStatics.PlaneMesh.Get());
-	BlockMesh->SetRelativeScale3D(FVector(1.f,1.f,0.25f));
-	BlockMesh->SetRelativeLocation(FVector(0.f,0.f,25.f));
+	BlockMesh->SetRelativeScale3D(FVector(1.f, 1.f, 0.25f));
+	BlockMesh->SetRelativeLocation(FVector(0.f, 0.f, 25.f));
 	BlockMesh->SetMaterial(0, ConstructorStatics.BlueMaterial.Get());
 	BlockMesh->SetupAttachment(DummyRoot);
-	BlockMesh->OnClicked.AddDynamic(this, &AAvioaneBlock::BlockClicked);
-	BlockMesh->OnInputTouchBegin.AddDynamic(this, &AAvioaneBlock::OnFingerPressedBlock);
+	BlockMesh->OnClicked.AddDynamic(this, &AAvioaneBlock::HandleClicked);
 
 	BaseMaterial = ConstructorStatics.BaseMaterial.Get();
 	BlueMaterial = ConstructorStatics.BlueMaterial.Get();
@@ -67,148 +68,104 @@ AAvioaneBlock::AAvioaneBlock()
 
 	atins = false;
 	ocupat = false;
-	i = 0;
+	k = 0;
 }
 
-void AAvioaneBlock::BlockClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
+void AAvioaneBlock::BeginPlay()
 {
-	HandleClicked();
-}
+	Super::BeginPlay();
 
-
-void AAvioaneBlock::OnFingerPressedBlock(ETouchIndex::Type FingerIndex, UPrimitiveComponent* TouchedComponent)
-{
-	HandleClicked();
-}
-
-void AAvioaneBlock::HandleClicked()
-{
-	
-	//trebuie schimbata - e ineficienta
-	
-	AAvioaneBlock* test;
-
-	
-	for (TActorIterator<AAvion_Mare> it(GetWorld()); it; ++it)
+	for (TActorIterator<AAvioanePawn> it(GetWorld()); it; ++it)
 	{
-		avion_mare = *it;
+		acces = *it;
 		break;
 	}
+}
 
-	if (avion_mare->selectat_mare == true)
+void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
+{
+	int i, j;
+
+	if (acces->este_avion_selectat == true)
 	{
-		for (TActorIterator<AAvioaneBlock> it(GetWorld()); it; ++it)
+		AAvioaneBlock* patrat;
+	
+
+		for (i = 0; i < grida->Size; i++)
 		{
-			test = *it;
-			if (test->atins == true)
+			for (j = 0; j < grida->Size; j++)
 			{
-				test->BlockMesh->SetMaterial(0, materiale[i]);
-				test->ocupat = true;
-				test->atins = false;
+				patrat = grida->tabla[i][j];
+
+				if (patrat->atins == true)
+				{
+					patrat->BlockMesh->SetMaterial(0, materiale[k]);
+					patrat->ocupat = true;
+					patrat->atins = false;
+				}
 			}
 		}
-		i++;
-		//UE_LOG(LogTemp, Warning, TEXT("i are valoarea: %d"), i);
-		avion_mare->mesh->SetGenerateOverlapEvents(false);
-		avion_mare->mesh_fals->Destroy();
-		avion_mare->selectat_mare = false;
+		k++;
+		
+		//UE_LOG(LogTemp, Warning, TEXT("k are valoarea: %d"), k);	
+	}
+	acces->este_avion_selectat = false;
+
+	if (acces->avion_mare->selectat_mare == true)
+	{
+		acces->avion_mare->mesh->SetGenerateOverlapEvents(false);
+		acces->avion_mare->mesh_fals->Destroy();
+		acces->avion_mare->selectat_mare = false;
 	}
 	else
 	{
-		for (TActorIterator<AAvion_Mic> it(GetWorld()); it; ++it)
+		for (i = 0; i < acces->avioane_mici.Num(); i++)
 		{
-			avion_mic = *it;
-			
-			if (avion_mic->selectat_mic == true) 
+			if (acces->avioane_mici[i]->selectat_mic == true)
 			{
+				avion_mic = acces->avioane_mici[i];
 				break;
 			}
 		}
 		if (avion_mic->selectat_mic == true)
 		{
-			for (TActorIterator<AAvioaneBlock> it(GetWorld()); it; ++it)
-			{
-				test = *it;
-				if (test->atins == true)
-				{
-					test->BlockMesh->SetMaterial(0, materiale[i]);
-					test->ocupat = true;
-					test->atins = false;
-				}
-			}
-			i++;
-			//UE_LOG(LogTemp , Warning, TEXT("i are valoarea: %d"), i);
 			avion_mic->mesh->SetGenerateOverlapEvents(false);
 			avion_mic->mesh_fals->Destroy();
 			avion_mic->selectat_mic = false;
 		}
-
 	}
 	
 	//avion_mare->Destroy(); de studiat
-
-
-	// Check we are not already active
-	/*
-	if (!bIsActive)
-	{
-		bIsActive = true;
-
-		// Change material
-		BlockMesh->SetMaterial(0, OrangeMaterial);
-
-
-		// Tell the Grid
-		if (OwningGrid != nullptr)
-		{
-			OwningGrid->AddScore();
-		}
-	}
-	*/
 }
 
-void AAvioaneBlock::Highlight(bool bOn)
+void AAvioaneBlock::Evidentiere(bool bOn)
 {
-	// Do not highlight if the block has already been activated.
 
-	if (bIsActive)
+	if (acces->avion_mare->selectat_mare == true)
 	{
-		return;
-	}
-
-
-
-	for (TActorIterator<AAvion_Mare> it(GetWorld()); it; ++it)
-	{
-		avion_mare = *it;
-		break;
-	}
-	
-	if (avion_mare->selectat_mare == true)
-	{
-
 		if (bOn)
 		{
 
 			FVector loc = this->GetActorLocation();
-			avion_mare->SetActorLocation({ loc.X - 50 , loc.Y + 80 , 0 });
-			
+			acces->avion_mare->SetActorLocation({ loc.X - 50 , loc.Y + 80 , 0 });
 		}
 
 	}
 	else
 	{
-		for (TActorIterator<AAvion_Mic> it(GetWorld()); it; ++it)
+		int i;
+		avion_mic = nullptr;
+		for (i = 0; i < acces->avioane_mici.Num(); i++)
 		{
-			avion_mic = *it;
-			if (avion_mic->selectat_mic == true)
+			if (acces->avioane_mici[i]->selectat_mic == true)
 			{
+				avion_mic = acces->avioane_mici[i];
 				break;
 			}
 		}
-		if (avion_mic->selectat_mic == true)
+		if (avion_mic!= nullptr && avion_mic->selectat_mic == true)
 		{
-
+			
 			if (bOn)
 			{
 

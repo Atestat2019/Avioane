@@ -25,19 +25,19 @@ void AAvion_Mare::Click_Mare(UPrimitiveComponent* ClickedComp, FKey ButtonClicke
 {
 	//UE_LOG(LogTemp, Warning, TEXT("aproape aici?"));
 
-	if (acces_selectat->este_avion_selectat == false)
+	if (acces->este_avion_selectat == false)
 	{
 		selectat_mare = true;
-		acces_selectat->este_avion_selectat = true;
+		acces->este_avion_selectat = true;
 
 		//UE_LOG(LogTemp, Warning, TEXT("aici?"));
 	}
-	else if (acces_selectat->este_avion_selectat == true && selectat_mare == true)
+	else if (acces->este_avion_selectat == true && selectat_mare == true)
 	{
 		selectat_mare = false;
-		acces_selectat->este_avion_selectat = false;
+		acces->este_avion_selectat = false;
 	}
-	else if (acces_selectat->este_avion_selectat == true && selectat_mare == false)
+	else if (acces->este_avion_selectat == true && selectat_mare == false)
 	{
 		selectat_mare = true;
 		AAvion_Mic* cautare3;
@@ -80,7 +80,7 @@ void AAvion_Mare::BeginPlay()
 
 	for (TActorIterator<AAvioanePawn> it(GetWorld()); it; ++it)
 	{
-		acces_selectat = *it;
+		acces = *it;
 		break;
 	}
 }

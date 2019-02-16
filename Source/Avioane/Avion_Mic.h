@@ -13,7 +13,7 @@ public:
 	
 	AAvion_Mic();
 
-	class AAvioanePawn* acces_selectat;
+	class AAvioanePawn* acces;
 
 	bool selectat_mic;
 

@@ -21,19 +21,19 @@ void AAvion_Mic::Click_Mic(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 {
 	//UE_LOG(LogTemp, Warning, TEXT("aproape mic aici?"));
 
-	if (acces_selectat->este_avion_selectat == false)
+	if (acces->este_avion_selectat == false)
 	{
 		selectat_mic = true;
-		acces_selectat->este_avion_selectat = true;
+		acces->este_avion_selectat = true;
 
 		//UE_LOG(LogTemp, Warning, TEXT("mic aici?"));
 	}
-	else if (acces_selectat->este_avion_selectat == true && selectat_mic == true)
+	else if (acces->este_avion_selectat == true && selectat_mic == true)
 	{
 		selectat_mic = false;
-		acces_selectat->este_avion_selectat = false;
+		acces->este_avion_selectat = false;
 	}
-	else if (acces_selectat->este_avion_selectat == true && selectat_mic == false)
+	else if (acces->este_avion_selectat == true && selectat_mic == false)
 	{
 		selectat_mic = true;
 		AAvion_Mic* cautare1;
@@ -86,7 +86,7 @@ void AAvion_Mic::BeginPlay()
 
 	for (TActorIterator<AAvioanePawn> it(GetWorld()); it; ++it)
 	{
-		acces_selectat = *it;
+		acces = *it;
 		break;
 	}
 }

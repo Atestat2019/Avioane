@@ -8,6 +8,7 @@
 #include "Materials/MaterialInstance.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Avion_Fals.h"
+#include "AvioaneBlockGrid.h"
 
 
 AAvion_Mic::AAvion_Mic()
@@ -80,6 +81,8 @@ void AAvion_Mic::Rotire_Mic()
 void AAvion_Mic::BeginPlay()
 {
 	Super::BeginPlay();
+
+	locinit = GetActorLocation();
 	
 	mesh->SetVisibility(false);
 	mesh->OnComponentBeginOverlap.AddDynamic(this, &AAvion_Mic::OnOverlapBegin);
@@ -88,6 +91,12 @@ void AAvion_Mic::BeginPlay()
 	for (TActorIterator<AAvioanePawn> it(GetWorld()); it; ++it)
 	{
 		acces = *it;
+		break;
+	}
+	
+	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
+	{
+		tabla = *it;
 		break;
 	}
 }
@@ -108,7 +117,18 @@ void AAvion_Mic::OnOverlapBegin(UPrimitiveComponent * OverlappedComp, AActor * O
 			if (obiect_atins->atins == false && obiect_atins->ocupat == false && this->selectat_mic==true)
 			{
 				obiect_atins->atins = true;
-				obiect_atins->Change_Mat(true);
+
+				nr++;
+				if (nr == 13)
+				{
+					//UE_LOG(LogTemp, Warning, TEXT("A intrat bine"));
+					tabla->Evidentiere_Blocuri(true);
+					acces->merge_pus = true;
+				}
+				else tabla->Evidentiere_Blocuri(2);
+				
+				
+				//obiect_atins->Change_Mat(true);
 				
 				//UE_LOG(LogTemp, Warning, TEXT("A intrat avion_mare mic"));
 			}
@@ -124,8 +144,13 @@ void AAvion_Mic::OnOverlapExit(UPrimitiveComponent * OverlappedComp, AActor * Ot
 	{
 		if (obiect_atins->ocupat == false)
 		{
+			tabla->Evidentiere_Blocuri(false);
 			obiect_atins->atins = false;
-			obiect_atins->Change_Mat(false);		
+			nr--;
+			acces->merge_pus = false;
+			//obiect_atins->Change_Mat(false);
+
+			//UE_LOG(LogTemp, Warning, TEXT("A iesit avion_mare mare"));
 		}
 	}
 }

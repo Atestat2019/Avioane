@@ -15,6 +15,9 @@ public:
 
 	class AAvioanePawn* acces;
 
+	UPROPERTY(EditAnywhere)
+		FVector locinit;
+
 	bool selectat_mic;
 
 	UFUNCTION()
@@ -34,6 +37,12 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		float val_rot;
+
+	UPROPERTY(EditAnywhere)
+		int nr;
+
+	UPROPERTY(EditAnywhere)
+		class AAvioaneBlockGrid* tabla;
 
 	
 protected:

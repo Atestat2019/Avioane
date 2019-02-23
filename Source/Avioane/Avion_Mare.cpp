@@ -2,6 +2,7 @@
 #include "Avion_Mic.h"
 #include "AvioaneBlock.h"
 #include "AvioanePawn.h"
+#include "AvioaneBlockGrid.h"
 #include "EngineUtils.h"
 #include "Components/TextRenderComponent.h"
 #include "Engine/World.h"
@@ -18,6 +19,7 @@ AAvion_Mare::AAvion_Mare()
 	mesh->OnClicked.AddDynamic(this, &AAvion_Mare::Click_Mare);
 
 	val_rot = 0;
+	nr = 0;
 }
 
 void AAvion_Mare::Click_Mare(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
@@ -76,16 +78,29 @@ void AAvion_Mare::BeginPlay()
 	mesh->OnComponentBeginOverlap.AddDynamic(this, &AAvion_Mare::OnOverlapBegin);
 	mesh->OnComponentEndOverlap.AddDynamic(this, &AAvion_Mare::OnOverlapExit);
 
+	locinit = GetActorLocation();
+
+
 	for (TActorIterator<AAvioanePawn> it(GetWorld()); it; ++it)
 	{
 		acces = *it;
 		break;
 	}
+
+	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
+	{
+		tabla = *it;
+		break;
+	}
+
+
 }
 
 void AAvion_Mare::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
+
+
 }
 
 void AAvion_Mare::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex, bool bFromSweep, const FHitResult& SweepResult)
@@ -93,6 +108,7 @@ void AAvion_Mare::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, clas
 	if (OtherActor && (OtherActor != this) && OtherComp)
 	{
 		obiect_atins = Cast<AAvioaneBlock>(OtherActor);
+		//tabla_atinsa = Cast<AAvioaneBlockGrid>(OtherActor);
 
 		if (obiect_atins != nullptr)
 		{
@@ -101,11 +117,25 @@ void AAvion_Mare::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, clas
 			if (obiect_atins->atins == false && obiect_atins->ocupat==false && this->selectat_mare==true)
 			{
 				obiect_atins->atins = true;
-				obiect_atins->Change_Mat(true);
+				nr++;
+				if (nr == 24)
+				{
+					//UE_LOG(LogTemp, Warning, TEXT("A intrat bine"));
+					tabla->Evidentiere_Blocuri(true);
+					acces->merge_pus = true;
+				}
+				else tabla->Evidentiere_Blocuri(2);
+				//obiect_atins->Change_Mat(true);
 
 				//UE_LOG(LogTemp, Warning, TEXT("A intrat avion_mare mare"));
 			}
 		}
+		/*
+		if (tabla_atinsa != nullptr)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("A intrat avion mare in tabla"));
+		}
+		*/
 	}
 }
 
@@ -121,10 +151,20 @@ void AAvion_Mare::OnOverlapExit(class UPrimitiveComponent* OverlappedComp, class
 
 		if (obiect_atins->ocupat==false)
 		{
+			tabla->Evidentiere_Blocuri(false);
 			obiect_atins->atins = false;
-			obiect_atins->Change_Mat(false);
+			nr--;
+			acces->merge_pus = false;
+
+			//obiect_atins->Change_Mat(false);
 
 			//UE_LOG(LogTemp, Warning, TEXT("A iesit avion_mare mare"));
 		}
 	}
+	/*
+	if (tabla_atinsa != nullptr)
+	{
+		UE_LOG(LogTemp, Warning, TEXT("A iesit avion mare din tabla"));
+	}
+	*/
 }

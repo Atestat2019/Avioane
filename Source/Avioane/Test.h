@@ -13,6 +13,12 @@ public:
 
 	ATest();
 
+	UPROPERTY(VisibleAnywhere)
+		UStaticMeshComponent* CustomMeshComponent;
+
+	UFUNCTION()
+		void CustomOnBeginMouseOver(UPrimitiveComponent* TouchedComponent);
+
 protected:
 
 	virtual void BeginPlay() override;

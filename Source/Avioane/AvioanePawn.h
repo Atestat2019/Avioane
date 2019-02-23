@@ -26,6 +26,9 @@ public:
 	UPROPERTY(EditAnywhere)
 		bool este_avion_selectat;
 
+	UPROPERTY(EditAnywhere)
+		bool merge_pus;
+
 
 protected:
 

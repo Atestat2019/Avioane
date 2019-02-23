@@ -1,5 +1,6 @@
 #include "AvioanePawn.h"
 #include "AvioaneBlock.h"
+#include "Components/BoxComponent.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/PlayerController.h"
@@ -16,6 +17,7 @@ AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer)
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
 	este_avion_selectat = false;
+	merge_pus = false;
 }
 
 void AAvioanePawn::Tick(float DeltaSeconds)
@@ -91,7 +93,6 @@ void AAvioanePawn::TraceForBlock(const FVector& Start, const FVector& End, bool 
 {
 	FHitResult HitResult;
 	GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECC_Visibility);
-
 	if (bDrawDebugHelpers)
 	{
 		DrawDebugLine(GetWorld(), Start, HitResult.Location, FColor::Red);
@@ -100,10 +101,12 @@ void AAvioanePawn::TraceForBlock(const FVector& Start, const FVector& End, bool 
 		//UE_LOG(LogTemp, Warning, TEXT("Locatie1: %s"), *Start.ToString());
 		//UE_LOG(LogTemp, Warning, TEXT("Locatie2: %s"), *End.ToString());
 	}
+	
 	if (HitResult.Actor.IsValid())
 	{
 		AAvioaneBlock* HitBlock = Cast<AAvioaneBlock>(HitResult.Actor.Get());
-
+		
+		
 		if (CurrentBlockFocus != HitBlock)
 		{
 			if (CurrentBlockFocus)

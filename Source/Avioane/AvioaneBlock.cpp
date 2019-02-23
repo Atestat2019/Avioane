@@ -82,53 +82,57 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 
 	if (acces->este_avion_selectat == true)
 	{
-		AAvioaneBlock* patrat;
+		
 
-		for (i = 0; i < grida->Size; i++)
+		if (acces->merge_pus == true)
 		{
-			for (j = 0; j < grida->Size; j++)
+			AAvioaneBlock* patrat;
+			for (i = 0; i < grida->Size; i++)
 			{
-				patrat = grida->tabla[i][j];
-
-				if (patrat->atins == true)
+				for (j = 0; j < grida->Size; j++)
 				{
-					patrat->BlockMesh->SetMaterial(0, materiale[k]);
-					patrat->ocupat = true;
-					patrat->atins = false;
+					patrat = grida->tabla[i][j];
+
+					if (patrat->atins == true)
+					{
+						patrat->BlockMesh->SetMaterial(0, materiale[k]);
+						patrat->ocupat = true;
+						patrat->atins = false;
+					}
 				}
 			}
-		}
-		k++;
+			k++;
 
-		//UE_LOG(LogTemp, Warning, TEXT("k are valoarea: %d"), k);	
+			//UE_LOG(LogTemp, Warning, TEXT("k are valoarea: %d"), k);	
 
-		acces->este_avion_selectat = false;
+			acces->este_avion_selectat = false;
 
-		if (acces->avion_mare->selectat_mare == true)
-		{
-			acces->avion_mare->mesh->SetGenerateOverlapEvents(false);
-			acces->avion_mare->mesh_fals->Destroy();
-			acces->avion_mare->selectat_mare = false;
-		}
-		else
-		{
-			for (i = 0; i < acces->avioane_mici.Num(); i++)
+			if (acces->avion_mare->selectat_mare == true)
 			{
-				if (acces->avioane_mici[i]->selectat_mic == true)
+				acces->avion_mare->mesh->SetGenerateOverlapEvents(false);
+				acces->avion_mare->mesh_fals->Destroy();
+				acces->avion_mare->selectat_mare = false;
+			}
+			else
+			{
+				for (i = 0; i < acces->avioane_mici.Num(); i++)
 				{
-					avion_mic = acces->avioane_mici[i];
-					break;
+					if (acces->avioane_mici[i]->selectat_mic == true)
+					{
+						avion_mic = acces->avioane_mici[i];
+						break;
+					}
+				}
+				if (avion_mic->selectat_mic == true)
+				{
+					avion_mic->mesh->SetGenerateOverlapEvents(false);
+					avion_mic->mesh_fals->Destroy();
+					avion_mic->selectat_mic = false;
 				}
 			}
-			if (avion_mic->selectat_mic == true)
-			{
-				avion_mic->mesh->SetGenerateOverlapEvents(false);
-				avion_mic->mesh_fals->Destroy();
-				avion_mic->selectat_mic = false;
-			}
-		}
 
-		//avion_mare->Destroy(); de studiat
+			//avion_mare->Destroy(); de studiat
+		}
 	}
 }
 
@@ -166,14 +170,18 @@ void AAvioaneBlock::Evidentiere(bool bOn)
 	}
 }
 
-void AAvioaneBlock::Change_Mat(bool bOn)
+void AAvioaneBlock::Change_Mat(int bOn)
 {
-	if (bOn)
+	if (bOn==1)
 	{
 		BlockMesh->SetMaterial(0, BaseMaterial);
 	}
-	else
+	else if (bOn==0)
 	{
 		BlockMesh->SetMaterial(0, BlueMaterial);
+	}
+	else
+	{
+		BlockMesh->SetMaterial(0, materiale[0]);
 	}
 }

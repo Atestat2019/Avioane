@@ -16,7 +16,7 @@ public:
 
 	void Evidentiere(bool bOn);
 
-	void Change_Mat(bool bOn);
+	void Change_Mat(int bOn);
 
 	class AAvion_Mare* avion_mare;
 

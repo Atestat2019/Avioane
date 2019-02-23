@@ -11,10 +11,25 @@ class AAvioaneBlockGrid : public AActor
 	GENERATED_BODY()
 
 	UPROPERTY(Category = Grid, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
-	class USceneComponent* DummyRoot;
+		class USceneComponent* DummyRoot;
+
+	UPROPERTY(EditAnywhere)
+		class UBoxComponent* box;
+
 
 public:
 	AAvioaneBlockGrid();
+
+	class AAvioanePawn* acces;
+
+	UFUNCTION()
+		void Evidentiere_Blocuri(int ok);
+
+	UFUNCTION()
+		void OnCursorOver(UPrimitiveComponent* Component);
+
+	UFUNCTION()
+		void EndCursorOver(UPrimitiveComponent* Component);
 
 	class AAvioaneBlock* tabla[21][21];
 
@@ -30,6 +45,7 @@ public:
 		float scala_y;
 	UPROPERTY(Category = Grid, EditAnywhere, BlueprintReadOnly)
 		float scala_z;
+
 
 	
 protected:

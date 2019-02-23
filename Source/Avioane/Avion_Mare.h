@@ -6,6 +6,7 @@
 #include "Avion_Mare.generated.h"
 
 
+
 UCLASS()
 class AVIOANE_API AAvion_Mare : public AActor
 {
@@ -16,6 +17,9 @@ public:
 	AAvion_Mare();
 	
 	class AAvioanePawn* acces;
+
+	UPROPERTY(EditAnywhere)
+		FVector locinit;
 
 	bool selectat_mare;
 
@@ -30,12 +34,17 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		class AAvioaneBlock* obiect_atins;
+
+	UPROPERTY(EditAnywhere)
+		class AAvioaneBlockGrid* tabla;
 	
 	UPROPERTY(EditAnywhere)
 		class AAvion_Fals* mesh_fals;
 
 	UPROPERTY(EditAnywhere)
 		float val_rot;
+	UPROPERTY(EditAnywhere)
+		int nr;
 
 
 protected:

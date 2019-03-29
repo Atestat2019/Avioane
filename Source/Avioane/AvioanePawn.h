@@ -29,6 +29,26 @@ public:
 	UPROPERTY(EditAnywhere)
 		bool merge_pus;
 
+	UPROPERTY(EditAnywhere)
+		int contor_avioane;
+
+	UPROPERTY(EditAnywhere)
+		AActor* Camera1;
+
+	UPROPERTY(EditAnywhere)
+		AActor* Camera2;
+
+	FTimerHandle cronos;
+
+	UFUNCTION()
+	void Schimbare_Camera();
+
+	UFUNCTION()
+	void intarziere();
+
+	UPROPERTY(EditAnywhere)
+		float timp_s;
+
 
 protected:
 

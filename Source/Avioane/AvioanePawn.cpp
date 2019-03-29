@@ -9,6 +9,8 @@
 #include "Avion_Mare.h"
 #include "Avion_Mic.h"
 #include "EngineUtils.h"
+#include "Engine/Classes/Kismet/GameplayStatics.h"
+#include "Engine/Public/TimerManager.h"
 
 
 AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer)
@@ -18,6 +20,9 @@ AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer)
 
 	este_avion_selectat = false;
 	merge_pus = false;
+
+	contor_avioane = 0;
+	timp_s = 1.0;
 }
 
 void AAvioanePawn::Tick(float DeltaSeconds)
@@ -43,6 +48,25 @@ void AAvioanePawn::Tick(float DeltaSeconds)
 			TraceForBlock(Start, End, true);
 		}
 	}
+}
+
+void AAvioanePawn::intarziere()
+{
+	APlayerController* jucator = UGameplayStatics::GetPlayerController(this, 0);
+
+	if (jucator->GetViewTarget() == Camera1)
+	{
+		GetWorld()->GetTimerManager().SetTimer(cronos, this, &AAvioanePawn::Schimbare_Camera, timp_s, false);
+	}
+}
+
+void AAvioanePawn::Schimbare_Camera()
+{
+	APlayerController* jucator = UGameplayStatics::GetPlayerController(this, 0);
+
+	jucator->SetViewTargetWithBlend(Camera2, 1.0f);
+
+	GetWorldTimerManager().ClearTimer(cronos);
 }
 
 void AAvioanePawn::BeginPlay()

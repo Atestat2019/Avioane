@@ -9,7 +9,6 @@
 #include "Avion_Fals.h"
 #include "Avion_Mic.h"
 
-
 int AAvioaneBlock::k;
 AAvioanePawn* AAvioaneBlock::acces;
 
@@ -62,6 +61,7 @@ AAvioaneBlock::AAvioaneBlock()
 
 	atins = false;
 	ocupat = false;
+
 	k = 0;
 }
 
@@ -82,11 +82,12 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 
 	if (acces->este_avion_selectat == true)
 	{
-		
-
 		if (acces->merge_pus == true)
 		{
 			AAvioaneBlock* patrat;
+
+			acces->contor_avioane++;
+
 			for (i = 0; i < grida->Size; i++)
 			{
 				for (j = 0; j < grida->Size; j++)
@@ -132,39 +133,48 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 			}
 
 			//avion_mare->Destroy(); de studiat
+
+			if (acces->contor_avioane == 4)
+			{
+				acces->intarziere();
+			}
 		}
 	}
 }
 
 void AAvioaneBlock::Evidentiere(bool bOn)
 {
-	if (acces->avion_mare->selectat_mare == true)
+	if (this->grida->ActorHasTag("Jucator"))
 	{
-		if (bOn)
-		{
-			FVector loc = this->GetActorLocation();
-			acces->avion_mare->SetActorLocation({ loc.X - 50 , loc.Y + 80 , 0 });
-		}
-	}
-	else
-	{
-		int i;
-		avion_mic = nullptr;
 
-		for (i = 0; i < acces->avioane_mici.Num(); i++)
-		{
-			if (acces->avioane_mici[i]->selectat_mic == true)
-			{
-				avion_mic = acces->avioane_mici[i];
-				break;
-			}
-		}
-		if (avion_mic!= nullptr && avion_mic->selectat_mic == true)
+		if (acces->avion_mare->selectat_mare == true)
 		{
 			if (bOn)
 			{
 				FVector loc = this->GetActorLocation();
-				avion_mic->SetActorLocation({ loc.X - 22, loc.Y , 0 });
+				acces->avion_mare->SetActorLocation({ loc.X - 50 , loc.Y + 80 , 0 });
+			}
+		}
+		else
+		{
+			int i;
+			avion_mic = nullptr;
+
+			for (i = 0; i < acces->avioane_mici.Num(); i++)
+			{
+				if (acces->avioane_mici[i]->selectat_mic == true)
+				{
+					avion_mic = acces->avioane_mici[i];
+					break;
+				}
+			}
+			if (avion_mic != nullptr && avion_mic->selectat_mic == true)
+			{
+				if (bOn)
+				{
+					FVector loc = this->GetActorLocation();
+					avion_mic->SetActorLocation({ loc.X - 22, loc.Y , 0 });
+				}
 			}
 		}
 	}

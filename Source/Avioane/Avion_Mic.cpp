@@ -93,12 +93,7 @@ void AAvion_Mic::BeginPlay()
 		acces = *it;
 		break;
 	}
-	
-	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
-	{
-		tabla = *it;
-		break;
-	}
+
 }
 
 void AAvion_Mic::Tick(float DeltaTime)

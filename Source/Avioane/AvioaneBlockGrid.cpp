@@ -64,6 +64,11 @@ void AAvioaneBlockGrid::BeginPlay()
 {
 	Super::BeginPlay();
 
+	if (this->ActorHasTag("Inamic"))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("inamic?"));
+	}
+
 	for (TActorIterator<AAvioanePawn> it(GetWorld()); it; ++it)
 	{
 		acces = *it;

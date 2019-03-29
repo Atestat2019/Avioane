@@ -33,6 +33,9 @@ public:
 		class AAvioaneBlock* obiect_atins;
 
 	UPROPERTY(EditAnywhere)
+		class AAvioaneBlockGrid* tabla;
+
+	UPROPERTY(EditAnywhere)
 		class AAvion_Fals* mesh_fals;
 
 	UPROPERTY(EditAnywhere)
@@ -41,8 +44,6 @@ public:
 	UPROPERTY(EditAnywhere)
 		int nr;
 
-	UPROPERTY(EditAnywhere)
-		class AAvioaneBlockGrid* tabla;
 
 	
 protected:

@@ -87,13 +87,6 @@ void AAvion_Mare::BeginPlay()
 		break;
 	}
 
-	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
-	{
-		tabla = *it;
-		break;
-	}
-
-
 }
 
 void AAvion_Mare::Tick(float DeltaTime)

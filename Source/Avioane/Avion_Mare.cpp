@@ -41,11 +41,12 @@ void AAvion_Mare::Click_Mare(UPrimitiveComponent* ClickedComp, FKey ButtonClicke
 	else if (acces->este_avion_selectat == true && selectat_mare == false)
 	{
 		selectat_mare = true;
-		AAvion_Mic* cautare3;
+		AAvion_Mic* cautare3 = nullptr;;
 
 		for (TActorIterator<AAvion_Mic> it(GetWorld()); it; ++it)
 		{
-			cautare3 = *it;
+			if (it->tabla->ActorHasTag("Jucator"))
+				cautare3 = *it;
 
 			if (cautare3 != nullptr)
 			{

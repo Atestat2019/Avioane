@@ -38,22 +38,24 @@ void AAvion_Mic::Click_Mic(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 	else if (acces->este_avion_selectat == true && selectat_mic == false)
 	{
 		selectat_mic = true;
-		AAvion_Mic* cautare1;
+		AAvion_Mic* cautare1=nullptr;
 
 		for (TActorIterator<AAvion_Mic> it(GetWorld()); it; ++it)
 		{
-			cautare1 = *it;
+			if (it->tabla->ActorHasTag("Jucator"))
+				cautare1 = *it;
 
 			if (cautare1 != this && cautare1->selectat_mic==true)
 			{
 				cautare1->selectat_mic = false;
 			}
 		}
-		AAvion_Mare* cautare2;
+		AAvion_Mare* cautare2=nullptr;
 
 		for (TActorIterator<AAvion_Mare> it(GetWorld()); it; ++it)
 		{
-			cautare2 = *it;
+			if (it->tabla->ActorHasTag("Jucator"))
+				cautare2 = *it;
 
 			if (cautare2 != nullptr)
 			{

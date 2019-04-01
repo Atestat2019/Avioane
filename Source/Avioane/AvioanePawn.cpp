@@ -1,5 +1,6 @@
 #include "AvioanePawn.h"
 #include "AvioaneBlock.h"
+#include "AvioaneBlockGrid.h"
 #include "Components/BoxComponent.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
@@ -75,11 +76,13 @@ void AAvioanePawn::BeginPlay()
 
 	for (TActorIterator<AAvion_Mare> it(GetWorld()); it; ++it)
 	{
-		avion_mare = *it;
+		if (it->tabla->ActorHasTag("Jucator"))
+			avion_mare = *it;
 	}
 	for (TActorIterator<AAvion_Mic> it(GetWorld()); it; ++it)
 	{
-		avioane_mici.Add(*it);
+		if (it->tabla->ActorHasTag("Jucator"))
+			avioane_mici.Add(*it);
 	}
 }
 

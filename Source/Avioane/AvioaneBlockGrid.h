@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "Avion.h"
 #include "GameFramework/Actor.h"
 #include "AvioaneBlockGrid.generated.h"
 
@@ -20,7 +21,7 @@ class AAvioaneBlockGrid : public AActor
 public:
 	AAvioaneBlockGrid();
 
-	class AAvioanePawn* acces;
+	//class AAvioanePawn* acces;
 
 	UFUNCTION()
 		void Evidentiere_Blocuri(int ok);
@@ -31,7 +32,7 @@ public:
 	UFUNCTION()
 		void EndCursorOver(UPrimitiveComponent* Component);
 
-	class AAvioaneBlock* tabla[21][21];
+	class AAvioaneBlock* acces[21][21];
 
 	UPROPERTY(Category=Grid, EditAnywhere, BlueprintReadOnly)
 		int32 Size;
@@ -45,6 +46,17 @@ public:
 		float scala_y;
 	UPROPERTY(Category = Grid, EditAnywhere, BlueprintReadOnly)
 		float scala_z;
+
+	TArray<AAvion*> avioane;
+
+	UPROPERTY(EditAnywhere)
+		bool este_avion_selectat;
+
+	UPROPERTY(EditAnywhere)
+		bool merge_pus;
+
+	UPROPERTY(EditAnywhere)
+		int contor_avioane;
 
 
 	

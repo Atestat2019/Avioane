@@ -18,11 +18,7 @@ public:
 
 	void Change_Mat(int bOn);
 
-	class AAvion_Mare* avion_mare;
-
-	class AAvion_Mic* avion_mic;
-
-	static class AAvioanePawn* acces;
+	//static class AAvioanePawn* acces;
 
 	static int k;
 
@@ -58,7 +54,7 @@ public:
 
 
 	UPROPERTY()
-		class AAvioaneBlockGrid* grida;
+		class AAvioaneBlockGrid* acces;
 
 	UPROPERTY(EditAnywhere)
 		bool atins;

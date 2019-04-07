@@ -10,6 +10,9 @@ AAvioaneGameMode::AAvioaneGameMode()
 	DefaultPawnClass = AAvioanePawn::StaticClass();
 	// use our own player controller class
 	PlayerControllerClass = AAvioanePlayerController::StaticClass();
+
+	//Pawn = Cast<AAvioanePawn>(*GetWorld()->GetPawnIterator());
+	
 	
 }
 

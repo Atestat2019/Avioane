@@ -4,8 +4,8 @@
 #include "Engine/World.h"
 #include "Components/BoxComponent.h"
 #include "EngineUtils.h"
-#include "Avion_Mare.h"
-#include "Avion_Mic.h"
+#include "Avion.h"
+ 
 #include "AvioanePawn.h"
 
 #define LOCTEXT_NAMESPACE "PuzzleBlockGrid"
@@ -26,31 +26,19 @@ AAvioaneBlockGrid::AAvioaneBlockGrid()
 	BlockSpacing = 170.f;
 	scala_x = scala_y = 0.6;
 	scala_z = 0;
+
+	este_avion_selectat = false;
+	merge_pus = false;
+
+	contor_avioane = 0;
 }
 
 
 void AAvioaneBlockGrid::OnCursorOver(UPrimitiveComponent * Component)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("aici?"));
-	
-	if (acces->avion_mare->selectat_mare == true)
+	for (int i = 0; i < avioane.Num(); i++)
 	{
-		acces->avion_mare->SetActorLocation(acces->avion_mare->locinit);
-	}
-	else
-	{
-		for (int i = 0; i < acces->avioane_mici.Num(); i++)
-		{
-			if (acces->avioane_mici[i]->selectat_mic == true)
-			{
-				if (acces->avioane_mici[i]->selectat_mic == true)
-				{
-					acces->avioane_mici[i]->SetActorLocation(acces->avioane_mici[i]->locinit);
-				}
-				break;
-			}
-		}
-		
+		avioane[i]->SetActorLocation(avioane[i]->locinit);
 	}
 }
 
@@ -69,11 +57,7 @@ void AAvioaneBlockGrid::BeginPlay()
 		UE_LOG(LogTemp, Warning, TEXT("inamic?"));
 	}
 
-	for (TActorIterator<AAvioanePawn> it(GetWorld()); it; ++it)
-	{
-		acces = *it;
-		break;
-	}
+
 
 	box->SetRelativeLocation({ 1620, 1620, -2 });
 	box->SetWorldScale3D({ 10000, 10000, 0 });
@@ -95,14 +79,27 @@ void AAvioaneBlockGrid::BeginPlay()
 			AAvioaneBlock* NewBlock = GetWorld()->SpawnActor<AAvioaneBlock>(BlockLocation, FRotator(0, 0, 0));
 			NewBlock->SetActorScale3D({ scala_x,scala_y,scala_z });
 			
-			tabla[i][j] = NewBlock;
+			acces[i][j] = NewBlock;
 
 			if (NewBlock != nullptr)
 			{
-				NewBlock->grida = this;
+				NewBlock->acces = this;
 			}
 		}
 	}
+
+	for (TActorIterator<AAvion> it(GetWorld()); it; ++it)
+	{
+		if (it->ActorHasTag("Mare") && it->acces->ActorHasTag("Jucator"))
+			avioane.Add(*it);
+	}
+	for (TActorIterator<AAvion> it(GetWorld()); it; ++it)
+	{
+		if (it->ActorHasTag("Mic") && it->acces->ActorHasTag("Jucator"))
+			avioane.Add(*it);
+	}
+
+
 }
 
 void AAvioaneBlockGrid::Evidentiere_Blocuri(int ok)
@@ -111,9 +108,9 @@ void AAvioaneBlockGrid::Evidentiere_Blocuri(int ok)
 	{
 		for (int32 j = 0; j < Size; j++)
 		{
-			if (tabla[i][j]->atins == true)
+			if (acces[i][j]->atins == true)
 			{
-				tabla[i][j]->Change_Mat(ok);
+				acces[i][j]->Change_Mat(ok);
 			}
 		}
 	}

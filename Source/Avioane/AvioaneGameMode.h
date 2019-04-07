@@ -13,6 +13,8 @@ class AAvioaneGameMode : public AGameModeBase
 public:
 
 	AAvioaneGameMode();
+
+	//class AAvioanePawn* Pawn;
 };
 
 

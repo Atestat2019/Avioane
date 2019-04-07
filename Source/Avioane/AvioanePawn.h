@@ -1,8 +1,8 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "PlayerInstance.h"
 #include "GameFramework/Pawn.h"
-#include "Avion_Mic.h"
 #include "AvioanePawn.generated.h"
 
 
@@ -19,18 +19,6 @@ public:
 
 	virtual void CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult) override;
 
-	class AAvion_Mare* avion_mare;
-
-	TArray<AAvion_Mic*> avioane_mici;
-	
-	UPROPERTY(EditAnywhere)
-		bool este_avion_selectat;
-
-	UPROPERTY(EditAnywhere)
-		bool merge_pus;
-
-	UPROPERTY(EditAnywhere)
-		int contor_avioane;
 
 	UPROPERTY(EditAnywhere)
 		AActor* Camera1;
@@ -38,7 +26,9 @@ public:
 	UPROPERTY(EditAnywhere)
 		AActor* Camera2;
 
-	FTimerHandle cronos;
+	class AAvioaneBlockGrid* acces;
+
+	FTimerHandle chronos;
 
 	UFUNCTION()
 	void Schimbare_Camera();

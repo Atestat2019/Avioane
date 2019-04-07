@@ -1,16 +1,19 @@
 #include "AvioaneBlock.h"
 #include "AvioaneBlockGrid.h"
+#include "AvioaneGameMode.h"
 #include "UObject/ConstructorHelpers.h"
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Materials/MaterialInstance.h"
-#include "Avion_Mare.h"
+#include "Avion.h"
 #include "EngineUtils.h"
 #include "Avion_Fals.h"
-#include "Avion_Mic.h"
+#include "AvioanePawn.h"
+#include "Engine/Classes/GameFramework/Controller.h"
+#include "Engine/Classes/GameFramework/PlayerController.h"
+ 
 
 int AAvioaneBlock::k;
-AAvioanePawn* AAvioaneBlock::acces;
 
 AAvioaneBlock::AAvioaneBlock()
 {
@@ -68,12 +71,6 @@ AAvioaneBlock::AAvioaneBlock()
 void AAvioaneBlock::BeginPlay()
 {
 	Super::BeginPlay();
-
-	for (TActorIterator<AAvioanePawn> it(GetWorld()); it; ++it)
-	{
-		acces = *it;
-		break;
-	}
 }
 
 void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
@@ -88,11 +85,11 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 
 			acces->contor_avioane++;
 
-			for (i = 0; i < grida->Size; i++)
+			for (i = 0; i < acces->Size; i++)
 			{
-				for (j = 0; j < grida->Size; j++)
+				for (j = 0; j < acces->Size; j++)
 				{
-					patrat = grida->tabla[i][j];
+					patrat = acces->acces[i][j];
 
 					if (patrat->atins == true)
 					{
@@ -108,35 +105,22 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 
 			acces->este_avion_selectat = false;
 
-			if (acces->avion_mare->selectat_mare == true)
+			for (int i = 0; i < acces->avioane.Num(); i++)
 			{
-				acces->avion_mare->mesh->SetGenerateOverlapEvents(false);
-				acces->avion_mare->mesh_fals->Destroy();
-				acces->avion_mare->selectat_mare = false;
-			}
-			else
-			{
-				for (i = 0; i < acces->avioane_mici.Num(); i++)
+				if (acces->avioane[i]->selectat == true)
 				{
-					if (acces->avioane_mici[i]->selectat_mic == true)
-					{
-						avion_mic = acces->avioane_mici[i];
-						break;
-					}
-				}
-				if (avion_mic->selectat_mic == true)
-				{
-					avion_mic->mesh->SetGenerateOverlapEvents(false);
-					avion_mic->mesh_fals->Destroy();
-					avion_mic->selectat_mic = false;
+					acces->avioane[i]->mesh->SetGenerateOverlapEvents(false);
+					acces->avioane[i]->mesh_fals->Destroy();
+					acces->avioane[i]->selectat = false;
 				}
 			}
-
-			//avion_mare->Destroy(); de studiat
+			//avioane[i]->Destroy(); de studiat
 
 			if (acces->contor_avioane == 4)
 			{
-				acces->intarziere();
+				//acces->intarziere();
+				//AAvioaneGameMode* GameMode = (AAvioaneGameMode*)(GetWorld()->GetAuthGameMode());
+				//GameMode->Pawn->intarziere();
 			}
 		}
 	}
@@ -144,36 +128,24 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 
 void AAvioaneBlock::Evidentiere(bool bOn)
 {
-	if (this->grida->ActorHasTag("Jucator"))
+	if (this->acces->ActorHasTag("Jucator"))
 	{
-
-		if (acces->avion_mare->selectat_mare == true)
+		for (int i = 0; i < acces->avioane.Num(); i++)
 		{
-			if (bOn)
-			{
-				FVector loc = this->GetActorLocation();
-				acces->avion_mare->SetActorLocation({ loc.X - 50 , loc.Y + 80 , 0 });
-			}
-		}
-		else
-		{
-			int i;
-			avion_mic = nullptr;
-
-			for (i = 0; i < acces->avioane_mici.Num(); i++)
-			{
-				if (acces->avioane_mici[i]->selectat_mic == true)
-				{
-					avion_mic = acces->avioane_mici[i];
-					break;
-				}
-			}
-			if (avion_mic != nullptr && avion_mic->selectat_mic == true)
+			if (acces->avioane[i]->selectat == true)
 			{
 				if (bOn)
 				{
 					FVector loc = this->GetActorLocation();
-					avion_mic->SetActorLocation({ loc.X - 22, loc.Y , 0 });
+					
+					if (acces->avioane[i]->ActorHasTag("Mare"))
+					{
+						acces->avioane[i]->SetActorLocation({ loc.X - 50 , loc.Y + 80 , 0 });
+					}
+					else
+					{
+						acces->avioane[i]->SetActorLocation({ loc.X - 22, loc.Y , 0 });
+					}
 				}
 			}
 		}

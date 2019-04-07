@@ -7,8 +7,7 @@
 #include "GameFramework/PlayerController.h"
 #include "Engine/World.h"
 #include "DrawDebugHelpers.h"
-#include "Avion_Mare.h"
-#include "Avion_Mic.h"
+#include "Avion.h"
 #include "EngineUtils.h"
 #include "Engine/Classes/Kismet/GameplayStatics.h"
 #include "Engine/Public/TimerManager.h"
@@ -19,10 +18,6 @@ AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer)
 {
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
-	este_avion_selectat = false;
-	merge_pus = false;
-
-	contor_avioane = 0;
 	timp_s = 1.0;
 }
 
@@ -57,7 +52,7 @@ void AAvioanePawn::intarziere()
 
 	if (jucator->GetViewTarget() == Camera1)
 	{
-		GetWorld()->GetTimerManager().SetTimer(cronos, this, &AAvioanePawn::Schimbare_Camera, timp_s, false);
+		GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioanePawn::Schimbare_Camera, timp_s, false);
 	}
 }
 
@@ -67,23 +62,19 @@ void AAvioanePawn::Schimbare_Camera()
 
 	jucator->SetViewTargetWithBlend(Camera2, 1.0f);
 
-	GetWorldTimerManager().ClearTimer(cronos);
+	GetWorldTimerManager().ClearTimer(chronos);
 }
 
 void AAvioanePawn::BeginPlay()
 {
+	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
+	{
+		if (it->ActorHasTag("Jucator"))
+			acces = *it;
+	}
+	
+	
 	Super::BeginPlay();
-
-	for (TActorIterator<AAvion_Mare> it(GetWorld()); it; ++it)
-	{
-		if (it->tabla->ActorHasTag("Jucator"))
-			avion_mare = *it;
-	}
-	for (TActorIterator<AAvion_Mic> it(GetWorld()); it; ++it)
-	{
-		if (it->tabla->ActorHasTag("Jucator"))
-			avioane_mici.Add(*it);
-	}
 }
 
 void AAvioanePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -102,18 +93,11 @@ void AAvioanePawn::CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResul
 
 void AAvioanePawn::Rotire()
 {
-	if (avion_mare != nullptr)
+	for (int i = 0; i < acces->avioane.Num(); i++)
 	{
-		if (avion_mare->selectat_mare == true)
-			avion_mare->Rotire_Mare();
-	}
-	for (int i = 0; i < avioane_mici.Num(); i++)
-	{
-		if (avioane_mici[i]->selectat_mic == true)
-			avioane_mici[i]->Rotire_Mic();
-	}
-
-	//UE_LOG(LogTemp, Warning, TEXT("poate aici?"));	
+		if (acces->avioane[i]->selectat == true)
+			acces->avioane[i]->Rotire();
+	}	
 }
 
 void AAvioanePawn::TraceForBlock(const FVector& Start, const FVector& End, bool bDrawDebugHelpers)

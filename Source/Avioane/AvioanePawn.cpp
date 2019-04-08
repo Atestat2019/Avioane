@@ -18,7 +18,9 @@ AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer)
 {
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
-	timp_s = 1.0;
+	timp_s = 1.5;
+
+	nr_jucator = 0;
 }
 
 void AAvioanePawn::Tick(float DeltaSeconds)
@@ -67,6 +69,7 @@ void AAvioanePawn::Schimbare_Camera()
 
 void AAvioanePawn::BeginPlay()
 {
+	
 	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
 	{
 		if (it->ActorHasTag("Jucator"))

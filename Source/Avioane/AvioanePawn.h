@@ -7,7 +7,7 @@
 
 
 UCLASS(config = Game)
-class AAvioanePawn : public APawn
+class AAvioanePawn : public APawn, public PlayerInstance
 {
 	GENERATED_UCLASS_BODY()
 

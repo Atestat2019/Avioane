@@ -16,3 +16,15 @@ AAvioaneGameMode::AAvioaneGameMode()
 	
 }
 
+void AAvioaneGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+
+	for (TActorIterator<AAvioanePawn> it(GetWorld()); it; ++it)
+	{
+		Pawn = *it;
+		break;
+	}
+
+}
+

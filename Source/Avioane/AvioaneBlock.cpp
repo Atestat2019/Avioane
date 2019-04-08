@@ -121,6 +121,12 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 				//acces->intarziere();
 				//AAvioaneGameMode* GameMode = (AAvioaneGameMode*)(GetWorld()->GetAuthGameMode());
 				//GameMode->Pawn->intarziere();
+
+				AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
+				if (GM->Pawn->nr_jucator == 0)
+				{
+					GM->Pawn->intarziere();
+				}
 			}
 		}
 	}

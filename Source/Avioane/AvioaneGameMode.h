@@ -14,7 +14,12 @@ public:
 
 	AAvioaneGameMode();
 
-	//class AAvioanePawn* Pawn;
+	class AAvioanePawn* Pawn;
+
+
+protected:
+
+	virtual void BeginPlay() override;
 };
 
 

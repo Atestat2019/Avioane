@@ -7,9 +7,9 @@
 class AVIOANE_API PlayerInstance
 {
 public:
-	PlayerInstance();
-	~PlayerInstance();
 
 	int32 nr_jucator;
 
+	virtual void Plasare_Avioane() {};
+	virtual void intarziere() {};
 };

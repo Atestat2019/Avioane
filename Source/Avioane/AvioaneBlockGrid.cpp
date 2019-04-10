@@ -38,7 +38,8 @@ void AAvioaneBlockGrid::OnCursorOver(UPrimitiveComponent * Component)
 {
 	for (int i = 0; i < avioane.Num(); i++)
 	{
-		avioane[i]->SetActorLocation(avioane[i]->locinit);
+		if (this->ActorHasTag("Jucator"))
+			avioane[i]->SetActorLocation(avioane[i]->locinit);
 	}
 }
 
@@ -79,7 +80,7 @@ void AAvioaneBlockGrid::BeginPlay()
 			AAvioaneBlock* NewBlock = GetWorld()->SpawnActor<AAvioaneBlock>(BlockLocation, FRotator(0, 0, 0));
 			NewBlock->SetActorScale3D({ scala_x,scala_y,scala_z });
 			
-			acces[i][j] = NewBlock;
+			tabla[i][j] = NewBlock;
 
 			if (NewBlock != nullptr)
 			{
@@ -90,12 +91,12 @@ void AAvioaneBlockGrid::BeginPlay()
 
 	for (TActorIterator<AAvion> it(GetWorld()); it; ++it)
 	{
-		if (it->ActorHasTag("Mare") && it->acces->ActorHasTag("Jucator"))
+		if (it->ActorHasTag("Mare") && it->acces==this)
 			avioane.Add(*it);
 	}
 	for (TActorIterator<AAvion> it(GetWorld()); it; ++it)
 	{
-		if (it->ActorHasTag("Mic") && it->acces->ActorHasTag("Jucator"))
+		if (it->ActorHasTag("Mic") && it->acces==this)
 			avioane.Add(*it);
 	}
 
@@ -108,9 +109,9 @@ void AAvioaneBlockGrid::Evidentiere_Blocuri(int ok)
 	{
 		for (int32 j = 0; j < Size; j++)
 		{
-			if (acces[i][j]->atins == true)
+			if (tabla[i][j]->atins == true)
 			{
-				acces[i][j]->Change_Mat(ok);
+				tabla[i][j]->Change_Mat(ok);
 			}
 		}
 	}

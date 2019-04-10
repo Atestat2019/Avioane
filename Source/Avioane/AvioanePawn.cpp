@@ -9,6 +9,7 @@
 #include "DrawDebugHelpers.h"
 #include "Avion.h"
 #include "EngineUtils.h"
+#include "Engine.h"
 #include "Engine/Classes/Kismet/GameplayStatics.h"
 #include "Engine/Public/TimerManager.h"
 
@@ -19,9 +20,13 @@ AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer)
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
 	timp_s = 1.5;
-
-	nr_jucator = 0;
 }
+
+void AAvioanePawn::Plasare_Avioane()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Plaseaza-ti avioanele"));
+}
+
 
 void AAvioanePawn::Tick(float DeltaSeconds)
 {
@@ -76,6 +81,7 @@ void AAvioanePawn::BeginPlay()
 			acces = *it;
 	}
 	
+
 	
 	Super::BeginPlay();
 }

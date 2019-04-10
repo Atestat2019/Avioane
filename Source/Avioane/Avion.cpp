@@ -88,6 +88,7 @@ void AAvion::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AAc
 
 		if (obiect_atins != nullptr)
 		{
+	
 			if (obiect_atins->atins == false && obiect_atins->ocupat == false && this->selectat == true)
 			{
 				obiect_atins->atins = true;

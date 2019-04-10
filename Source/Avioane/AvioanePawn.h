@@ -31,10 +31,13 @@ public:
 	FTimerHandle chronos;
 
 	UFUNCTION()
-	void Schimbare_Camera();
+		void Schimbare_Camera();
 
 	UFUNCTION()
-	void intarziere();
+		virtual void Plasare_Avioane() override;
+	
+	UFUNCTION()
+		virtual void intarziere() override;
 
 	UPROPERTY(EditAnywhere)
 		float timp_s;

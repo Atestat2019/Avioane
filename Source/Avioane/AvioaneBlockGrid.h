@@ -21,8 +21,6 @@ class AAvioaneBlockGrid : public AActor
 public:
 	AAvioaneBlockGrid();
 
-	//class AAvioanePawn* acces;
-
 	UFUNCTION()
 		void Evidentiere_Blocuri(int ok);
 
@@ -32,7 +30,7 @@ public:
 	UFUNCTION()
 		void EndCursorOver(UPrimitiveComponent* Component);
 
-	class AAvioaneBlock* acces[21][21];
+	class AAvioaneBlock* tabla[21][21];
 
 	UPROPERTY(Category=Grid, EditAnywhere, BlueprintReadOnly)
 		int32 Size;

@@ -58,6 +58,7 @@ AAvioaneBlock::AAvioaneBlock()
 	OrangeMaterial = ConstructorStatics.OrangeMaterial.Get();
 
 	materiale.Add(ConstructorStatics.Material_Rosu.Get());
+
 	materiale.Add(ConstructorStatics.Material_Albastru.Get());
 	materiale.Add(ConstructorStatics.Material_Verde.Get());
 	materiale.Add(ConstructorStatics.Material_Galben.Get());
@@ -89,11 +90,11 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 			{
 				for (j = 0; j < acces->Size; j++)
 				{
-					patrat = acces->acces[i][j];
+					patrat = acces->tabla[i][j];
 
 					if (patrat->atins == true)
 					{
-						patrat->BlockMesh->SetMaterial(0, materiale[k]);
+						patrat->BlockMesh->SetMaterial(0, materiale[k%4]);
 						patrat->ocupat = true;
 						patrat->atins = false;
 					}
@@ -116,17 +117,15 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 			}
 			//avioane[i]->Destroy(); de studiat
 
-			if (acces->contor_avioane == 4)
+			if (acces->ActorHasTag("Jucator") && acces->contor_avioane == 4)
 			{
 				//acces->intarziere();
 				//AAvioaneGameMode* GameMode = (AAvioaneGameMode*)(GetWorld()->GetAuthGameMode());
 				//GameMode->Pawn->intarziere();
 
 				AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
-				if (GM->Pawn->nr_jucator == 0)
-				{
-					GM->Pawn->intarziere();
-				}
+				GM->Jucatori[0]->intarziere();
+				
 			}
 		}
 	}
@@ -134,8 +133,6 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 
 void AAvioaneBlock::Evidentiere(bool bOn)
 {
-	if (this->acces->ActorHasTag("Jucator"))
-	{
 		for (int i = 0; i < acces->avioane.Num(); i++)
 		{
 			if (acces->avioane[i]->selectat == true)
@@ -155,7 +152,6 @@ void AAvioaneBlock::Evidentiere(bool bOn)
 				}
 			}
 		}
-	}
 }
 
 void AAvioaneBlock::Change_Mat(int bOn)

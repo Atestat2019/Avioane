@@ -67,6 +67,8 @@ AAvioaneBlock::AAvioaneBlock()
 	ocupat = false;
 
 	k = 0;
+
+	nr_culoare = -1;
 }
 
 void AAvioaneBlock::BeginPlay()
@@ -95,6 +97,7 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 					if (patrat->atins == true)
 					{
 						patrat->BlockMesh->SetMaterial(0, materiale[k%4]);
+						patrat->nr_culoare = k % 4;
 						patrat->ocupat = true;
 						patrat->atins = false;
 					}
@@ -124,8 +127,8 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 				//GameMode->Pawn->intarziere();
 
 				AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
+				GM->Colorare_Tabla(0);
 				GM->Jucatori[0]->intarziere();
-				
 			}
 		}
 	}

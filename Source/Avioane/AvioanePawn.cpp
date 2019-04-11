@@ -5,11 +5,11 @@
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/PlayerController.h"
-#include "Engine/World.h"
 #include "DrawDebugHelpers.h"
 #include "Avion.h"
 #include "EngineUtils.h"
-#include "Engine.h"
+#include "Engine/World.h"
+#include "Engine/Engine.h"
 #include "Engine/Classes/Kismet/GameplayStatics.h"
 #include "Engine/Public/TimerManager.h"
 
@@ -20,6 +20,7 @@ AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer)
 	AutoPossessPlayer = EAutoReceiveInput::Player0;
 
 	timp_s = 1.5;
+	nr_jucator = 0;
 }
 
 void AAvioanePawn::Plasare_Avioane()

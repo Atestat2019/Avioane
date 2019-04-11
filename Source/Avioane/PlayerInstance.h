@@ -10,6 +10,8 @@ public:
 
 	int32 nr_jucator;
 
+	class AAvioaneBlockGrid* acces;
+
 	virtual void Plasare_Avioane() {};
 	virtual void intarziere() {};
 };

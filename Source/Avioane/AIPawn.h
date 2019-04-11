@@ -22,8 +22,6 @@ public:
 	UFUNCTION()
 		virtual void intarziere() override;
 
-	class AAvioaneBlockGrid* acces_AI;
-
 
 protected:
 	// Called when the game starts or when spawned

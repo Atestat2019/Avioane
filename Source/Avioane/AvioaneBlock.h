@@ -62,6 +62,9 @@ public:
 	UPROPERTY(EditAnywhere)
 		bool ocupat;
 
+	UPROPERTY(EditAnywhere)
+		int32 nr_culoare;
+
 public:
 
 	FORCEINLINE class USceneComponent* GetDummyRoot() const { return DummyRoot; }

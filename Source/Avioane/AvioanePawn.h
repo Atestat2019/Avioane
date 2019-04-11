@@ -26,8 +26,6 @@ public:
 	UPROPERTY(EditAnywhere)
 		AActor* Camera2;
 
-	class AAvioaneBlockGrid* acces;
-
 	FTimerHandle chronos;
 
 	UFUNCTION()

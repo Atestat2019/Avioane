@@ -3,12 +3,13 @@
 #include "AvioaneBlockGrid.h"
 #include "AvioaneGameMode.h"
 #include "AvioaneBlock.h"
-#include "Engine.h"
+#include "Engine/Engine.h"
 
 AAIPawn::AAIPawn()
 {
 	PrimaryActorTick.bCanEverTick = true;
-	acces_AI = nullptr;
+	acces = nullptr;
+	nr_jucator = 1;
 }
 
 void AAIPawn::Plasare_Avioane()
@@ -28,7 +29,7 @@ void AAIPawn::BeginPlay()
 	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
 	{
 		if (it->ActorHasTag("Inamic"))
-			acces_AI = *it;
+			acces = *it;
 	}
 
 	int32 n, m, r;
@@ -38,22 +39,25 @@ void AAIPawn::BeginPlay()
 		n = FMath::RandRange(2, 17);
 		m = FMath::RandRange(2, 17);
 		r = FMath::RandRange(0, 3);
-		acces_AI->avioane[i]->Click(nullptr, "null");
+		acces->avioane[i]->Click(nullptr, "null");
 
 		for (int32 j=1;j<=r;j++)
 		{ 
-			acces_AI->avioane[i]->Rotire();
+			acces->avioane[i]->Rotire();
 		}
-		acces_AI->tabla[n][m]->Evidentiere(true);
+		acces->tabla[n][m]->Evidentiere(true);
 
-		while ((i==0 && acces_AI->avioane[i]->nr!=24) || (i>0 && acces_AI->avioane[i]->nr != 13))
+		while ((i==0 && acces->avioane[i]->nr!=24) || (i>0 && acces->avioane[i]->nr != 13))
 		{
 			n = FMath::RandRange(2, 17);
 			m = FMath::RandRange(2, 17);
-			acces_AI->tabla[n][m]->Evidentiere(true);
+			acces->tabla[n][m]->Evidentiere(true);
 		}
-		acces_AI->tabla[n][m]->HandleClicked(nullptr, "null");	
+		acces->tabla[n][m]->HandleClicked(nullptr, "null");	
 	}
+
+	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
+	GM->Colorare_Tabla(nr_jucator);
 }
 
 void AAIPawn::Tick(float DeltaTime)

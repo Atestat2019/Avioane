@@ -2,7 +2,6 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "AvioaneGameMode.h"
 #include "AvioaneBlock.generated.h"
 
 
@@ -19,11 +18,9 @@ public:
 
 	void Change_Mat(int bOn);
 
-	//static class AAvioanePawn* acces;
-
 	static int32 nr_mat;
 	
-	static AAvioaneGameMode* GM;
+	static class AAvioaneGameMode* GM;
 
 	TArray<UMaterialInstance*> materiale;
 

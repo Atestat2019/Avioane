@@ -5,7 +5,6 @@
 #include "Components/BoxComponent.h"
 #include "EngineUtils.h"
 #include "Avion.h"
- 
 #include "AvioanePawn.h"
 
 #define LOCTEXT_NAMESPACE "PuzzleBlockGrid"
@@ -53,12 +52,8 @@ void AAvioaneBlockGrid::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (this->ActorHasTag("Inamic"))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("inamic?"));
-	}
-
-
+	for (int32 i = 0; i <= 14; i++)
+		frecv[i] = 0;
 
 	box->SetRelativeLocation({ 1620, 1620, -2 });
 	box->SetWorldScale3D({ 10000, 10000, 0 });

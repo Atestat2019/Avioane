@@ -13,7 +13,8 @@
 #include "Engine/Classes/GameFramework/PlayerController.h"
  
 
-int AAvioaneBlock::k;
+int32 AAvioaneBlock::nr_mat;
+AAvioaneGameMode* AAvioaneBlock::GM;
 
 AAvioaneBlock::AAvioaneBlock()
 {
@@ -21,22 +22,30 @@ AAvioaneBlock::AAvioaneBlock()
 	{
 		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> PlaneMesh;
 		ConstructorHelpers::FObjectFinderOptional<UMaterial> BaseMaterial;
-		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> BlueMaterial;
-		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> OrangeMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Gri;
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Rosu;
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Albastru;
+		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Ceapa;
+		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Lime;
+		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Mov;
+		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Nectar;
+		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Portocaliu;
+		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Turcoaz;
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Verde;
-		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Galben;
 
 		FConstructorStatics()
 			: PlaneMesh(TEXT("/Game/Puzzle/Meshes/PuzzleCube.PuzzleCube"))
 			, BaseMaterial(TEXT("/Game/Puzzle/Meshes/BaseMaterial.BaseMaterial"))
-			, BlueMaterial(TEXT("/Game/Puzzle/Meshes/BlueMaterial.BlueMaterial"))
-			, OrangeMaterial(TEXT("/Game/Puzzle/Meshes/OrangeMaterial.OrangeMaterial"))
+			, Material_Gri(TEXT("/Game/Puzzle/Meshes/Material_Gri.Material_Gri"))
 			, Material_Rosu(TEXT("/Game/Puzzle/Meshes/Material_Rosu.Material_Rosu"))
 			, Material_Albastru(TEXT("/Game/Puzzle/Meshes/Material_Albastru.Material_Albastru"))
+			, Material_Ceapa(TEXT("/Game/Puzzle/Meshes/Material_Ceapa.Material_Ceapa"))
+			, Material_Lime(TEXT("/Game/Puzzle/Meshes/Material_Lime.Material_Lime"))
+			, Material_Mov(TEXT("/Game/Puzzle/Meshes/Material_Mov.Material_Mov"))
+			, Material_Nectar(TEXT("/Game/Puzzle/Meshes/Material_Nectar.Material_Nectar"))
+			, Material_Portocaliu(TEXT("/Game/Puzzle/Meshes/Material_Portocaliu.Material_Portocaliu"))
+			, Material_Turcoaz(TEXT("/Game/Puzzle/Meshes/Material_Turcoaz.Material_Turcoaz"))
 			, Material_Verde(TEXT("/Game/Puzzle/Meshes/Material_Verde.Material_Verde"))
-			, Material_Galben(TEXT("/Game/Puzzle/Meshes/Material_Galben.Material_Galben"))
 		{}
 	};
 
@@ -49,24 +58,25 @@ AAvioaneBlock::AAvioaneBlock()
 	BlockMesh->SetStaticMesh(ConstructorStatics.PlaneMesh.Get());
 	BlockMesh->SetRelativeScale3D(FVector(1.f, 1.f, 0.25f));
 	BlockMesh->SetRelativeLocation(FVector(0.f, 0.f, 25.f));
-	BlockMesh->SetMaterial(0, ConstructorStatics.BlueMaterial.Get());
+	BlockMesh->SetMaterial(0, ConstructorStatics.Material_Gri.Get());
 	BlockMesh->SetupAttachment(DummyRoot);
 	BlockMesh->OnClicked.AddDynamic(this, &AAvioaneBlock::HandleClicked);
 
 	BaseMaterial = ConstructorStatics.BaseMaterial.Get();
-	BlueMaterial = ConstructorStatics.BlueMaterial.Get();
-	OrangeMaterial = ConstructorStatics.OrangeMaterial.Get();
-
+	Material_Gri = ConstructorStatics.Material_Gri.Get();
+	
 	materiale.Add(ConstructorStatics.Material_Rosu.Get());
-
 	materiale.Add(ConstructorStatics.Material_Albastru.Get());
+	materiale.Add(ConstructorStatics.Material_Ceapa.Get());
+	materiale.Add(ConstructorStatics.Material_Lime.Get());
+	materiale.Add(ConstructorStatics.Material_Mov.Get());
+	materiale.Add(ConstructorStatics.Material_Nectar.Get());
+	materiale.Add(ConstructorStatics.Material_Portocaliu.Get());
+	materiale.Add(ConstructorStatics.Material_Turcoaz.Get());
 	materiale.Add(ConstructorStatics.Material_Verde.Get());
-	materiale.Add(ConstructorStatics.Material_Galben.Get());
-
+	
 	atins = false;
 	ocupat = false;
-
-	k = 0;
 
 	nr_culoare = -1;
 }
@@ -74,6 +84,8 @@ AAvioaneBlock::AAvioaneBlock()
 void AAvioaneBlock::BeginPlay()
 {
 	Super::BeginPlay();
+
+	GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
 }
 
 void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
@@ -85,25 +97,29 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 		if (acces->merge_pus == true)
 		{
 			AAvioaneBlock* patrat;
-
 			acces->contor_avioane++;
+			nr_mat = FMath::RandRange(1, materiale.Num() - 1);
 
+			while (acces->frecv[nr_mat] != 0)
+			{
+				nr_mat = FMath::RandRange(1, materiale.Num() - 1);
+			}
+			acces->frecv[nr_mat] = 1;
 			for (i = 0; i < acces->Size; i++)
 			{
 				for (j = 0; j < acces->Size; j++)
 				{
 					patrat = acces->tabla[i][j];
-
+					
 					if (patrat->atins == true)
 					{
-						patrat->BlockMesh->SetMaterial(0, materiale[k%4]);
-						patrat->nr_culoare = k % 4;
+						patrat->BlockMesh->SetMaterial(0, materiale[nr_mat]);
+						patrat->nr_culoare = nr_mat;
 						patrat->ocupat = true;
 						patrat->atins = false;
 					}
 				}
 			}
-			k++;
 
 			//UE_LOG(LogTemp, Warning, TEXT("k are valoarea: %d"), k);	
 
@@ -126,16 +142,24 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 				//AAvioaneGameMode* GameMode = (AAvioaneGameMode*)(GetWorld()->GetAuthGameMode());
 				//GameMode->Pawn->intarziere();
 
-				AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
+
 				GM->Colorare_Tabla(0);
 				GM->Jucatori[0]->intarziere();
+				GM->Stadiu = 2;
 			}
 		}
 	}
+
 }
 
 void AAvioaneBlock::Evidentiere(bool bOn)
 {
+	if (GM->Safe(this))
+	{
+		Change_Mat(bOn);
+	}
+	else
+	{
 		for (int i = 0; i < acces->avioane.Num(); i++)
 		{
 			if (acces->avioane[i]->selectat == true)
@@ -143,7 +167,7 @@ void AAvioaneBlock::Evidentiere(bool bOn)
 				if (bOn)
 				{
 					FVector loc = this->GetActorLocation();
-					
+
 					if (acces->avioane[i]->ActorHasTag("Mare"))
 					{
 						acces->avioane[i]->SetActorLocation({ loc.X - 50 , loc.Y + 80 , 0 });
@@ -155,6 +179,7 @@ void AAvioaneBlock::Evidentiere(bool bOn)
 				}
 			}
 		}
+	}
 }
 
 void AAvioaneBlock::Change_Mat(int bOn)
@@ -165,7 +190,7 @@ void AAvioaneBlock::Change_Mat(int bOn)
 	}
 	else if (bOn==0)
 	{
-		BlockMesh->SetMaterial(0, BlueMaterial);
+		BlockMesh->SetMaterial(0, Material_Gri);
 	}
 	else
 	{

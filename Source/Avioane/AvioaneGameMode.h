@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "PlayerInstance.h"
 #include "AvioaneBlockGrid.h"
+#include "AvioaneBlock.h"
 #include "GameFramework/GameModeBase.h"
 #include "AvioaneGameMode.generated.h"
 
@@ -21,6 +22,10 @@ public:
 	TArray<AAvioaneBlockGrid*> table;
 
 	int32 Jucator_Actual;
+
+	int32 Stadiu;
+
+	bool Safe(AAvioaneBlock* patrat);
 
 	void Colorare_Tabla(int32 nr_juc);
 

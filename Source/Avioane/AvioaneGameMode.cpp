@@ -13,14 +13,21 @@
 
 AAvioaneGameMode::AAvioaneGameMode()
 {
-	// no pawn by default
 	DefaultPawnClass = AAvioanePawn::StaticClass();
-	// use our own player controller class
 	PlayerControllerClass = AAvioanePlayerController::StaticClass();
 
-	
-	
+	Stadiu = 1;
 }
+
+
+bool AAvioaneGameMode::Safe(AAvioaneBlock* patrat)
+{
+	if (Stadiu == 2 && (patrat->acces->ActorHasTag("Copie_Jucator") || patrat->acces->ActorHasTag("Copie_Inamic")))
+		return true;
+	
+	return false;
+}
+
 
 void AAvioaneGameMode::Colorare_Tabla(int32 nr_juc)
 {
@@ -33,8 +40,10 @@ void AAvioaneGameMode::Colorare_Tabla(int32 nr_juc)
 			k = Jucatori[nr_juc]->acces->tabla[i][j]->nr_culoare;
 			patrat = table[nr_juc]->tabla[i][j];
 			patrat->nr_culoare = k;
+			/*
 			if (k!=-1)
 				patrat->BlockMesh->SetMaterial(0, patrat->materiale[k % 4]);
+			*/
 		}
 	}
 }
@@ -42,9 +51,7 @@ void AAvioaneGameMode::Colorare_Tabla(int32 nr_juc)
 void AAvioaneGameMode::BeginPlay()
 {
 	Super::BeginPlay();
-	
-	table.Add(GetWorld()->SpawnActor<AAvioaneBlockGrid>(FVector(-6000, 0, 0), FRotator(0, 0, 0)));
-	table.Add(GetWorld()->SpawnActor<AAvioaneBlockGrid>(FVector(-6000, -6000, 0), FRotator(0, 0, 0)));
+
 
 	for (TActorIterator<AAvioanePawn> it(GetWorld()); it; ++it)
 	{
@@ -57,13 +64,22 @@ void AAvioaneGameMode::BeginPlay()
 		break;
 	}
 
+	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
+	{
+		if (it->ActorHasTag("Copie_Jucator"))
+			table.Add(*it);
+	}
+	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
+	{
+		if (it->ActorHasTag("Copie_Inamic"))
+			table.Add(*it);
+	}
+
 	for (int32 i = 0; i < Jucatori.Num(); i++)
 	{
 		Jucatori[i]->nr_jucator = i;
 	}
-
 	Jucator_Actual = 0;
-
 	Jucatori[Jucator_Actual]->Plasare_Avioane();
 	Jucatori[(Jucator_Actual+1)%Jucatori.Num()]->Plasare_Avioane();
 

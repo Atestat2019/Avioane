@@ -81,9 +81,6 @@ void AAvioanePawn::BeginPlay()
 		if (it->ActorHasTag("Jucator"))
 			acces = *it;
 	}
-	
-
-	
 	Super::BeginPlay();
 }
 

@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
+#include "AvioaneGameMode.h"
 #include "AvioaneBlock.generated.h"
 
 
@@ -20,7 +21,9 @@ public:
 
 	//static class AAvioanePawn* acces;
 
-	static int k;
+	static int32 nr_mat;
+	
+	static AAvioaneGameMode* GM;
 
 	TArray<UMaterialInstance*> materiale;
 
@@ -44,13 +47,13 @@ public:
 	UPROPERTY()
 		class UMaterialInstance* Material_Verde;
 	UPROPERTY()
-		class UMaterialInstance* Material_Galben;
+		class UMaterialInstance* Material_Lime;
 
 
 	UPROPERTY()
-		class UMaterialInstance* BlueMaterial;
+		class UMaterialInstance* Material_Gri;
 	UPROPERTY()
-		class UMaterialInstance* OrangeMaterial;
+		class UMaterialInstance* Material_Ceapa;
 
 
 	UPROPERTY()
@@ -64,6 +67,8 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		int32 nr_culoare;
+
+	
 
 public:
 

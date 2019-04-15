@@ -24,6 +24,7 @@ AAvioaneBlock::AAvioaneBlock()
 		ConstructorHelpers::FObjectFinderOptional<UMaterial> BaseMaterial;
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Gri;
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Rosu;
+		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Negru;
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Albastru;
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Ceapa;
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Lime;
@@ -38,6 +39,7 @@ AAvioaneBlock::AAvioaneBlock()
 			, BaseMaterial(TEXT("/Game/Puzzle/Meshes/BaseMaterial.BaseMaterial"))
 			, Material_Gri(TEXT("/Game/Puzzle/Meshes/Material_Gri.Material_Gri"))
 			, Material_Rosu(TEXT("/Game/Puzzle/Meshes/Material_Rosu.Material_Rosu"))
+			, Material_Negru(TEXT("/Game/Puzzle/Meshes/Material_Negru.Material_Negru"))
 			, Material_Albastru(TEXT("/Game/Puzzle/Meshes/Material_Albastru.Material_Albastru"))
 			, Material_Ceapa(TEXT("/Game/Puzzle/Meshes/Material_Ceapa.Material_Ceapa"))
 			, Material_Lime(TEXT("/Game/Puzzle/Meshes/Material_Lime.Material_Lime"))
@@ -66,6 +68,7 @@ AAvioaneBlock::AAvioaneBlock()
 	Material_Gri = ConstructorStatics.Material_Gri.Get();
 	
 	materiale.Add(ConstructorStatics.Material_Rosu.Get());
+	materiale.Add(ConstructorStatics.Material_Negru.Get());
 	materiale.Add(ConstructorStatics.Material_Albastru.Get());
 	materiale.Add(ConstructorStatics.Material_Ceapa.Get());
 	materiale.Add(ConstructorStatics.Material_Lime.Get());
@@ -92,64 +95,67 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 {
 	int i, j;
 
-	if (acces->este_avion_selectat == true)
+	if (GM->Stadiu == 2)
 	{
-		if (acces->merge_pus == true)
+		GM->Lovitura(this);
+	}
+	else
+	{
+		if (acces->este_avion_selectat == true)
 		{
-			AAvioaneBlock* patrat;
-			acces->contor_avioane++;
-			nr_mat = FMath::RandRange(1, materiale.Num() - 1);
+			if (acces->merge_pus == true)
+			{
+				AAvioaneBlock* patrat;
+				acces->contor_avioane++;
+				nr_mat = FMath::RandRange(2, materiale.Num() - 1);
 
-			while (acces->frecv[nr_mat] != 0)
-			{
-				nr_mat = FMath::RandRange(1, materiale.Num() - 1);
-			}
-			acces->frecv[nr_mat] = 1;
-			for (i = 0; i < acces->Size; i++)
-			{
-				for (j = 0; j < acces->Size; j++)
+				while (acces->frecv[nr_mat] != 0)
 				{
-					patrat = acces->tabla[i][j];
-					
-					if (patrat->atins == true)
+					nr_mat = FMath::RandRange(2, materiale.Num() - 1);
+				}
+				acces->frecv[nr_mat] = 1;
+				for (i = 0; i < acces->Size; i++)
+				{
+					for (j = 0; j < acces->Size; j++)
 					{
-						patrat->BlockMesh->SetMaterial(0, materiale[nr_mat]);
-						patrat->nr_culoare = nr_mat;
-						patrat->ocupat = true;
-						patrat->atins = false;
+						patrat = acces->tabla[i][j];
+
+						if (patrat->atins == true)
+						{
+							patrat->BlockMesh->SetMaterial(0, materiale[nr_mat]);
+							patrat->nr_culoare = nr_mat;
+							patrat->ocupat = true;
+							patrat->atins = false;
+							if (acces->avioane[0]->selectat == true)
+								patrat->tip = "Mare";
+							else
+								patrat->tip = "Mic";
+						}
 					}
 				}
-			}
+				acces->este_avion_selectat = false;
 
-			//UE_LOG(LogTemp, Warning, TEXT("k are valoarea: %d"), k);	
-
-			acces->este_avion_selectat = false;
-
-			for (int i = 0; i < acces->avioane.Num(); i++)
-			{
-				if (acces->avioane[i]->selectat == true)
+				for (int i = 0; i < acces->avioane.Num(); i++)
 				{
-					acces->avioane[i]->mesh->SetGenerateOverlapEvents(false);
-					acces->avioane[i]->mesh_fals->Destroy();
-					acces->avioane[i]->selectat = false;
+					if (acces->avioane[i]->selectat == true)
+					{
+						acces->avioane[i]->mesh->SetGenerateOverlapEvents(false);
+						acces->avioane[i]->mesh_fals->Destroy();
+						acces->avioane[i]->selectat = false;
+					}
 				}
-			}
-			//avioane[i]->Destroy(); de studiat
+				//avioane[i]->Destroy(); de studiat
 
-			if (acces->ActorHasTag("Jucator") && acces->contor_avioane == 4)
-			{
-				//acces->intarziere();
-				//AAvioaneGameMode* GameMode = (AAvioaneGameMode*)(GetWorld()->GetAuthGameMode());
-				//GameMode->Pawn->intarziere();
-
-
-				GM->Colorare_Tabla(0);
-				GM->Jucatori[0]->intarziere();
-				GM->Stadiu = 2;
+				if (acces->ActorHasTag("Jucator") && acces->contor_avioane == 4)
+				{
+					GM->Colorare_Tabla(0);
+					GM->Jucatori[0]->intarziere();
+					GM->Stadiu = 2;
+					GM->Jucatori[0]->Tura();
+				}
 			}
 		}
 	}
-
 }
 
 void AAvioaneBlock::Evidentiere(bool bOn)

@@ -22,13 +22,18 @@ public:
 	UFUNCTION()
 		virtual void intarziere() override;
 
+	UFUNCTION()
+		virtual void Tura() override;
+
+	class AAvioaneGameMode* GM;
+
 
 protected:
-	// Called when the game starts or when spawned
+
 	virtual void BeginPlay() override;
 
 public:	
-	// Called every frame
+
 	virtual void Tick(float DeltaTime) override;
 
 };

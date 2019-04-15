@@ -19,7 +19,7 @@ public:
 
 	TArray<PlayerInstance*> Jucatori;
 
-	TArray<AAvioaneBlockGrid*> table;
+	TArray<AAvioaneBlockGrid*> gride;
 
 	int32 Jucator_Actual;
 
@@ -28,6 +28,12 @@ public:
 	bool Safe(AAvioaneBlock* patrat);
 
 	void Colorare_Tabla(int32 nr_juc);
+
+	bool Lovitura(AAvioaneBlock* patrat);
+
+	void Schimb_Jucator();
+
+	void Final();
 
 protected:
 

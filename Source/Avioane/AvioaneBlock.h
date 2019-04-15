@@ -65,6 +65,15 @@ public:
 	UPROPERTY(EditAnywhere)
 		int32 nr_culoare;
 
+	UPROPERTY(EditAnywhere)
+		int32 lin;
+
+	UPROPERTY(EditAnywhere)
+		int32 coln;
+
+	UPROPERTY(EditAnywhere)
+		FString tip;
+
 	
 
 public:

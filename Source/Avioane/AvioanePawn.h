@@ -37,6 +37,9 @@ public:
 	UFUNCTION()
 		virtual void intarziere() override;
 
+	UFUNCTION()
+		virtual void Tura() override;
+
 	UPROPERTY(EditAnywhere)
 		float timp_s;
 

@@ -52,7 +52,7 @@ void AAvioaneBlockGrid::BeginPlay()
 {
 	Super::BeginPlay();
 
-	for (int32 i = 0; i <= 14; i++)
+	for (int32 i = 0; i < 15; i++)
 		frecv[i] = 0;
 
 	box->SetRelativeLocation({ 1620, 1620, -2 });
@@ -74,7 +74,9 @@ void AAvioaneBlockGrid::BeginPlay()
 
 			AAvioaneBlock* NewBlock = GetWorld()->SpawnActor<AAvioaneBlock>(BlockLocation, FRotator(0, 0, 0));
 			NewBlock->SetActorScale3D({ scala_x,scala_y,scala_z });
-			
+			NewBlock->lin = i;
+			NewBlock->coln = j;
+
 			tabla[i][j] = NewBlock;
 
 			if (NewBlock != nullptr)

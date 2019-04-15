@@ -21,13 +21,13 @@ AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer)
 
 	timp_s = 1.5;
 	nr_jucator = 0;
+	nr_avioane_distruse = 0;
 }
 
 void AAvioanePawn::Plasare_Avioane()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, TEXT("Plaseaza-ti avioanele"));
+	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, TEXT("Plaseaza-ti avioanele"),1, FVector2D(3,1));
 }
-
 
 void AAvioanePawn::Tick(float DeltaSeconds)
 {
@@ -75,6 +75,8 @@ void AAvioanePawn::Schimbare_Camera()
 
 void AAvioanePawn::BeginPlay()
 {
+	for (int i = 0; i < 15; i++)
+		lovituri[i] = 0;
 	
 	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
 	{
@@ -143,4 +145,10 @@ void AAvioanePawn::TraceForBlock(const FVector& Start, const FVector& End, bool 
 		CurrentBlockFocus->Evidentiere(false);
 		CurrentBlockFocus = nullptr;
 	}
+}
+
+void AAvioanePawn::Tura()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, TEXT("Este tura ta!"));
+
 }

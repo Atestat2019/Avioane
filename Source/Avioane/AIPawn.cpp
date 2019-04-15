@@ -10,6 +10,7 @@ AAIPawn::AAIPawn()
 	PrimaryActorTick.bCanEverTick = true;
 	acces = nullptr;
 	nr_jucator = 1;
+	nr_avioane_distruse = 0;
 }
 
 void AAIPawn::Plasare_Avioane()
@@ -22,9 +23,26 @@ void AAIPawn::intarziere()
 
 }
 
+void AAIPawn::Tura()
+{
+	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Orange, TEXT("Este tura AI-ului!"));
+	int32 i = FMath::RandRange(0, 19);
+	int32 j = FMath::RandRange(0, 19);
+	while (GM->Lovitura(GM->gride[0]->tabla[i][j]) == false)
+	{
+		i = FMath::RandRange(0, 19);
+		j = FMath::RandRange(0, 19);
+	}
+}
+
 void AAIPawn::BeginPlay()
 {
 	Super::BeginPlay();
+
+	for (int i = 0; i < 15; i++)
+		lovituri[i] = 0;
+
+	GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
 	
 	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
 	{
@@ -55,8 +73,6 @@ void AAIPawn::BeginPlay()
 		}
 		acces->tabla[n][m]->HandleClicked(nullptr, "null");	
 	}
-
-	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
 	GM->Colorare_Tabla(nr_jucator);
 }
 

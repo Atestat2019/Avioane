@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "AvioaneBlock.h"
 #include "GameFramework/Actor.h"
 #include "Avion.generated.h"
 
@@ -26,6 +27,9 @@ public:
 
 	UFUNCTION()
 		void Click(UPrimitiveComponent* ClickedComp, FKey ButtonClicked);
+
+	UFUNCTION()
+		void Coordonate(AAvioaneBlock* patrat);
 
 	UPROPERTY(EditAnywhere)
 		class UStaticMeshComponent* mesh;

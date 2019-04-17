@@ -75,8 +75,7 @@ void AAvioanePawn::Schimbare_Camera()
 
 void AAvioanePawn::BeginPlay()
 {
-	for (int i = 0; i < 15; i++)
-		lovituri[i] = 0;
+
 	
 	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
 	{
@@ -149,6 +148,6 @@ void AAvioanePawn::TraceForBlock(const FVector& Start, const FVector& End, bool 
 
 void AAvioanePawn::Tura()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, TEXT("Este tura ta!"));
+	//GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, TEXT("Este tura ta!"));
 
 }

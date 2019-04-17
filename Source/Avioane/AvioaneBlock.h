@@ -74,7 +74,17 @@ public:
 	UPROPERTY(EditAnywhere)
 		FString tip;
 
-	
+	UPROPERTY(EditAnywhere)
+		bool pilot;
+
+	UPROPERTY(EditAnywhere)
+		bool motor;
+
+	UPROPERTY(EditAnywhere)
+		bool siguranta;
+
+	void Bordare(AAvioaneBlock* patrat);
+
 
 public:
 

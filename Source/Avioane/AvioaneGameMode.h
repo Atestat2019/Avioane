@@ -21,6 +21,8 @@ public:
 
 	TArray<AAvioaneBlockGrid*> gride;
 
+	//FTimerHandle chronos;
+
 	int32 Jucator_Actual;
 
 	int32 Stadiu;
@@ -32,6 +34,8 @@ public:
 	bool Lovitura(AAvioaneBlock* patrat);
 
 	void Schimb_Jucator();
+
+	void Doborare_Avion(int32 k);
 
 	void Final();
 

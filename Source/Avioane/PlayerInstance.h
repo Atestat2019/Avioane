@@ -11,8 +11,14 @@ public:
 	int32 nr_jucator;
 
 	int32 nr_avioane_distruse;
+
+	/*  ~~~~ Primul mod de joc
+	int32 lovituri[15] = { 0 };
+	*/
+
+	int32 piloti_doborati[15] = { 0 };
 	
-	int32 lovituri[15];
+	int32 motoare_distruse[15] = { 0 };
 
 	class AAvioaneBlockGrid* acces;
 

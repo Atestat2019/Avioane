@@ -25,7 +25,7 @@ void AAIPawn::intarziere()
 
 void AAIPawn::Tura()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Orange, TEXT("Este tura AI-ului!"));
+	//GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Orange, TEXT("Este tura AI-ului!"));
 	int32 i = FMath::RandRange(0, 19);
 	int32 j = FMath::RandRange(0, 19);
 	while (GM->Lovitura(GM->gride[0]->tabla[i][j]) == false)
@@ -38,9 +38,6 @@ void AAIPawn::Tura()
 void AAIPawn::BeginPlay()
 {
 	Super::BeginPlay();
-
-	for (int i = 0; i < 15; i++)
-		lovituri[i] = 0;
 
 	GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
 	
@@ -57,6 +54,7 @@ void AAIPawn::BeginPlay()
 		n = FMath::RandRange(2, 17);
 		m = FMath::RandRange(2, 17);
 		r = FMath::RandRange(0, 3);
+
 		acces->avioane[i]->Click(nullptr, "null");
 
 		for (int32 j=1;j<=r;j++)

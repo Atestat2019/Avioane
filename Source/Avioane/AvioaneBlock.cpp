@@ -80,8 +80,33 @@ AAvioaneBlock::AAvioaneBlock()
 	
 	atins = false;
 	ocupat = false;
-
+	pilot = false;
+	motor = false;
+	siguranta = true;
 	nr_culoare = -1;
+}
+
+void AAvioaneBlock::Bordare(AAvioaneBlock* patrat)
+{
+	
+	
+	
+	int32 x = patrat->lin, y = patrat->coln;
+
+	int dir_i[] = { 1,0,-1,0 }, dir_j[] = { 0,1,0,-1 };
+
+	for (int32 directie = 0; directie < 4; directie++)
+	{
+		x = patrat->lin + dir_i[directie];
+		y = patrat->coln + dir_j[directie];
+
+		if (x < 20 && x>=0 && y < 20 && y>=0)
+		{
+			UE_LOG(LogTemp, Warning, TEXT("x este : %d, y este : %d"), x, y);
+			//acces->tabla[x][y]->ocupat = true;
+			acces->tabla[x][y]->siguranta = false;
+		}
+	}
 }
 
 void AAvioaneBlock::BeginPlay()
@@ -90,6 +115,8 @@ void AAvioaneBlock::BeginPlay()
 
 	GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
 }
+
+
 
 void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 {
@@ -105,6 +132,15 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 		{
 			if (acces->merge_pus == true)
 			{
+				AAvion* avion = nullptr;
+
+				for (int i = 0; i < acces->avioane.Num(); i++)
+				{
+					if (acces->avioane[i]->selectat == true)
+					{
+						avion = acces->avioane[i];
+					}
+				}
 				AAvioaneBlock* patrat;
 				acces->contor_avioane++;
 				nr_mat = FMath::RandRange(2, materiale.Num() - 1);
@@ -114,6 +150,7 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 					nr_mat = FMath::RandRange(2, materiale.Num() - 1);
 				}
 				acces->frecv[nr_mat] = 1;
+
 				for (i = 0; i < acces->Size; i++)
 				{
 					for (j = 0; j < acces->Size; j++)
@@ -124,6 +161,7 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 						{
 							patrat->BlockMesh->SetMaterial(0, materiale[nr_mat]);
 							patrat->nr_culoare = nr_mat;
+							Bordare(patrat);
 							patrat->ocupat = true;
 							patrat->atins = false;
 							if (acces->avioane[0]->selectat == true)
@@ -134,16 +172,11 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 					}
 				}
 				acces->este_avion_selectat = false;
+				avion->Coordonate(this);
+				avion->mesh->SetGenerateOverlapEvents(false);
+				avion->mesh_fals->Destroy();
+				avion->selectat = false;
 
-				for (int i = 0; i < acces->avioane.Num(); i++)
-				{
-					if (acces->avioane[i]->selectat == true)
-					{
-						acces->avioane[i]->mesh->SetGenerateOverlapEvents(false);
-						acces->avioane[i]->mesh_fals->Destroy();
-						acces->avioane[i]->selectat = false;
-					}
-				}
 				//avioane[i]->Destroy(); de studiat
 
 				if (acces->ActorHasTag("Jucator") && acces->contor_avioane == 4)
@@ -177,6 +210,7 @@ void AAvioaneBlock::Evidentiere(bool bOn)
 					if (acces->avioane[i]->ActorHasTag("Mare"))
 					{
 						acces->avioane[i]->SetActorLocation({ loc.X - 50 , loc.Y + 80 , 0 });
+						
 					}
 					else
 					{

@@ -10,6 +10,7 @@
 #include "Components/StaticMeshComponent.h"
 #include "Engine/StaticMesh.h"
 #include "Materials/MaterialInstance.h"
+#include "Engine/Public/TimerManager.h"
 
 
 AAvioaneGameMode::AAvioaneGameMode()
@@ -65,6 +66,8 @@ void AAvioaneGameMode::Colorare_Tabla(int32 nr_juc)
 			patrat = gride[nr_juc]->tabla[i][j];
 			patrat->nr_culoare = k;
 			patrat->tip = Jucatori[nr_juc]->acces->tabla[i][j]->tip;
+			patrat->pilot = Jucatori[nr_juc]->acces->tabla[i][j]->pilot;
+			patrat->motor = Jucatori[nr_juc]->acces->tabla[i][j]->motor;
 		}
 	}
 }
@@ -74,6 +77,30 @@ bool AAvioaneGameMode::Safe(AAvioaneBlock* patrat)
 	if (Stadiu == 2 && patrat->ocupat == false && ((patrat->acces->ActorHasTag("Copie_Jucator") && Jucator_Actual == 1) || (patrat->acces->ActorHasTag("Copie_Inamic") && Jucator_Actual == 0)))
 		return true;
 	else return false;
+}
+
+void AAvioaneGameMode::Doborare_Avion(int32 k)
+{
+	AAvioaneBlock* patrat1;
+	AAvioaneBlock* patrat2;
+
+	for (int32 i = 0; i < 20; i++)
+	{
+		for (int32 j = 0; j < 20; j++)
+		{
+			patrat1 = gride[(Jucator_Actual + 1) % 2]->tabla[i][j];
+			patrat2 = Jucatori[(Jucator_Actual + 1) % 2]->acces->tabla[i][j];
+
+			if (patrat1->nr_culoare == k)
+			{
+				patrat1->BlockMesh->SetMaterial(0, patrat1->materiale[0]);
+				patrat2->BlockMesh->SetMaterial(0, patrat2->materiale[0]);
+				patrat1->ocupat = true;
+			}
+		}
+	}
+	Jucatori[Jucator_Actual]->nr_avioane_distruse++;
+	Final();
 }
 
 bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
@@ -91,22 +118,66 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 		else
 		{
 			patrat->BlockMesh->SetMaterial(0, patrat->materiale[0]);
-			Jucatori[(Jucator_Actual + 1) % 2]->acces->tabla[lin][coln]->BlockMesh->SetMaterial(0, patrat->materiale[0]);
-			Jucatori[Jucator_Actual]->lovituri[patrat->nr_culoare]++;
 
-			if (patrat->tip == "Mare" && Jucatori[Jucator_Actual]->lovituri[patrat->nr_culoare] == 24)
+			int32 nr_culoare = patrat->nr_culoare;
+			Jucatori[(Jucator_Actual + 1) % 2]->acces->tabla[lin][coln]->BlockMesh->SetMaterial(0, patrat->materiale[0]);
+
+			/*   ~~~~ Primul mod de joc
+			Jucatori[Jucator_Actual]->lovituri[nr_culoare]++;
+
+			if (patrat->tip == "Mare" && Jucatori[Jucator_Actual]->lovituri[nr_culoare] == 24)
+			{
+				Jucatori[Jucator_Actual]->nr_avioane_distruse++;											
+				Final();
+			}
+			else if (patrat->tip == "Mic" && Jucatori[Jucator_Actual]->lovituri[nr_culoare] == 13)
 			{
 				Jucatori[Jucator_Actual]->nr_avioane_distruse++;
 				Final();
 			}
-			else if (patrat->tip == "Mic" && Jucatori[Jucator_Actual]->lovituri[patrat->nr_culoare] == 13)
+			*/
+
+			if (patrat->tip == "Mare")
 			{
-				Jucatori[Jucator_Actual]->nr_avioane_distruse++;
-				Final();
+				if (patrat->pilot == true)
+				{
+					Jucatori[Jucator_Actual]->piloti_doborati[nr_culoare]++;
+					//mesaj
+					if (Jucatori[Jucator_Actual]->piloti_doborati[nr_culoare] == 2)
+					{
+						Doborare_Avion(nr_culoare);
+					}
+				}
+				else if (patrat->motor == true)
+				{
+					Jucatori[Jucator_Actual]->motoare_distruse[nr_culoare]++;
+					//mesaj
+					if (Jucatori[Jucator_Actual]->motoare_distruse[nr_culoare] == 2)
+					{
+						Doborare_Avion(nr_culoare);
+					}
+				}
+			}
+			else
+			{
+				if (patrat->pilot == true)
+				{
+					Doborare_Avion(nr_culoare);
+				}
+				else if (patrat->motor == true)
+				{
+					Jucatori[Jucator_Actual]->motoare_distruse[nr_culoare]++;
+					//mesaj
+					if (Jucatori[Jucator_Actual]->motoare_distruse[nr_culoare] == 2)
+					{
+						Doborare_Avion(nr_culoare);
+					}
+				}
 			}
 		}
-		patrat->ocupat = true;	
+		patrat->ocupat = true;
 		Schimb_Jucator();
+		//GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioaneGameMode::Schimb_Jucator, 20, false);
 		return true;
 	}
 	else
@@ -117,6 +188,7 @@ void AAvioaneGameMode::Schimb_Jucator()
 {
 	Jucator_Actual = (Jucator_Actual + 1) % 2;
 	Jucatori[Jucator_Actual]->Tura();
+	//GetWorldTimerManager().ClearTimer(chronos);
 }
 
 void AAvioaneGameMode::Final()
@@ -124,6 +196,6 @@ void AAvioaneGameMode::Final()
 	if (Jucatori[Jucator_Actual]->nr_avioane_distruse == 4)
 	{
 		GEngine->AddOnScreenDebugMessage(1, 10.f, FColor::Blue, TEXT("GATAA!!!! Lincoln e mare!!"), 1, FVector2D(3, 1));
-		Stadiu = 3;
+		//Stadiu = 3;
 	}
 }

@@ -48,6 +48,44 @@ void AAvion::Click(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 	}
 }
 
+void AAvion::Coordonate(AAvioaneBlock * patrat)
+{
+	
+	int32 lin = patrat->lin;
+	int32 coln = patrat->coln;
+	int32 rotatie = ((int)val_rot / 90) % 4;
+
+	if (patrat->tip == "Mic")
+	{
+		int dir_i[] = { 2,0,-2,0 }, dir_j[] = { 0,2,0,-2 };
+		acces->tabla[lin + dir_i[rotatie]][coln + dir_j[rotatie]]->pilot = true;
+		
+		dir_i[0] = 0, dir_i[1] = -1, dir_i[2] = 0, dir_i[3] = 1;
+		dir_j[0] = 1, dir_j[1] = 0, dir_j[2] = -1, dir_j[3] = 0;
+		
+		acces->tabla[lin + dir_i[rotatie]][coln + dir_j[rotatie]]->motor = true;
+		acces->tabla[lin - dir_i[rotatie]][coln - dir_j[rotatie]]->motor = true;
+	}
+	else
+	{
+		int dir_i[] = { 2,0,-2,0 }, dir_j[] = { 0,2,0,-2 }, dir_i2[] = { 0,0,-1,-1 }, dir_j2[] = { 0,1,1,0 };
+		
+		lin = lin + dir_i2[rotatie];
+		coln = coln + dir_j2[rotatie];
+
+		dir_i2[0] = 0, dir_i2[1] = -1, dir_i2[2] = 0, dir_i2[3] = 1;
+		dir_j2[0] = 1, dir_j2[1] = 0, dir_j2[2] = -1, dir_j2[3] = 0;
+
+		acces->tabla[lin + dir_i[rotatie]][coln + dir_j[rotatie]]->pilot = true;
+		acces->tabla[lin + dir_i2[rotatie] + dir_i[rotatie]][coln + dir_j2[rotatie] + dir_j[rotatie]]->pilot = true;
+
+		dir_i[0] = 0, dir_i[1] = -2, dir_i[2] = 0, dir_i[3] = 2;
+		dir_j[0] = 2, dir_j[1] = 0, dir_j[2] = -2, dir_j[3] = 0;
+
+		acces->tabla[lin + dir_i2[rotatie] + dir_i[rotatie]][coln + dir_j2[rotatie] + dir_j[rotatie]]->motor = true;
+		acces->tabla[lin - dir_i[rotatie]][coln - dir_j[rotatie]]->motor = true;
+	}
+}
 void AAvion::Rotire()
 {
 	if (selectat == true)
@@ -91,14 +129,23 @@ void AAvion::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AAc
 	
 			if (obiect_atins->atins == false && obiect_atins->ocupat == false && this->selectat == true)
 			{
+				
 				obiect_atins->atins = true;
-				nr++;
-				if ((tag=="Mare" && nr == 24) || (tag=="Mic" && nr==13))
+				
+				if (obiect_atins->siguranta == true)
 				{
-					acces->Evidentiere_Blocuri(true);
-					acces->merge_pus = true;
+					nr++;
+					if ((tag == "Mare" && nr == 24) || (tag == "Mic" && nr == 13))
+					{
+						acces->Evidentiere_Blocuri(true);
+						acces->merge_pus = true;
+					}
+					else acces->Evidentiere_Blocuri(2);
 				}
-				else acces->Evidentiere_Blocuri(2);
+				else
+				{
+					acces->Evidentiere_Blocuri(2);
+				}
 			}
 		}
 	}
@@ -115,6 +162,10 @@ void AAvion::OnOverlapExit(class UPrimitiveComponent* OverlappedComp, class AAct
 			acces->Evidentiere_Blocuri(false);
 			obiect_atins->atins = false;
 			nr--;
+			if (obiect_atins->siguranta == false)
+			{
+				nr++;
+			}
 			acces->merge_pus = false;
 		}
 	}

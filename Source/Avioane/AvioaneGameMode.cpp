@@ -19,6 +19,7 @@ AAvioaneGameMode::AAvioaneGameMode()
 	PlayerControllerClass = AAvioanePlayerController::StaticClass();
 
 	Stadiu = 1;
+	ok = true;
 }
 
 void AAvioaneGameMode::BeginPlay()
@@ -56,27 +57,31 @@ void AAvioaneGameMode::BeginPlay()
 
 void AAvioaneGameMode::Colorare_Tabla(int32 nr_juc)
 {
-	int32 k;
-	AAvioaneBlock* patrat;
-	for (int32 i = 0; i < 20; i++)
-	{
-		for (int32 j = 0; j < 20; j++)
+	int32 k=0;
+	AAvioaneBlock* patrat=nullptr;
+	
+		for (int32 i = 0; i < 20; i++)
 		{
-			k = Jucatori[nr_juc]->acces->tabla[i][j]->nr_culoare;
-			patrat = gride[nr_juc]->tabla[i][j];
-			patrat->nr_culoare = k;
-			patrat->tip = Jucatori[nr_juc]->acces->tabla[i][j]->tip;
-			patrat->pilot = Jucatori[nr_juc]->acces->tabla[i][j]->pilot;
-			patrat->motor = Jucatori[nr_juc]->acces->tabla[i][j]->motor;
+			for (int32 j = 0; j < 20; j++)
+			{
+				
+				k = Jucatori[nr_juc]->acces->tabla[i][j]->nr_culoare;
+				patrat = gride[nr_juc]->tabla[i][j];
+				patrat->nr_culoare = k;
+				patrat->tip = Jucatori[nr_juc]->acces->tabla[i][j]->tip;
+				patrat->pilot = Jucatori[nr_juc]->acces->tabla[i][j]->pilot;
+				patrat->motor = Jucatori[nr_juc]->acces->tabla[i][j]->motor;
+			}
 		}
-	}
 }
 
 bool AAvioaneGameMode::Safe(AAvioaneBlock* patrat)
 {
+	
 	if (Stadiu == 2 && patrat->ocupat == false && ((patrat->acces->ActorHasTag("Copie_Jucator") && Jucator_Actual == 1) || (patrat->acces->ActorHasTag("Copie_Inamic") && Jucator_Actual == 0)))
 		return true;
 	else return false;
+	
 }
 
 void AAvioaneGameMode::Doborare_Avion(int32 k)

@@ -1,6 +1,7 @@
 #include "AvioanePawn.h"
 #include "AvioaneBlock.h"
 #include "AvioaneBlockGrid.h"
+#include "AvioaneGameMode.h"
 #include "Components/BoxComponent.h"
 #include "HeadMountedDisplayFunctionLibrary.h"
 #include "Camera/CameraComponent.h"
@@ -22,6 +23,12 @@ AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer)
 	timp_s = 1.5;
 	nr_jucator = 0;
 	nr_avioane_distruse = 0;
+
+	for (int32 i = 0; i < 20; i++)
+		motoare_distruse[i] = 0;
+
+	for (int32 i = 0; i < 20; i++)
+		piloti_doborati[i] = 0;
 }
 
 void AAvioanePawn::Plasare_Avioane()
@@ -69,6 +76,8 @@ void AAvioanePawn::Schimbare_Camera()
 	APlayerController* jucator = UGameplayStatics::GetPlayerController(this, 0);
 
 	jucator->SetViewTargetWithBlend(Camera2, 1.0f);
+
+	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
 
 	GetWorldTimerManager().ClearTimer(chronos);
 }

@@ -30,6 +30,17 @@ AAvioaneBlockGrid::AAvioaneBlockGrid()
 	merge_pus = false;
 
 	contor_avioane = 0;
+
+	for (int32 i = 0; i < 20; i++)
+		frecv[i] = 0;
+
+	for (int32 i = 0; i < 21; i++)
+	{
+		for (int32 j = 0; j < 21; j++)
+		{
+			tabla[i][j] = nullptr;
+		}
+	}
 }
 
 
@@ -51,9 +62,6 @@ void AAvioaneBlockGrid::EndCursorOver(UPrimitiveComponent * Component)
 void AAvioaneBlockGrid::BeginPlay()
 {
 	Super::BeginPlay();
-
-	for (int32 i = 0; i < 15; i++)
-		frecv[i] = 0;
 
 	box->SetRelativeLocation({ 1620, 1620, -2 });
 	box->SetWorldScale3D({ 10000, 10000, 0 });

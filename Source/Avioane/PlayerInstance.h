@@ -16,9 +16,11 @@ public:
 	int32 lovituri[15] = { 0 };
 	*/
 
-	int32 piloti_doborati[15] = { 0 };
+	int32 piloti_doborati[20];
 	
-	int32 motoare_distruse[15] = { 0 };
+	int32 motoare_distruse[20];
+
+	FTimerHandle chronos;
 
 	class AAvioaneBlockGrid* acces;
 

@@ -26,8 +26,6 @@ public:
 	UPROPERTY(EditAnywhere)
 		AActor* Camera2;
 
-	FTimerHandle chronos;
-
 	UFUNCTION()
 		void Schimbare_Camera();
 

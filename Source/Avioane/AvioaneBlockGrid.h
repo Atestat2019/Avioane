@@ -47,7 +47,7 @@ public:
 
 	TArray<AAvion*> avioane;
 
-	int frecv[15];
+	int frecv[20];
 
 	UPROPERTY(EditAnywhere)
 		bool este_avion_selectat;

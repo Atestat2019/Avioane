@@ -1652,170 +1652,183 @@
 "../../../Engine/Content/Tutorial/Basics/LevelEditorAttract.uasset" 1652
 "../../../Engine/Content/Tutorial/BlueprintTutorials/BlueprintEditorTutorial.uasset" 1653
 "../../../Engine/Content/Tutorial/BlueprintTutorials/TutorialAssets/Blueprint_64x.uasset" 1654
-"../../../Engine/Content/Tutorial/ContentIntroCurve.uasset" 1655
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/Config/CoalescedSourceConfigs/InternationalizationExport.ini" 1656
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/Config/CoalescedSourceConfigs/TranslationPickerSettings.ini" 1657
-"../../../Engine/Content/EditorSounds/Notifications/CompileStart_Cue.uasset" 1658
-"../../../Engine/Content/EditorSounds/Notifications/CompileSuccess.uasset" 1659
-"../../../Engine/Content/EditorSounds/Notifications/CompileSuccess_Cue.uasset" 1660
-"../../../Engine/Content/EditorSounds/Notifications/CompileFailed_Cue.uasset" 1661
-"../../../Engine/Content/EditorSounds/Notifications/CompileFailed.uasset" 1662
-"../../../Engine/Content/BufferVisualization/BaseColor.uasset" 1663
-"../../../Engine/Content/BufferVisualization/CustomDepth.uasset" 1664
-"../../../Engine/Content/BufferVisualization/CustomStencil.uasset" 1665
-"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Texturing/ScaleUVsByCenter.uasset" 1666
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/ScreenResolution.uasset" 1667
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Texturing/ScreenAlignedUVs.uasset" 1668
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/MakeFloat2.uasset" 1669
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/MakeFloat3.uasset" 1670
-"../../../Engine/Content/EngineMaterials/MiniFont.uasset" 1671
-"../../../Engine/Content/BufferVisualization/FinalImage.uasset" 1672
-"../../../Engine/Content/BufferVisualization/LightingModel.uasset" 1673
-"../../../Engine/Content/BufferVisualization/MaterialAO.uasset" 1674
-"../../../Engine/Content/BufferVisualization/Metallic.uasset" 1675
-"../../../Engine/Content/BufferVisualization/Opacity.uasset" 1676
-"../../../Engine/Content/BufferVisualization/Roughness.uasset" 1677
-"../../../Engine/Content/BufferVisualization/SceneColor.uasset" 1678
-"../../../Engine/Content/BufferVisualization/SceneDepth.uasset" 1679
-"../../../Engine/Content/BufferVisualization/SeparateTranslucencyRGB.uasset" 1680
-"../../../Engine/Content/BufferVisualization/SeparateTranslucencyA.uasset" 1681
-"../../../Engine/Content/BufferVisualization/Specular.uasset" 1682
-"../../../Engine/Content/BufferVisualization/SubsurfaceColor.uasset" 1683
-"../../../Engine/Content/BufferVisualization/WorldNormal.uasset" 1684
-"../../../Engine/Content/BufferVisualization/AmbientOcclusion.uasset" 1685
-"../../../Engine/Content/EngineMaterials/DefaultPhysicalMaterial.uasset" 1686
-"../../../Engine/Content/BufferVisualization/CustomDepthWorldUnits.uasset" 1687
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/VectorLength.uasset" 1688
-"../../../Engine/Content/BufferVisualization/SceneDepthWorldUnits.uasset" 1689
-"../../../Engine/Content/BufferVisualization/PreTonemapHDRColor.uasset" 1690
-"../../../Engine/Content/BufferVisualization/PostTonemapHDRColor.uasset" 1691
-"../../Plugins/2D/Paper2D/Content/MaskedUnlitSpriteMaterial.uasset" 1692
-"../../Plugins/2D/Paper2D/Content/DefaultSpriteMaterial.uasset" 1693
-"../../Plugins/2D/Paper2D/Content/DummySpriteTexture.uasset" 1694
-"../../Plugins/2D/Paper2D/Content/PlaceholderTextures/DummySpriteTexture.uasset" 1695
-"../../Plugins/2D/Paper2D/Content/OpaqueUnlitSpriteMaterial.uasset" 1696
-"../../Plugins/2D/Paper2D/Content/DefaultPaperTerrainMaterial.uasset" 1697
-"../../Plugins/2D/Paper2D/Content/DummySprite.uasset" 1698
-"../../Plugins/Runtime/Oculus/OculusVR/Content/Meshes/RiftHMD.uasset" 1699
-"../../Plugins/Runtime/Oculus/OculusVR/Content/Meshes/GearVRController.uasset" 1700
-"../../Plugins/Runtime/Oculus/OculusVR/Content/Materials/GearVRControllerMaterial.uasset" 1701
-"../../Plugins/Runtime/Oculus/OculusVR/Content/Textures/GearVRController_AO.uasset" 1702
-"../../Plugins/Runtime/Oculus/OculusVR/Content/Textures/GearVRController_Color.uasset" 1703
-"../../Plugins/Runtime/Oculus/OculusVR/Content/Textures/GearVRController_Normal.uasset" 1704
-"../../Plugins/Runtime/Oculus/OculusVR/Content/Meshes/LeftTouchController.uasset" 1705
-"../../Plugins/Runtime/Oculus/OculusVR/Content/Materials/touchController_mat.uasset" 1706
-"../../Plugins/Runtime/Oculus/OculusVR/Content/Textures/touchController_albedo.uasset" 1707
-"../../Plugins/Runtime/Oculus/OculusVR/Content/Textures/touchController_controlmap.uasset" 1708
-"../../Plugins/Runtime/Oculus/OculusVR/Content/Meshes/RightTouchController.uasset" 1709
-"../../Plugins/Runtime/Oculus/OculusVR/Content/Materials/PokeAHoleMaterial.uasset" 1710
-"../../../Engine/Content/EngineMeshes/Cylinder.uasset" 1711
-"../../../Engine/Content/EngineMaterials/DefaultMaterial.uasset" 1712
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/PuzzleCube.uasset" 1713
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/BlueMaterial.uasset" 1714
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/BaseMaterial.uasset" 1715
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/OrangeMaterial.uasset" 1716
-"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/4.21/Saved/Config/Windows/SourceControlSettings.ini" 1717
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/Config/CoalescedSourceConfigs/SourceControlSettings.ini" 1718
-"C:/Users/Calculatorescu/Documents/Unreal Projects/Avioane/Saved/Config/Windows/SourceControlSettings.ini" 1719
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/Config/CoalescedSourceConfigs/Encryption.ini" 1720
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/Config/CoalescedSourceConfigs/Crypto.ini" 1721
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/Config/CoalescedSourceConfigs/UnitTestStats.ini" 1722
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/Config/CoalescedSourceConfigs/UnitTest.ini" 1723
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Config/DefaultEngine.ini" 1724
-"../../../Engine/Content/EngineDebugMaterials/WireframeMaterial.uasset" 1725
-"../../../Engine/Content/EngineDebugMaterials/LevelColorationLitMaterial.uasset" 1726
-"../../../Engine/Content/EngineDebugMaterials/LevelColorationUnlitMaterial.uasset" 1727
-"../../../Engine/Content/EngineDebugMaterials/MAT_LevelColorationLitLightmapUV.uasset" 1728
-"../../../Engine/Content/EngineMaterials/DefaultWhiteGrid.uasset" 1729
-"../../../Engine/Content/EngineDebugMaterials/ShadedLevelColorationLitMaterial.uasset" 1730
-"../../../Engine/Content/EngineDebugMaterials/ShadedLevelColorationUnlitMateri.uasset" 1731
-"../../../Engine/Content/EngineDebugMaterials/VertexColorMaterial.uasset" 1732
-"../../../Engine/Content/EngineDebugMaterials/VertexColorViewMode_ColorOnly.uasset" 1733
-"../../../Engine/Content/EngineDebugMaterials/VertexColorViewMode_AlphaAsColor.uasset" 1734
-"../../../Engine/Content/EngineDebugMaterials/VertexColorViewMode_RedOnly.uasset" 1735
-"../../../Engine/Content/EngineDebugMaterials/VertexColorViewMode_GreenOnly.uasset" 1736
-"../../../Engine/Content/EngineDebugMaterials/VertexColorViewMode_BlueOnly.uasset" 1737
-"../../../Engine/Content/EngineMaterials/RemoveSurfaceMaterial.uasset" 1738
-"../../../Engine/Content/EngineDebugMaterials/DebugMeshMaterial.uasset" 1739
-"../../../Engine/Content/EngineMaterials/M_InvalidLightmapSettings.uasset" 1740
-"../../../Engine/Content/EngineMaterials/InvalidLightmapSettings.uasset" 1741
-"../../../Engine/Content/EditorMaterials/GizmoMaterial.uasset" 1742
-"../../../Engine/Content/EngineMaterials/PhAT_JointLimitMaterial.uasset" 1743
-"../../../Engine/Content/Functions/Engine_MaterialFunctions02/WorldPositionOffset/CameraOffset.uasset" 1744
-"../../../Engine/Content/EngineMaterials/Good64x64TilingNoiseHighFreq.uasset" 1745
-"../../../Engine/Content/EngineMaterials/DefaultBokeh.uasset" 1746
-"../../../Engine/Content/EngineMaterials/DefaultBloomKernel.uasset" 1747
-"../../../Engine/Content/EngineMaterials/PreintegratedSkinBRDF.uasset" 1748
-"../../../Engine/Content/EngineMaterials/WeightMapPlaceholderTexture.uasset" 1749
-"../../../Engine/Content/EngineFonts/RobotoTiny.uasset" 1750
-"../../../Engine/Content/EngineFonts/Faces/RobotoTiny.uasset" 1751
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/AssetRegistryCache/311563bb.bin" 1752
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/AssetRegistryCache/c90e3f55.bin" 1753
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/PuzzleCPP/Maps/Tabla_Joc.umap" 1754
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/PuzzleCPP/Maps/Tabla_Joc_BuiltData.uasset" 1755
-"../../../Engine/Content/EditorResources/SequenceRecorder/Countdown.uasset" 1756
-"../../../Engine/Content/EditorResources/SequenceRecorder/RecordingIndicator.uasset" 1757
-"../../../Engine/Content/BasicShapes/Cube.uasset" 1758
-"../../../Engine/Content/BasicShapes/Sphere.uasset" 1759
-"../../../Engine/Content/BasicShapes/Cylinder.uasset" 1760
-"../../../Engine/Content/BasicShapes/Cone.uasset" 1761
-"../../../Engine/Content/BasicShapes/Plane.uasset" 1762
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/AssetRegistryCache/2dc0ee8a.bin" 1763
-"../../../Engine/Config/HTML5/HTML5Engine.ini" 1764
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/PuzzleCPP/Maps/Meniu.umap" 1765
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/PuzzleCPP/Maps/Meniu_BuiltData.uasset" 1766
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/Meniu_Widget.uasset" 1767
-"../../../Engine/Content/EngineMaterials/EditorBrushMaterial.uasset" 1768
-"../../../Engine/Content/EditorMaterials/PreviewShadowIndicatorMaterial.uasset" 1769
-"../../../Engine/Content/EditorMaterials/PreviewShadowIndicator.uasset" 1770
-"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/9/4/0/PHYSX_A08609EF508D460CBB6710540B03AACF_PHYSXPC_5277065D4E443FA44A750F81AA552A5__23D816BD2057A02EDCEE9B5C8015CF214F130348.udd" 1771
-"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/2/1/5/MATSM_F1CC9C7A48F5422EB67E3ADC82465189_PCD3D_SM5_7__BC5N_NOCCBN_NOIRIS_DEV_SL___143B27B4EC5C072CFC403896CCD2B0BB02AD120B.udd" 1772
-"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/1/0/6/MATSM_F1CC9C7A48F5422EB67E3ADC82465189_PCD3D_SM4_7__BC5N_NOCCBN_NOIRIS_DEV_SL___91DE1A3AF194A557A99C2166C051A1F17B0BE97E.udd" 1773
-"../../../Engine/Content/EngineDebugMaterials/DebugEditorMaterial.uasset" 1774
-"../../../Engine/Content/EngineDebugMaterials/ClothMaterial_WF.uasset" 1775
-"../../../Engine/Content/EngineDebugMaterials/ClothMaterial.uasset" 1776
-"../../../Engine/Content/EngineDebugMaterials/BoneWeightMaterial.uasset" 1777
-"../../../Engine/Content/EngineDebugMaterials/HeatmapGradient.uasset" 1778
-"../../../Engine/Content/EngineDebugMaterials/GeomMaterial.uasset" 1779
-"../../../Engine/Content/EditorResources/BSPVertex.uasset" 1780
-"../../../Engine/Content/MobileResources/HUD/VirtualJoystick_Thumb.uasset" 1781
-"../../../Engine/Content/MobileResources/HUD/VirtualJoystick_Background.uasset" 1782
-"../../../Engine/Content/MobileResources/HUD/T_Castle_ThumbstickOutter.uasset" 1783
-"../../../Engine/Content/MobileResources/HUD/T_Castle_ThumbstickInner.uasset" 1784
-"../../../Engine/Content/MobileResources/HUD/MobileHUDDirectionStick.uasset" 1785
-"../../../Engine/Content/MobileResources/HUD/MobileHUDDirectionPad3.uasset" 1786
-"../../../Engine/Content/MobileResources/HUD/MobileHUDDirectionPad2.uasset" 1787
-"../../../Engine/Content/MobileResources/HUD/MobileHUDDirectionPad.uasset" 1788
-"../../../Engine/Content/MobileResources/HUD/MobileHUDButtonFire.uasset" 1789
-"../../../Engine/Content/MobileResources/HUD/MobileHUDButton3.uasset" 1790
-"../../../Engine/Content/MobileResources/HUD/MobileHUDButton2_on.uasset" 1791
-"../../../Engine/Content/MobileResources/HUD/MobileHUDButton2_off.uasset" 1792
-"../../../Engine/Content/MobileResources/HUD/MobileHUDButton1_on.uasset" 1793
-"../../../Engine/Content/MobileResources/HUD/MobileHUDButton1_off.uasset" 1794
-"../../../Engine/Content/MobileResources/HUD/LeftVirtualJoystickOnly.uasset" 1795
-"../../../Engine/Content/MobileResources/HUD/DefaultVirtualJoysticks.uasset" 1796
-"../../../Engine/Content/MobileResources/HUD/AnalogHat.uasset" 1797
-"../../../Engine/Content/MobileResources/T_MobileMenu2.uasset" 1798
-"../../../Engine/Content/MobileResources/T_MobileControls_texture.uasset" 1799
-"../../../Engine/Content/Maps/Entry.umap" 1800
-"../../../Engine/Content/Maps/Entry_BuiltData.uasset" 1801
-"../../../Engine/Content/EngineSky/BP_Sky_Sphere.uasset" 1802
-"../../../Engine/Content/EditorBlueprintResources/StandardMacros.uasset" 1803
-"../../../Engine/Content/EngineSky/C_Sky_Cloud_Color.uasset" 1804
-"../../../Engine/Content/EngineSky/C_Sky_Horizon_Color.uasset" 1805
-"../../../Engine/Content/EngineSky/C_Sky_Zenith_Color.uasset" 1806
-"../../../Engine/Content/EngineSky/M_Sky_Panning_Clouds2.uasset" 1807
-"../../../Engine/Content/EngineSky/T_Sky_Blue.uasset" 1808
-"../../../Engine/Content/EngineSky/T_Sky_Clouds_M.uasset" 1809
-"../../../Engine/Content/EngineSky/T_Sky_Stars.uasset" 1810
-"../../../Engine/Content/EngineSky/SM_SkySphere.uasset" 1811
-"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/8/0/2/PHYSX_A08609EF508D460CBB6710540B03AACF_PHYSXPC_878BD27F416DFBC50AD20CB18A1D05B7__1_0_0_0_2_13315_0.udd" 1812
-"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/3/9/8/PHYSX_A08609EF508D460CBB6710540B03AACF_PHYSXPC_B1170AA74794A470C10668992929D65A__1_0_0_0_2_13315_0.udd" 1813
-"../../../Engine/Content/EditorResources/EmptyActor.uasset" 1814
-"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/7/2/6/TEXTURE_68A083899C6F4316B8CE0E2958EDE2C2_AUTODXT_8E26175A4C260415629AA6AC6FE32__9E224338DA8E4E9A7C323E6D48C3B00BED67FCA4.udd" 1815
-"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/7/8/7/TEXTURE_68A083899C6F4316B8CE0E2958EDE2C2_DXT1_0376E33B4B80235F70936D8C15F0DFD6__F3B6D75C3C070EA233C16FBA861BAD3779989014.udd" 1816
-"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/9/1/0/TEXTURE_68A083899C6F4316B8CE0E2958EDE2C2_G8_79B0F5054B40F0B28DEA79A130DB48FD_0__26658B6524607FC37A379C4232CCEA8F9D3A5A76.udd" 1817
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Geometry/Meshes/TemplateFloor.uasset" 1818
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Geometry/Meshes/CubeMaterial.uasset" 1819
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Geometry/Meshes/1M_Cube_Chamfer.uasset" 1820
-"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Geometry/Meshes/1M_Cube.uasset" 1821
+"../../../Engine/Content/Tutorial/Mobile/SettingUpAndroidTutorial.uasset" 1655
+"../../../Engine/Content/Tutorial/Mobile/TutorialAssets/android_Icon.uasset" 1656
+"../../../Engine/Content/Tutorial/SubEditors/StaticMeshEditorTutorial.uasset" 1657
+"../../../Engine/Content/Tutorial/ContentIntroCurve.uasset" 1658
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/Config/CoalescedSourceConfigs/InternationalizationExport.ini" 1659
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/Config/CoalescedSourceConfigs/TranslationPickerSettings.ini" 1660
+"../../../Engine/Content/EditorSounds/Notifications/CompileStart_Cue.uasset" 1661
+"../../../Engine/Content/EditorSounds/Notifications/CompileSuccess.uasset" 1662
+"../../../Engine/Content/EditorSounds/Notifications/CompileSuccess_Cue.uasset" 1663
+"../../../Engine/Content/EditorSounds/Notifications/CompileFailed_Cue.uasset" 1664
+"../../../Engine/Content/EditorSounds/Notifications/CompileFailed.uasset" 1665
+"../../../Engine/Content/BufferVisualization/BaseColor.uasset" 1666
+"../../../Engine/Content/BufferVisualization/CustomDepth.uasset" 1667
+"../../../Engine/Content/BufferVisualization/CustomStencil.uasset" 1668
+"../../../Engine/Content/Functions/Engine_MaterialFunctions01/Texturing/ScaleUVsByCenter.uasset" 1669
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/ScreenResolution.uasset" 1670
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Texturing/ScreenAlignedUVs.uasset" 1671
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/MakeFloat2.uasset" 1672
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/MakeFloat3.uasset" 1673
+"../../../Engine/Content/EngineMaterials/MiniFont.uasset" 1674
+"../../../Engine/Content/BufferVisualization/FinalImage.uasset" 1675
+"../../../Engine/Content/BufferVisualization/LightingModel.uasset" 1676
+"../../../Engine/Content/BufferVisualization/MaterialAO.uasset" 1677
+"../../../Engine/Content/BufferVisualization/Metallic.uasset" 1678
+"../../../Engine/Content/BufferVisualization/Opacity.uasset" 1679
+"../../../Engine/Content/BufferVisualization/Roughness.uasset" 1680
+"../../../Engine/Content/BufferVisualization/SceneColor.uasset" 1681
+"../../../Engine/Content/BufferVisualization/SceneDepth.uasset" 1682
+"../../../Engine/Content/BufferVisualization/SeparateTranslucencyRGB.uasset" 1683
+"../../../Engine/Content/BufferVisualization/SeparateTranslucencyA.uasset" 1684
+"../../../Engine/Content/BufferVisualization/Specular.uasset" 1685
+"../../../Engine/Content/BufferVisualization/SubsurfaceColor.uasset" 1686
+"../../../Engine/Content/BufferVisualization/WorldNormal.uasset" 1687
+"../../../Engine/Content/BufferVisualization/AmbientOcclusion.uasset" 1688
+"../../../Engine/Content/EngineMaterials/DefaultPhysicalMaterial.uasset" 1689
+"../../../Engine/Content/BufferVisualization/CustomDepthWorldUnits.uasset" 1690
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/Utility/VectorLength.uasset" 1691
+"../../../Engine/Content/BufferVisualization/SceneDepthWorldUnits.uasset" 1692
+"../../../Engine/Content/BufferVisualization/PreTonemapHDRColor.uasset" 1693
+"../../../Engine/Content/BufferVisualization/PostTonemapHDRColor.uasset" 1694
+"../../Plugins/2D/Paper2D/Content/MaskedUnlitSpriteMaterial.uasset" 1695
+"../../Plugins/2D/Paper2D/Content/DefaultSpriteMaterial.uasset" 1696
+"../../Plugins/2D/Paper2D/Content/DummySpriteTexture.uasset" 1697
+"../../Plugins/2D/Paper2D/Content/PlaceholderTextures/DummySpriteTexture.uasset" 1698
+"../../Plugins/2D/Paper2D/Content/OpaqueUnlitSpriteMaterial.uasset" 1699
+"../../Plugins/2D/Paper2D/Content/DefaultPaperTerrainMaterial.uasset" 1700
+"../../Plugins/2D/Paper2D/Content/DummySprite.uasset" 1701
+"../../Plugins/Runtime/Oculus/OculusVR/Content/Meshes/RiftHMD.uasset" 1702
+"../../Plugins/Runtime/Oculus/OculusVR/Content/Meshes/GearVRController.uasset" 1703
+"../../Plugins/Runtime/Oculus/OculusVR/Content/Materials/GearVRControllerMaterial.uasset" 1704
+"../../Plugins/Runtime/Oculus/OculusVR/Content/Textures/GearVRController_AO.uasset" 1705
+"../../Plugins/Runtime/Oculus/OculusVR/Content/Textures/GearVRController_Color.uasset" 1706
+"../../Plugins/Runtime/Oculus/OculusVR/Content/Textures/GearVRController_Normal.uasset" 1707
+"../../Plugins/Runtime/Oculus/OculusVR/Content/Meshes/LeftTouchController.uasset" 1708
+"../../Plugins/Runtime/Oculus/OculusVR/Content/Materials/touchController_mat.uasset" 1709
+"../../Plugins/Runtime/Oculus/OculusVR/Content/Textures/touchController_albedo.uasset" 1710
+"../../Plugins/Runtime/Oculus/OculusVR/Content/Textures/touchController_controlmap.uasset" 1711
+"../../Plugins/Runtime/Oculus/OculusVR/Content/Meshes/RightTouchController.uasset" 1712
+"../../Plugins/Runtime/Oculus/OculusVR/Content/Materials/PokeAHoleMaterial.uasset" 1713
+"../../../Engine/Content/EngineMeshes/Cylinder.uasset" 1714
+"../../../Engine/Content/EngineMaterials/DefaultMaterial.uasset" 1715
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/StaticMeshes/PuzzleCube.uasset" 1716
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/Material_Gri.uasset" 1717
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/BaseMaterial.uasset" 1718
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/Material_Rosu.uasset" 1719
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/Material_Negru.uasset" 1720
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/Material_Albastru.uasset" 1721
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/Material_Ceapa.uasset" 1722
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/Material_Lime.uasset" 1723
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/Material_Mov.uasset" 1724
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/Material_Nectar.uasset" 1725
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/Material_Portocaliu.uasset" 1726
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/Material_Turcoaz.uasset" 1727
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/Material_Verde.uasset" 1728
+"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/4.21/Saved/Config/Windows/SourceControlSettings.ini" 1729
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/Config/CoalescedSourceConfigs/SourceControlSettings.ini" 1730
+"C:/Users/Calculatorescu/Documents/Unreal Projects/Avioane/Saved/Config/Windows/SourceControlSettings.ini" 1731
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/Config/CoalescedSourceConfigs/Encryption.ini" 1732
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/Config/CoalescedSourceConfigs/Crypto.ini" 1733
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/Config/CoalescedSourceConfigs/UnitTestStats.ini" 1734
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/Config/CoalescedSourceConfigs/UnitTest.ini" 1735
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Config/DefaultEngine.ini" 1736
+"../../../Engine/Content/EngineDebugMaterials/WireframeMaterial.uasset" 1737
+"../../../Engine/Content/EngineDebugMaterials/LevelColorationLitMaterial.uasset" 1738
+"../../../Engine/Content/EngineDebugMaterials/LevelColorationUnlitMaterial.uasset" 1739
+"../../../Engine/Content/EngineDebugMaterials/MAT_LevelColorationLitLightmapUV.uasset" 1740
+"../../../Engine/Content/EngineMaterials/DefaultWhiteGrid.uasset" 1741
+"../../../Engine/Content/EngineDebugMaterials/ShadedLevelColorationLitMaterial.uasset" 1742
+"../../../Engine/Content/EngineDebugMaterials/ShadedLevelColorationUnlitMateri.uasset" 1743
+"../../../Engine/Content/EngineDebugMaterials/VertexColorMaterial.uasset" 1744
+"../../../Engine/Content/EngineDebugMaterials/VertexColorViewMode_ColorOnly.uasset" 1745
+"../../../Engine/Content/EngineDebugMaterials/VertexColorViewMode_AlphaAsColor.uasset" 1746
+"../../../Engine/Content/EngineDebugMaterials/VertexColorViewMode_RedOnly.uasset" 1747
+"../../../Engine/Content/EngineDebugMaterials/VertexColorViewMode_GreenOnly.uasset" 1748
+"../../../Engine/Content/EngineDebugMaterials/VertexColorViewMode_BlueOnly.uasset" 1749
+"../../../Engine/Content/EngineMaterials/RemoveSurfaceMaterial.uasset" 1750
+"../../../Engine/Content/EngineDebugMaterials/DebugMeshMaterial.uasset" 1751
+"../../../Engine/Content/EngineMaterials/M_InvalidLightmapSettings.uasset" 1752
+"../../../Engine/Content/EngineMaterials/InvalidLightmapSettings.uasset" 1753
+"../../../Engine/Content/EditorMaterials/GizmoMaterial.uasset" 1754
+"../../../Engine/Content/EngineMaterials/PhAT_JointLimitMaterial.uasset" 1755
+"../../../Engine/Content/Functions/Engine_MaterialFunctions02/WorldPositionOffset/CameraOffset.uasset" 1756
+"../../../Engine/Content/EngineMaterials/Good64x64TilingNoiseHighFreq.uasset" 1757
+"../../../Engine/Content/EngineMaterials/DefaultBokeh.uasset" 1758
+"../../../Engine/Content/EngineMaterials/DefaultBloomKernel.uasset" 1759
+"../../../Engine/Content/EngineMaterials/PreintegratedSkinBRDF.uasset" 1760
+"../../../Engine/Content/EngineMaterials/WeightMapPlaceholderTexture.uasset" 1761
+"../../../Engine/Content/EngineFonts/RobotoTiny.uasset" 1762
+"../../../Engine/Content/EngineFonts/Faces/RobotoTiny.uasset" 1763
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/AssetRegistryCache/311563bb.bin" 1764
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/AssetRegistryCache/c90e3f55.bin" 1765
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/PuzzleCPP/Maps/Tabla_Joc.umap" 1766
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/PuzzleCPP/Maps/Tabla_Joc_BuiltData.uasset" 1767
+"../../../Engine/Content/EditorResources/SequenceRecorder/Countdown.uasset" 1768
+"../../../Engine/Content/EditorResources/SequenceRecorder/RecordingIndicator.uasset" 1769
+"../../../Engine/Content/BasicShapes/Cube.uasset" 1770
+"../../../Engine/Content/BasicShapes/Sphere.uasset" 1771
+"../../../Engine/Content/BasicShapes/Cylinder.uasset" 1772
+"../../../Engine/Content/BasicShapes/Cone.uasset" 1773
+"../../../Engine/Content/BasicShapes/Plane.uasset" 1774
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Intermediate/AssetRegistryCache/2dc0ee8a.bin" 1775
+"../../../Engine/Config/HTML5/HTML5Engine.ini" 1776
+"../../../Engine/Content/EngineMeshes/Cube.uasset" 1777
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/StaticMeshes/AvionMare.uasset" 1778
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/BlueMaterial.uasset" 1779
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/StaticMeshes/AvionMic.uasset" 1780
+"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/9/1/1/STATICMESH_3713973CA1B84F41BA1EB2E56FCE9211_228332BAE0224DD294E232B87D83948F1$__8C7860EE495C0573358E7440D6027AA9FA5EE1C4.udd" 1781
+"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/2/7/7/NAVCOLLISION_B89838347A4348138EE337A847529C5C_NAVCOLLISION_X_3F8C53124435D189F__DF9787C85C16F3F5D109FA1B9F3B98EA2A34B713.udd" 1782
+"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/3/3/1/PHYSX_A08609EF508D460CBB6710540B03AACF_PHYSXPC_3F8C53124435D189F2DBCF880243E68__3C73E2F352554D57C8EE924D0615E86944AC6684.udd" 1783
+"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/8/5/5/STATICMESH_3713973CA1B84F41BA1EB2E56FCE9211_228332BAE0224DD294E232B87D83948F1$__BC4BDA9D6A1310B498942B579E64DFB9884A4FCD.udd" 1784
+"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/4/8/8/NAVCOLLISION_B89838347A4348138EE337A847529C5C_NAVCOLLISION_X_6B80D45247BC6B8FD__57CDF6CCBFFBFC2E14A35381EFD816911FD6D28E.udd" 1785
+"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/3/7/2/PHYSX_A08609EF508D460CBB6710540B03AACF_PHYSXPC_6B80D45247BC6B8FD424BC8EAE6EDBC__B64974F09D61672865644662EE23492D6630BF69.udd" 1786
+"../../../Engine/Content/EditorResources/EmptyActor.uasset" 1787
+"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/7/2/6/TEXTURE_68A083899C6F4316B8CE0E2958EDE2C2_AUTODXT_8E26175A4C260415629AA6AC6FE32__9E224338DA8E4E9A7C323E6D48C3B00BED67FCA4.udd" 1788
+"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/9/1/0/TEXTURE_68A083899C6F4316B8CE0E2958EDE2C2_G8_79B0F5054B40F0B28DEA79A130DB48FD_0__26658B6524607FC37A379C4232CCEA8F9D3A5A76.udd" 1789
+"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/7/8/7/TEXTURE_68A083899C6F4316B8CE0E2958EDE2C2_DXT1_0376E33B4B80235F70936D8C15F0DFD6__F3B6D75C3C070EA233C16FBA861BAD3779989014.udd" 1790
+"../../../Engine/Content/EngineMaterials/EditorBrushMaterial.uasset" 1791
+"../../../Engine/Content/EditorMaterials/PreviewShadowIndicatorMaterial.uasset" 1792
+"../../../Engine/Content/EditorMaterials/PreviewShadowIndicator.uasset" 1793
+"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/7/6/9/PHYSX_A08609EF508D460CBB6710540B03AACF_PHYSXPC_D493CC3E45C8A32C61D07FA47412D45__64D34850324826943790B86348A50EDC1F819D41.udd" 1794
+"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/2/1/5/MATSM_F1CC9C7A48F5422EB67E3ADC82465189_PCD3D_SM5_7__BC5N_NOCCBN_NOIRIS_DEV_SL___143B27B4EC5C072CFC403896CCD2B0BB02AD120B.udd" 1795
+"C:/Users/Calculatorescu/AppData/Local/UnrealEngine/Common/DerivedDataCache/1/0/6/MATSM_F1CC9C7A48F5422EB67E3ADC82465189_PCD3D_SM4_7__BC5N_NOCCBN_NOIRIS_DEV_SL___91DE1A3AF194A557A99C2166C051A1F17B0BE97E.udd" 1796
+"../../../Engine/Content/EngineDebugMaterials/DebugEditorMaterial.uasset" 1797
+"../../../Engine/Content/EngineDebugMaterials/ClothMaterial_WF.uasset" 1798
+"../../../Engine/Content/EngineDebugMaterials/ClothMaterial.uasset" 1799
+"../../../Engine/Content/EngineDebugMaterials/BoneWeightMaterial.uasset" 1800
+"../../../Engine/Content/EngineDebugMaterials/HeatmapGradient.uasset" 1801
+"../../../Engine/Content/EngineDebugMaterials/GeomMaterial.uasset" 1802
+"../../../Engine/Content/EditorResources/BSPVertex.uasset" 1803
+"../../../Engine/Content/MobileResources/HUD/VirtualJoystick_Thumb.uasset" 1804
+"../../../Engine/Content/MobileResources/HUD/VirtualJoystick_Background.uasset" 1805
+"../../../Engine/Content/MobileResources/HUD/T_Castle_ThumbstickOutter.uasset" 1806
+"../../../Engine/Content/MobileResources/HUD/T_Castle_ThumbstickInner.uasset" 1807
+"../../../Engine/Content/MobileResources/HUD/MobileHUDDirectionStick.uasset" 1808
+"../../../Engine/Content/MobileResources/HUD/MobileHUDDirectionPad3.uasset" 1809
+"../../../Engine/Content/MobileResources/HUD/MobileHUDDirectionPad2.uasset" 1810
+"../../../Engine/Content/MobileResources/HUD/MobileHUDDirectionPad.uasset" 1811
+"../../../Engine/Content/MobileResources/HUD/MobileHUDButtonFire.uasset" 1812
+"../../../Engine/Content/MobileResources/HUD/MobileHUDButton3.uasset" 1813
+"../../../Engine/Content/MobileResources/HUD/MobileHUDButton2_on.uasset" 1814
+"../../../Engine/Content/MobileResources/HUD/MobileHUDButton2_off.uasset" 1815
+"../../../Engine/Content/MobileResources/HUD/MobileHUDButton1_on.uasset" 1816
+"../../../Engine/Content/MobileResources/HUD/MobileHUDButton1_off.uasset" 1817
+"../../../Engine/Content/MobileResources/HUD/LeftVirtualJoystickOnly.uasset" 1818
+"../../../Engine/Content/MobileResources/HUD/DefaultVirtualJoysticks.uasset" 1819
+"../../../Engine/Content/MobileResources/HUD/AnalogHat.uasset" 1820
+"../../../Engine/Content/MobileResources/T_MobileMenu2.uasset" 1821
+"../../../Engine/Content/MobileResources/T_MobileControls_texture.uasset" 1822
+"../../../Engine/Content/Maps/Entry.umap" 1823
+"../../../Engine/Content/Maps/Entry_BuiltData.uasset" 1824
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/PuzzleCPP/Maps/Meniu.umap" 1825
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/PuzzleCPP/Maps/Meniu_BuiltData.uasset" 1826
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/Meniu_Widget.uasset" 1827
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/StaticMeshes/M_AvionMare_WorldGridMaterial_E739883F4B50178441534C84B6468565.uasset" 1828
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/StaticMeshes/M_AvionMare_Material_Albastru_E739883F4B50178441534C84B6468565.uasset" 1829
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Puzzle/Meshes/PuzzleCube.uasset" 1830
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Geometry/Meshes/TemplateFloor.uasset" 1831
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Geometry/Meshes/CubeMaterial.uasset" 1832
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Geometry/Meshes/1M_Cube_Chamfer.uasset" 1833
+"../../../../../Users/Calculatorescu/Documents/Unreal Projects/Avioane/Content/Geometry/Meshes/1M_Cube.uasset" 1834

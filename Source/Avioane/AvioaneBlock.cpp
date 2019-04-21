@@ -35,7 +35,7 @@ AAvioaneBlock::AAvioaneBlock()
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Verde;
 
 		FConstructorStatics()
-			: PlaneMesh(TEXT("/Game/Puzzle/Meshes/PuzzleCube.PuzzleCube"))
+			: PlaneMesh(TEXT("/Game/Puzzle/StaticMeshes/PuzzleCube.PuzzleCube"))
 			, BaseMaterial(TEXT("/Game/Puzzle/Meshes/BaseMaterial.BaseMaterial"))
 			, Material_Gri(TEXT("/Game/Puzzle/Meshes/Material_Gri.Material_Gri"))
 			, Material_Rosu(TEXT("/Game/Puzzle/Meshes/Material_Rosu.Material_Rosu"))

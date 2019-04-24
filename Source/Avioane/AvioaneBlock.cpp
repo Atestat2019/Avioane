@@ -15,6 +15,9 @@
 
 int32 AAvioaneBlock::nr_mat;
 AAvioaneGameMode* AAvioaneBlock::GM;
+TArray<UMaterialInstance*> AAvioaneBlock::materiale;
+TArray<UMaterial*> AAvioaneBlock::X_materiale;
+bool AAvioaneBlock::ok=true;
 
 AAvioaneBlock::AAvioaneBlock()
 {
@@ -23,33 +26,57 @@ AAvioaneBlock::AAvioaneBlock()
 		ConstructorHelpers::FObjectFinderOptional<UStaticMesh> PlaneMesh;
 		ConstructorHelpers::FObjectFinderOptional<UMaterial> BaseMaterial;
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Gri;
+		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_0;
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Rosu;
-		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Negru;
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Albastru;
-		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Ceapa;
-		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Lime;
+		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Celest;
+		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Coada_de_Vaca;
+		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Mar;
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Mov;
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Nectar;
+		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Negru;
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Portocaliu;
-		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Turcoaz;
 		ConstructorHelpers::FObjectFinderOptional<UMaterialInstance> Material_Verde;
+
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> XGriMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> XAlbastruMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> XCelestMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> XCoada_de_VacaMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> XMarMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> XMovMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> XNectarMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> XNegruMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> XPortocaliuMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> XVerdeMaterial;
 
 		FConstructorStatics()
 			: PlaneMesh(TEXT("/Game/Puzzle/StaticMeshes/PuzzleCube.PuzzleCube"))
 			, BaseMaterial(TEXT("/Game/Puzzle/Meshes/BaseMaterial.BaseMaterial"))
 			, Material_Gri(TEXT("/Game/Puzzle/Meshes/Material_Gri.Material_Gri"))
+			, Material_0(TEXT("/Game/Puzzle/Meshes/Material_0.Material_0"))
 			, Material_Rosu(TEXT("/Game/Puzzle/Meshes/Material_Rosu.Material_Rosu"))
-			, Material_Negru(TEXT("/Game/Puzzle/Meshes/Material_Negru.Material_Negru"))
 			, Material_Albastru(TEXT("/Game/Puzzle/Meshes/Material_Albastru.Material_Albastru"))
-			, Material_Ceapa(TEXT("/Game/Puzzle/Meshes/Material_Ceapa.Material_Ceapa"))
-			, Material_Lime(TEXT("/Game/Puzzle/Meshes/Material_Lime.Material_Lime"))
+			, Material_Celest(TEXT("/Game/Puzzle/Meshes/Material_Celest.Material_Celest"))
+			, Material_Negru(TEXT("/Game/Puzzle/Meshes/Material_Negru.Material_Negru"))
+			, Material_Coada_de_Vaca(TEXT("/Game/Puzzle/Meshes/Material_Coada_de_Vaca.Material_Coada_de_Vaca"))
+			, Material_Mar(TEXT("/Game/Puzzle/Meshes/Material_Mar.Material_Mar"))
 			, Material_Mov(TEXT("/Game/Puzzle/Meshes/Material_Mov.Material_Mov"))
 			, Material_Nectar(TEXT("/Game/Puzzle/Meshes/Material_Nectar.Material_Nectar"))
 			, Material_Portocaliu(TEXT("/Game/Puzzle/Meshes/Material_Portocaliu.Material_Portocaliu"))
-			, Material_Turcoaz(TEXT("/Game/Puzzle/Meshes/Material_Turcoaz.Material_Turcoaz"))
 			, Material_Verde(TEXT("/Game/Puzzle/Meshes/Material_Verde.Material_Verde"))
+
+			, XGriMaterial(TEXT("/Game/Puzzle/Meshes/XGriMaterial.XGriMaterial"))
+			, XAlbastruMaterial(TEXT("/Game/Puzzle/Meshes/XAlbastruMaterial.XAlbastruMaterial"))
+			, XCelestMaterial(TEXT("/Game/Puzzle/Meshes/XCelestMaterial.XCelestMaterial"))
+			, XNegruMaterial(TEXT("/Game/Puzzle/Meshes/XNegruMaterial.XNegruMaterial"))
+			, XCoada_de_VacaMaterial(TEXT("/Game/Puzzle/Meshes/XCoada_de_VacaMaterial.XCoada_de_VacaMaterial"))
+			, XMarMaterial(TEXT("/Game/Puzzle/Meshes/XMarMaterial.XMarMaterial"))
+			, XMovMaterial(TEXT("/Game/Puzzle/Meshes/XMovMaterial.XMovMaterial"))
+			, XNectarMaterial(TEXT("/Game/Puzzle/Meshes/XNectarMaterial.XNectarMaterial"))
+			, XPortocaliuMaterial(TEXT("/Game/Puzzle/Meshes/XPortocaliuMaterial.XPortocaliuMaterial"))
+			, XVerdeMaterial(TEXT("/Game/Puzzle/Meshes/XVerdeMaterial.XVerdeMaterial"))
 		{}
-	};
+	}; 
 
 	static FConstructorStatics ConstructorStatics;
 
@@ -66,17 +93,34 @@ AAvioaneBlock::AAvioaneBlock()
 
 	BaseMaterial = ConstructorStatics.BaseMaterial.Get();
 	Material_Gri = ConstructorStatics.Material_Gri.Get();
-	
-	materiale.Add(ConstructorStatics.Material_Rosu.Get());
-	materiale.Add(ConstructorStatics.Material_Negru.Get());
-	materiale.Add(ConstructorStatics.Material_Albastru.Get());
-	materiale.Add(ConstructorStatics.Material_Ceapa.Get());
-	materiale.Add(ConstructorStatics.Material_Lime.Get());
-	materiale.Add(ConstructorStatics.Material_Mov.Get());
-	materiale.Add(ConstructorStatics.Material_Nectar.Get());
-	materiale.Add(ConstructorStatics.Material_Portocaliu.Get());
-	materiale.Add(ConstructorStatics.Material_Turcoaz.Get());
-	materiale.Add(ConstructorStatics.Material_Verde.Get());
+	Material_0 = ConstructorStatics.Material_0.Get();
+	XGriMaterial = ConstructorStatics.XGriMaterial.Get();
+
+	if (ok == true)
+	{
+		materiale.Add(ConstructorStatics.Material_Rosu.Get());
+		materiale.Add(ConstructorStatics.Material_Albastru.Get());
+		materiale.Add(ConstructorStatics.Material_Celest.Get());
+		materiale.Add(ConstructorStatics.Material_Coada_de_Vaca.Get());
+		materiale.Add(ConstructorStatics.Material_Mar.Get());
+		materiale.Add(ConstructorStatics.Material_Mov.Get());
+		materiale.Add(ConstructorStatics.Material_Nectar.Get());
+		materiale.Add(ConstructorStatics.Material_Negru.Get());
+		materiale.Add(ConstructorStatics.Material_Portocaliu.Get());
+		materiale.Add(ConstructorStatics.Material_Verde.Get());
+
+		X_materiale.Add(ConstructorStatics.XAlbastruMaterial.Get());
+		X_materiale.Add(ConstructorStatics.XCelestMaterial.Get());
+		X_materiale.Add(ConstructorStatics.XCoada_de_VacaMaterial.Get());
+		X_materiale.Add(ConstructorStatics.XMarMaterial.Get());
+		X_materiale.Add(ConstructorStatics.XMovMaterial.Get());
+		X_materiale.Add(ConstructorStatics.XNectarMaterial.Get());
+		X_materiale.Add(ConstructorStatics.XNegruMaterial.Get());
+		X_materiale.Add(ConstructorStatics.XPortocaliuMaterial.Get());
+		X_materiale.Add(ConstructorStatics.XVerdeMaterial.Get());
+
+		ok = false;
+	}
 	
 	atins = false;
 	ocupat = false;
@@ -88,9 +132,6 @@ AAvioaneBlock::AAvioaneBlock()
 
 void AAvioaneBlock::Bordare(AAvioaneBlock* patrat)
 {
-	
-	
-	
 	int32 x = patrat->lin, y = patrat->coln;
 
 	int dir_i[] = { 1,0,-1,0 }, dir_j[] = { 0,1,0,-1 };
@@ -114,6 +155,8 @@ void AAvioaneBlock::BeginPlay()
 	Super::BeginPlay();
 
 	GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
+
+
 }
 
 
@@ -143,11 +186,11 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 				}
 				AAvioaneBlock* patrat;
 				acces->contor_avioane++;
-				nr_mat = FMath::RandRange(2, materiale.Num() - 1);
+				nr_mat = FMath::RandRange(1, materiale.Num() - 1);
 
 				while (acces->frecv[nr_mat] != 0)
 				{
-					nr_mat = FMath::RandRange(2, materiale.Num() - 1);
+					nr_mat = FMath::RandRange(1, materiale.Num() - 1);
 				}
 				acces->frecv[nr_mat] = 1;
 

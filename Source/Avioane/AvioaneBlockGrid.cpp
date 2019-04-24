@@ -80,7 +80,7 @@ void AAvioaneBlockGrid::BeginPlay()
 
 			const FVector BlockLocation = FVector(XOffset, YOffset, 0.f) + GetActorLocation();
 
-			AAvioaneBlock* NewBlock = GetWorld()->SpawnActor<AAvioaneBlock>(BlockLocation, FRotator(0, 0, 0));
+			AAvioaneBlock* NewBlock = GetWorld()->SpawnActor<AAvioaneBlock>(BlockLocation, FRotator(180.0f, 0, 0));
 			NewBlock->SetActorScale3D({ scala_x,scala_y,scala_z });
 			NewBlock->lin = i;
 			NewBlock->coln = j;

@@ -19,10 +19,13 @@ public:
 	void Change_Mat(int bOn);
 
 	static int32 nr_mat;
+
+	static bool ok;
 	
 	static class AAvioaneGameMode* GM;
 
-	TArray<UMaterialInstance*> materiale;
+	static TArray<class UMaterialInstance*> materiale;
+	static TArray<class UMaterial*> X_materiale;
 
 	UFUNCTION()
 		void HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked);
@@ -36,22 +39,12 @@ public:
 
 	UPROPERTY()
 		class UMaterial* BaseMaterial;
-
-	UPROPERTY()
-		class UMaterialInstance* Material_Rosu;
-	UPROPERTY()
-		class UMaterialInstance* Material_Albastru;
-	UPROPERTY()
-		class UMaterialInstance* Material_Verde;
-	UPROPERTY()
-		class UMaterialInstance* Material_Lime;
-
-
 	UPROPERTY()
 		class UMaterialInstance* Material_Gri;
 	UPROPERTY()
-		class UMaterialInstance* Material_Ceapa;
-
+		class UMaterialInstance* Material_0;
+	UPROPERTY()
+		class UMaterial* XGriMaterial;
 
 	UPROPERTY()
 		class AAvioaneBlockGrid* acces;

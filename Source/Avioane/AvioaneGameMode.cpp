@@ -99,7 +99,7 @@ void AAvioaneGameMode::Doborare_Avion(int32 k)
 			if (patrat1->nr_culoare == k)
 			{
 				patrat1->BlockMesh->SetMaterial(0, patrat1->materiale[0]);
-				patrat2->BlockMesh->SetMaterial(0, patrat2->materiale[0]);
+				patrat2->BlockMesh->SetMaterial(0, patrat2->X_materiale[patrat2->nr_culoare-1]);
 				patrat1->ocupat = true;
 			}
 		}
@@ -117,15 +117,15 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 
 		if (patrat->nr_culoare == -1)
 		{
-			patrat->BlockMesh->SetMaterial(0, patrat->materiale[1]);
-			Jucatori[(Jucator_Actual + 1) % 2]->acces->tabla[lin][coln]->BlockMesh->SetMaterial(0, patrat->materiale[1]);
+			patrat->BlockMesh->SetMaterial(0, patrat->Material_0);
+			Jucatori[(Jucator_Actual + 1) % 2]->acces->tabla[lin][coln]->BlockMesh->SetMaterial(0, patrat->Material_0);
 		}
 		else
 		{
-			patrat->BlockMesh->SetMaterial(0, patrat->materiale[0]);
+			patrat->BlockMesh->SetMaterial(0, patrat->XGriMaterial);
 
 			int32 nr_culoare = patrat->nr_culoare;
-			Jucatori[(Jucator_Actual + 1) % 2]->acces->tabla[lin][coln]->BlockMesh->SetMaterial(0, patrat->materiale[0]);
+			Jucatori[(Jucator_Actual + 1) % 2]->acces->tabla[lin][coln]->BlockMesh->SetMaterial(0, patrat->X_materiale[nr_culoare-1]);
 
 			/*   ~~~~ Primul mod de joc
 			Jucatori[Jucator_Actual]->lovituri[nr_culoare]++;

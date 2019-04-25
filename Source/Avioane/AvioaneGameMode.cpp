@@ -11,6 +11,7 @@
 #include "Engine/StaticMesh.h"
 #include "Materials/MaterialInstance.h"
 #include "Engine/Public/TimerManager.h"
+#include "Engine/Classes/Kismet/GameplayStatics.h"
 
 
 AAvioaneGameMode::AAvioaneGameMode()
@@ -19,7 +20,9 @@ AAvioaneGameMode::AAvioaneGameMode()
 	PlayerControllerClass = AAvioanePlayerController::StaticClass();
 
 	Stadiu = 1;
-	ok = true;
+	ok = 0;
+
+	mod_de_joc = 1;
 }
 
 void AAvioaneGameMode::BeginPlay()
@@ -55,33 +58,38 @@ void AAvioaneGameMode::BeginPlay()
 	Jucatori[1]->Plasare_Avioane();
 }
 
+
 void AAvioaneGameMode::Colorare_Tabla(int32 nr_juc)
 {
 	int32 k=0;
 	AAvioaneBlock* patrat=nullptr;
-	
-		for (int32 i = 0; i < 20; i++)
-		{
-			for (int32 j = 0; j < 20; j++)
-			{
-				
-				k = Jucatori[nr_juc]->acces->tabla[i][j]->nr_culoare;
-				patrat = gride[nr_juc]->tabla[i][j];
-				patrat->nr_culoare = k;
-				patrat->tip = Jucatori[nr_juc]->acces->tabla[i][j]->tip;
-				patrat->pilot = Jucatori[nr_juc]->acces->tabla[i][j]->pilot;
-				patrat->motor = Jucatori[nr_juc]->acces->tabla[i][j]->motor;
-			}
+
+	for (int32 i = 0; i < 20; i++)
+	{
+		for (int32 j = 0; j < 20; j++)
+		{	
+			k = Jucatori[nr_juc]->acces->tabla[i][j]->nr_culoare;
+			patrat = gride[nr_juc]->tabla[i][j];
+			patrat->nr_culoare = k;
+			patrat->tip = Jucatori[nr_juc]->acces->tabla[i][j]->tip;
+			patrat->pilot = Jucatori[nr_juc]->acces->tabla[i][j]->pilot;
+			patrat->motor = Jucatori[nr_juc]->acces->tabla[i][j]->motor;	
 		}
+	}
 }
 
 bool AAvioaneGameMode::Safe(AAvioaneBlock* patrat)
 {
-	
 	if (Stadiu == 2 && patrat->ocupat == false && ((patrat->acces->ActorHasTag("Copie_Jucator") && Jucator_Actual == 1) || (patrat->acces->ActorHasTag("Copie_Inamic") && Jucator_Actual == 0)))
 		return true;
 	else return false;
-	
+}
+
+bool AAvioaneGameMode::safe_margine(int32 i, int32 j)
+{
+	if (i < 0 || i>19 || j < 0 || j>19)
+		return false;
+	else return true;
 }
 
 void AAvioaneGameMode::Doborare_Avion(int32 k)
@@ -98,6 +106,17 @@ void AAvioaneGameMode::Doborare_Avion(int32 k)
 
 			if (patrat1->nr_culoare == k)
 			{
+				if (Jucator_Actual == 1 || mod_de_joc == 0)
+				{
+					int dir_i[] = { 1,0,-1,0 }, dir_j[] = { 0,1,0,-1 };
+					for (int32 dir = 0; dir < 4; dir++)
+					{
+						if (safe_margine(i + dir_i[dir], j + dir_j[dir]) == true)
+						{
+							gride[(Jucator_Actual + 1) % 2]->tabla[i + dir_i[dir]][j + dir_j[dir]]->ocupat = true;
+						}
+					}
+				}
 				patrat1->BlockMesh->SetMaterial(0, patrat1->materiale[0]);
 				patrat2->BlockMesh->SetMaterial(0, patrat2->X_materiale[patrat2->nr_culoare-1]);
 				patrat1->ocupat = true;
@@ -147,6 +166,8 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 				if (patrat->pilot == true)
 				{
 					Jucatori[Jucator_Actual]->piloti_doborati[nr_culoare]++;
+					patrat->BlockMesh->SetMaterial(0, patrat->materiale[0]);
+					Jucatori[(Jucator_Actual + 1) % 2]->acces->tabla[lin][coln]->BlockMesh->SetMaterial(0, patrat->materiale[0]);
 					//mesaj
 					if (Jucatori[Jucator_Actual]->piloti_doborati[nr_culoare] == 2)
 					{
@@ -156,6 +177,8 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 				else if (patrat->motor == true)
 				{
 					Jucatori[Jucator_Actual]->motoare_distruse[nr_culoare]++;
+					patrat->BlockMesh->SetMaterial(0, patrat->materiale[0]);
+					Jucatori[(Jucator_Actual + 1) % 2]->acces->tabla[lin][coln]->BlockMesh->SetMaterial(0, patrat->materiale[0]);
 					//mesaj
 					if (Jucatori[Jucator_Actual]->motoare_distruse[nr_culoare] == 2)
 					{
@@ -172,6 +195,8 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 				else if (patrat->motor == true)
 				{
 					Jucatori[Jucator_Actual]->motoare_distruse[nr_culoare]++;
+					patrat->BlockMesh->SetMaterial(0, patrat->materiale[0]);
+					Jucatori[(Jucator_Actual + 1) % 2]->acces->tabla[lin][coln]->BlockMesh->SetMaterial(0, patrat->materiale[0]);
 					//mesaj
 					if (Jucatori[Jucator_Actual]->motoare_distruse[nr_culoare] == 2)
 					{
@@ -192,7 +217,7 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 void AAvioaneGameMode::Schimb_Jucator()
 {
 	Jucator_Actual = (Jucator_Actual + 1) % 2;
-	Jucatori[Jucator_Actual]->Tura();
+	Jucatori[Jucator_Actual]->delay_tura();
 	//GetWorldTimerManager().ClearTimer(chronos);
 }
 

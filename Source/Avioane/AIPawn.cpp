@@ -5,6 +5,8 @@
 #include "AvioaneBlock.h"
 #include "Engine/Engine.h"
 #include "Engine/Public/TimerManager.h"
+#include "Engine/StaticMesh.h"
+#include "Materials/MaterialInstance.h"
 
 AAIPawn::AAIPawn()
 {
@@ -18,18 +20,26 @@ AAIPawn::AAIPawn()
 
 	for (int32 i = 0; i < 20; i++)
 		piloti_doborati[i] = 0;
+
+	nr_tura = 0;
+	lovit = 0;
+	caz = 0;
+	acces = nullptr;
+	grida = nullptr;
 }
 
 void AAIPawn::Plasare_Avioane()
 {
 	GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Blue, TEXT("Calculatorul isi plaseaza avioanele"));
-	//GM->Colorare_Tabla(1);
+	//if (nr_jucator==1)
+		GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::intarziere, 0.2f, false);
+	//else GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::intarziere, 10.0f, false);
 }
 
 void AAIPawn::intarziere()
 {
 	int32 n, m, r;
-
+	
 	for (int32 i = 0; i < acces->avioane.Num(); i++)
 	{
 		n = FMath::RandRange(2, 17);
@@ -53,7 +63,26 @@ void AAIPawn::intarziere()
 		acces->tabla[n][m]->HandleClicked(nullptr, "null");
 	}
 
-	GM->Colorare_Tabla(1);
+	GM->Colorare_Tabla(nr_jucator);
+	
+	/*
+	
+	int32 k = 0;
+	AAvioaneBlock* patrat = nullptr;
+
+	for (int32 i = 0; i < 20; i++)
+	{
+		for (int32 j = 0; j < 20; j++)
+		{
+			k = acces->tabla[i][j]->nr_culoare;
+			patrat = grida->tabla[i][j];
+			patrat->tip = acces->tabla[i][j]->tip;
+			patrat->pilot = acces->tabla[i][j]->pilot;
+			patrat->motor = acces->tabla[i][j]->motor;	
+		}
+	}
+
+	*/
 
 	GetWorldTimerManager().ClearTimer(chronos);
 }
@@ -61,6 +90,8 @@ void AAIPawn::intarziere()
 void AAIPawn::Tura()
 {
 	//GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Orange, TEXT("Este tura AI-ului!"));
+
+	/*     Prima dificultate  +++ variabila dificultate
 	int32 i = FMath::RandRange(0, 19);
 	int32 j = FMath::RandRange(0, 19);
 	while (GM->Lovitura(GM->gride[0]->tabla[i][j]) == false)
@@ -68,6 +99,182 @@ void AAIPawn::Tura()
 		i = FMath::RandRange(0, 19);
 		j = FMath::RandRange(0, 19);
 	}
+	*/
+
+	nr_tura++;
+	UE_LOG(LogTemp, Warning, TEXT("ture %d"), nr_tura);
+
+	int32 verif_distruse = nr_avioane_distruse;
+	int32 i;
+	int32 j;
+	int32 i_urm;
+	int32 j_urm;
+	int32 dir;
+	lovitura l;
+
+	int dir_i[] = { 1,0,-1,0 }, dir_j[] = { 0,1,0,-1 };
+
+	if (lovit != 0)
+	{
+		bool ok = false;
+
+		while (ok == false)
+		{
+			l = lovituri.Last();
+
+			for (dir = 0; dir < 4; dir++)
+			{
+				if (caz == 1)
+				{
+					i_urm = l.i_lovit + 2 * dir_i[dir];
+					j_urm = l.j_lovit + 2 * dir_j[dir];
+				}
+				else if (caz == 3)
+				{
+					i_urm = l.i_lovit + 5 * dir_i[dir];
+					j_urm = l.j_lovit + 5 * dir_j[dir];
+				}
+				else
+				{
+					i_urm = l.i_lovit + dir_i[dir];
+					j_urm = l.j_lovit + dir_j[dir];
+				}
+				if (GM->safe_margine(i_urm, j_urm) == true && GM->gride[0]->tabla[i_urm][j_urm]->ocupat == false)
+					ok = true;
+			}
+			if (ok == false)
+			{
+				if (caz == 0)
+				{
+					lovituri.Pop();
+					lovit--;
+				}
+				else
+				{
+					caz = (caz + 1) % 4;
+				}
+			}
+		}
+	}
+	if (lovit == 0)
+	{
+		i = FMath::RandRange(2, 17);
+		j = FMath::RandRange(2, 17);
+		
+		int ok_liber = true;
+		/*
+		for (dir = 0; dir < 4; dir++)
+		{
+			i_urm = i + dir_i[dir];
+			j_urm = j + dir_j[dir];
+
+			if (GM->safe_margine(i_urm, j_urm) == true && GM->gride[0]->tabla[i_urm][j_urm]->ocupat == true)
+				ok_liber = false;
+		}
+		*/
+		while (GM->Lovitura(GM->gride[0]->tabla[i][j]) == false)// || ok_liber == false)
+		{
+			//ok_liber = true;
+
+			i = FMath::RandRange(2, 17);
+			j = FMath::RandRange(2, 17);
+			/*
+			for (dir = 0; dir < 4; dir++)
+			{
+				i_urm = i + dir_i[dir];
+				j_urm = j + dir_j[dir];
+				
+				if (GM->safe_margine(i_urm, j_urm) == true && GM->gride[0]->tabla[i_urm][j_urm]->ocupat == true)
+					ok_liber = false;
+			}
+			*/
+		}
+		if (GM->gride[0]->tabla[i][j]->nr_culoare != -1)
+		{
+			lovit++;
+			lovituri.Add({ i, j });
+		}
+	}
+	else
+	{
+		l = lovituri.Last();
+
+		dir=FMath::RandRange(0, 3);
+
+		if (GM->gride[0]->tabla[l.i_lovit][l.j_lovit]->BlockMesh->GetMaterial(0) == GM->gride[0]->tabla[l.i_lovit][l.j_lovit]->materiale[0] && (caz == 0 || caz == 1))
+		{
+			i_urm = l.i_lovit + 2*dir_i[dir];
+			j_urm = l.j_lovit + 2*dir_j[dir];
+			caz = 1;
+		}
+		else if (caz == 3)
+		{
+			i_urm = l.i_lovit + 5 * dir_i[dir];
+			j_urm = l.j_lovit + 5 * dir_j[dir];
+		}
+		else
+		{
+			i_urm = l.i_lovit + dir_i[dir];
+			j_urm = l.j_lovit + dir_j[dir];
+		}
+		while (GM->safe_margine(i_urm, j_urm) == false || GM->Lovitura(GM->gride[0]->tabla[i_urm][j_urm]) == false)
+		{
+			dir = FMath::RandRange(0, 3);
+
+			if (caz == 1)
+			{
+				i_urm = l.i_lovit + 2 * dir_i[dir];
+				j_urm = l.j_lovit + 2 * dir_j[dir];
+			}
+			else if (caz == 3)
+			{
+				i_urm = l.i_lovit + 5 * dir_i[dir];
+				j_urm = l.j_lovit + 5 * dir_j[dir];
+			}
+			else
+			{
+				i_urm = l.i_lovit + dir_i[dir];
+				j_urm = l.j_lovit + dir_j[dir];
+			}
+		}
+		if (GM->gride[0]->tabla[i_urm][j_urm]->nr_culoare != -1)
+		{
+			if (nr_avioane_distruse != verif_distruse)
+			{
+				for (int32 lin = 0; lin < 20; lin++)
+				{
+					for (int32 coln = 0; coln < 20; coln++)
+					{
+						if (GM->gride[0]->tabla[lin][coln]->BlockMesh->GetMaterial(0) == GM->gride[0]->tabla[lin][coln]->materiale[0])
+						{
+							for (int32 k = 0; k < lovituri.Num(); k++)
+							{
+								if (lovituri[k].i_lovit == lin && lovituri[k].j_lovit == coln)
+								{
+									lovituri.RemoveAt(k);
+									lovit--;
+								}
+							}
+						}
+					}
+				}
+				caz = 0; 
+			}
+			else if (caz == 0)
+			{	
+				lovituri.Add({i_urm, j_urm});
+				lovit++;
+			}
+		}
+	}
+	GetWorldTimerManager().ClearTimer(chronos);
+}
+
+void AAIPawn::delay_tura()
+{
+	//if (nr_jucator==0)
+	GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::Tura, FMath::RandRange(0.2f,1.0f), false);
+	//else GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::Tura, 10.0f, false);
 }
 
 void AAIPawn::BeginPlay()
@@ -81,10 +288,6 @@ void AAIPawn::BeginPlay()
 		if (it->ActorHasTag("Inamic"))
 			acces = *it;
 	}
-
-	GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::intarziere, 0.2f, false);
-	
-	
 }
 
 void AAIPawn::Tick(float DeltaTime)

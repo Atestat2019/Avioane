@@ -17,7 +17,9 @@ int32 AAvioaneBlock::nr_mat;
 AAvioaneGameMode* AAvioaneBlock::GM;
 TArray<UMaterialInstance*> AAvioaneBlock::materiale;
 TArray<UMaterial*> AAvioaneBlock::X_materiale;
-bool AAvioaneBlock::ok=true;
+TArray<UMaterial*> AAvioaneBlock::Motor_materiale;
+TArray<UMaterial*> AAvioaneBlock::Pilot_materiale;
+bool AAvioaneBlock::ok = true;
 
 AAvioaneBlock::AAvioaneBlock()
 {
@@ -49,6 +51,28 @@ AAvioaneBlock::AAvioaneBlock()
 		ConstructorHelpers::FObjectFinderOptional<UMaterial> XPortocaliuMaterial;
 		ConstructorHelpers::FObjectFinderOptional<UMaterial> XVerdeMaterial;
 
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> MotorGriMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> MotorAlbastruMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> MotorCelestMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> MotorCoada_de_VacaMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> MotorMarMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> MotorMovMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> MotorNectarMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> MotorNegruMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> MotorPortocaliuMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> MotorVerdeMaterial;
+
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> PilotGriMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> PilotAlbastruMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> PilotCelestMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> PilotCoada_de_VacaMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> PilotMarMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> PilotMovMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> PilotNectarMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> PilotNegruMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> PilotPortocaliuMaterial;
+		ConstructorHelpers::FObjectFinderOptional<UMaterial> PilotVerdeMaterial;
+
 		FConstructorStatics()
 			: PlaneMesh(TEXT("/Game/Puzzle/StaticMeshes/PuzzleCube.PuzzleCube"))
 			, BaseMaterial(TEXT("/Game/Puzzle/Meshes/BaseMaterial.BaseMaterial"))
@@ -75,8 +99,31 @@ AAvioaneBlock::AAvioaneBlock()
 			, XNectarMaterial(TEXT("/Game/Puzzle/Meshes/XNectarMaterial.XNectarMaterial"))
 			, XPortocaliuMaterial(TEXT("/Game/Puzzle/Meshes/XPortocaliuMaterial.XPortocaliuMaterial"))
 			, XVerdeMaterial(TEXT("/Game/Puzzle/Meshes/XVerdeMaterial.XVerdeMaterial"))
+
+			, MotorGriMaterial(TEXT("/Game/Puzzle/Meshes/MotorGriMaterial.MotorGriMaterial"))
+			, MotorAlbastruMaterial(TEXT("/Game/Puzzle/Meshes/MotorAlbastruMaterial.MotorAlbastruMaterial"))
+			, MotorCelestMaterial(TEXT("/Game/Puzzle/Meshes/MotorCelestMaterial.MotorCelestMaterial"))
+			, MotorNegruMaterial(TEXT("/Game/Puzzle/Meshes/MotorNegruMaterial.MotorNegruMaterial"))
+			, MotorCoada_de_VacaMaterial(TEXT("/Game/Puzzle/Meshes/MotorCoada_de_VacaMaterial.MotorCoada_de_VacaMaterial"))
+			, MotorMarMaterial(TEXT("/Game/Puzzle/Meshes/MotorMarMaterial.MotorMarMaterial"))
+			, MotorMovMaterial(TEXT("/Game/Puzzle/Meshes/MotorMovMaterial.MotorMovMaterial"))
+			, MotorNectarMaterial(TEXT("/Game/Puzzle/Meshes/MotorNectarMaterial.MotorNectarMaterial"))
+			, MotorPortocaliuMaterial(TEXT("/Game/Puzzle/Meshes/MotorPortocaliuMaterial.MotorPortocaliuMaterial"))
+			, MotorVerdeMaterial(TEXT("/Game/Puzzle/Meshes/MotorVerdeMaterial.MotorVerdeMaterial"))
+
+			, PilotGriMaterial(TEXT("/Game/Puzzle/Meshes/PilotGriMaterial.PilotGriMaterial"))
+			, PilotAlbastruMaterial(TEXT("/Game/Puzzle/Meshes/PilotAlbastruMaterial.PilotAlbastruMaterial"))
+			, PilotCelestMaterial(TEXT("/Game/Puzzle/Meshes/PilotCelestMaterial.PilotCelestMaterial"))
+			, PilotNegruMaterial(TEXT("/Game/Puzzle/Meshes/PilotNegruMaterial.PilotNegruMaterial"))
+			, PilotCoada_de_VacaMaterial(TEXT("/Game/Puzzle/Meshes/PilotCoada_de_VacaMaterial.PilotCoada_de_VacaMaterial"))
+			, PilotMarMaterial(TEXT("/Game/Puzzle/Meshes/PilotMarMaterial.PilotMarMaterial"))
+			, PilotMovMaterial(TEXT("/Game/Puzzle/Meshes/PilotMovMaterial.PilotMovMaterial"))
+			, PilotNectarMaterial(TEXT("/Game/Puzzle/Meshes/PilotNectarMaterial.PilotNectarMaterial"))
+			, PilotPortocaliuMaterial(TEXT("/Game/Puzzle/Meshes/PilotPortocaliuMaterial.PilotPortocaliuMaterial"))
+			, PilotVerdeMaterial(TEXT("/Game/Puzzle/Meshes/PilotVerdeMaterial.PilotVerdeMaterial"))
+
 		{}
-	}; 
+	};
 
 	static FConstructorStatics ConstructorStatics;
 
@@ -119,9 +166,29 @@ AAvioaneBlock::AAvioaneBlock()
 		X_materiale.Add(ConstructorStatics.XPortocaliuMaterial.Get());
 		X_materiale.Add(ConstructorStatics.XVerdeMaterial.Get());
 
+		Motor_materiale.Add(ConstructorStatics.MotorAlbastruMaterial.Get());
+		Motor_materiale.Add(ConstructorStatics.MotorCelestMaterial.Get());
+		Motor_materiale.Add(ConstructorStatics.MotorCoada_de_VacaMaterial.Get());
+		Motor_materiale.Add(ConstructorStatics.MotorMarMaterial.Get());
+		Motor_materiale.Add(ConstructorStatics.MotorMovMaterial.Get());
+		Motor_materiale.Add(ConstructorStatics.MotorNectarMaterial.Get());
+		Motor_materiale.Add(ConstructorStatics.MotorNegruMaterial.Get());
+		Motor_materiale.Add(ConstructorStatics.MotorPortocaliuMaterial.Get());
+		Motor_materiale.Add(ConstructorStatics.MotorVerdeMaterial.Get());
+
+		Pilot_materiale.Add(ConstructorStatics.PilotAlbastruMaterial.Get());
+		Pilot_materiale.Add(ConstructorStatics.PilotCelestMaterial.Get());
+		Pilot_materiale.Add(ConstructorStatics.PilotCoada_de_VacaMaterial.Get());
+		Pilot_materiale.Add(ConstructorStatics.PilotMarMaterial.Get());
+		Pilot_materiale.Add(ConstructorStatics.PilotMovMaterial.Get());
+		Pilot_materiale.Add(ConstructorStatics.PilotNectarMaterial.Get());
+		Pilot_materiale.Add(ConstructorStatics.PilotNegruMaterial.Get());
+		Pilot_materiale.Add(ConstructorStatics.PilotPortocaliuMaterial.Get());
+		Pilot_materiale.Add(ConstructorStatics.PilotVerdeMaterial.Get());
+
 		ok = false;
 	}
-	
+
 	atins = false;
 	ocupat = false;
 	pilot = false;
@@ -143,7 +210,7 @@ void AAvioaneBlock::Bordare(AAvioaneBlock* patrat)
 
 		if (x < 20 && x>=0 && y < 20 && y>=0)
 		{
-			UE_LOG(LogTemp, Warning, TEXT("x este : %d, y este : %d"), x, y);
+			//UE_LOG(LogTemp, Warning, TEXT("x este : %d, y este : %d"), x, y);
 			//acces->tabla[x][y]->ocupat = true;
 			acces->tabla[x][y]->siguranta = false;
 		}
@@ -155,8 +222,6 @@ void AAvioaneBlock::BeginPlay()
 	Super::BeginPlay();
 
 	GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
-
-
 }
 
 
@@ -222,6 +287,7 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 
 				//avioane[i]->Destroy(); de studiat
 
+				
 				if (acces->ActorHasTag("Jucator") && acces->contor_avioane == 4)
 				{
 					GM->Colorare_Tabla(0);
@@ -229,6 +295,7 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 					GM->Stadiu = 2;
 					GM->Jucatori[0]->Tura();
 				}
+				
 			}
 		}
 	}

@@ -48,6 +48,18 @@ void AAvion::Click(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 	}
 }
 
+void AAvion::Setare_Material_PS(AAvioaneBlock * patrat, FString tip)
+{
+	if (tip == "Pilot")
+	{
+		patrat->BlockMesh->SetMaterial(0, patrat->Pilot_materiale[patrat->nr_culoare - 1]);
+	}
+	else
+	{
+		patrat->BlockMesh->SetMaterial(0, patrat->Motor_materiale[patrat->nr_culoare - 1]);
+	}
+}
+
 void AAvion::Coordonate(AAvioaneBlock * patrat)
 {
 	
@@ -58,13 +70,19 @@ void AAvion::Coordonate(AAvioaneBlock * patrat)
 	if (patrat->tip == "Mic")
 	{
 		int dir_i[] = { 2,0,-2,0 }, dir_j[] = { 0,2,0,-2 };
+
 		acces->tabla[lin + dir_i[rotatie]][coln + dir_j[rotatie]]->pilot = true;
+		Setare_Material_PS(acces->tabla[lin + dir_i[rotatie]][coln + dir_j[rotatie]], "Pilot");
 		
 		dir_i[0] = 0, dir_i[1] = -1, dir_i[2] = 0, dir_i[3] = 1;
 		dir_j[0] = 1, dir_j[1] = 0, dir_j[2] = -1, dir_j[3] = 0;
 		
 		acces->tabla[lin + dir_i[rotatie]][coln + dir_j[rotatie]]->motor = true;
+		Setare_Material_PS(acces->tabla[lin + dir_i[rotatie]][coln + dir_j[rotatie]], "Motor");
+		
 		acces->tabla[lin - dir_i[rotatie]][coln - dir_j[rotatie]]->motor = true;
+		Setare_Material_PS(acces->tabla[lin - dir_i[rotatie]][coln - dir_j[rotatie]], "Motor");
+
 	}
 	else
 	{
@@ -77,13 +95,19 @@ void AAvion::Coordonate(AAvioaneBlock * patrat)
 		dir_j2[0] = 1, dir_j2[1] = 0, dir_j2[2] = -1, dir_j2[3] = 0;
 
 		acces->tabla[lin + dir_i[rotatie]][coln + dir_j[rotatie]]->pilot = true;
+		Setare_Material_PS(acces->tabla[lin + dir_i[rotatie]][coln + dir_j[rotatie]], "Pilot");
+
 		acces->tabla[lin + dir_i2[rotatie] + dir_i[rotatie]][coln + dir_j2[rotatie] + dir_j[rotatie]]->pilot = true;
+		Setare_Material_PS(acces->tabla[lin + dir_i2[rotatie] + dir_i[rotatie]][coln + dir_j2[rotatie] + dir_j[rotatie]], "Pilot");
 
 		dir_i[0] = 0, dir_i[1] = -2, dir_i[2] = 0, dir_i[3] = 2;
 		dir_j[0] = 2, dir_j[1] = 0, dir_j[2] = -2, dir_j[3] = 0;
 
 		acces->tabla[lin + dir_i2[rotatie] + dir_i[rotatie]][coln + dir_j2[rotatie] + dir_j[rotatie]]->motor = true;
+		Setare_Material_PS(acces->tabla[lin + dir_i2[rotatie] + dir_i[rotatie]][coln + dir_j2[rotatie] + dir_j[rotatie]], "Motor");
+
 		acces->tabla[lin - dir_i[rotatie]][coln - dir_j[rotatie]]->motor = true;
+		Setare_Material_PS(acces->tabla[lin - dir_i[rotatie]][coln - dir_j[rotatie]], "Motor");
 	}
 }
 void AAvion::Rotire()

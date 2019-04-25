@@ -23,6 +23,7 @@ AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer)
 	timp_s = 1.5;
 	nr_jucator = 0;
 	nr_avioane_distruse = 0;
+	acces = nullptr;
 
 	for (int32 i = 0; i < 20; i++)
 		motoare_distruse[i] = 0;
@@ -84,14 +85,14 @@ void AAvioanePawn::Schimbare_Camera()
 
 void AAvioanePawn::BeginPlay()
 {
-
+	Super::BeginPlay();
 	
 	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
 	{
 		if (it->ActorHasTag("Jucator"))
 			acces = *it;
 	}
-	Super::BeginPlay();
+	
 }
 
 void AAvioanePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -159,4 +160,9 @@ void AAvioanePawn::Tura()
 {
 	//GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, TEXT("Este tura ta!"));
 
+}
+
+void AAvioanePawn::delay_tura()
+{
+	Tura();
 }

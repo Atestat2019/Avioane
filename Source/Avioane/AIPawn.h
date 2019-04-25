@@ -7,6 +7,12 @@
 #include "GameFramework/Pawn.h"
 #include "AIPawn.generated.h"
 
+struct lovitura
+{
+	int32 i_lovit;
+	int32 j_lovit;
+};
+
 UCLASS()
 class AVIOANE_API AAIPawn : public APawn, public PlayerInstance
 {
@@ -24,6 +30,20 @@ public:
 
 	UFUNCTION()
 		virtual void Tura() override;
+
+	UFUNCTION()
+		virtual void delay_tura() override;
+	
+	UPROPERTY(EditAnywhere)
+		int32 nr_tura;
+
+	UPROPERTY(EditAnywhere)
+		int32 lovit;
+
+	UPROPERTY(EditAnywhere)
+		int32 caz;
+
+	TArray<lovitura> lovituri;
 
 	class AAvioaneGameMode* GM;
 

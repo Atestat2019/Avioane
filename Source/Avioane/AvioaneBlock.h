@@ -26,6 +26,8 @@ public:
 
 	static TArray<class UMaterialInstance*> materiale;
 	static TArray<class UMaterial*> X_materiale;
+	static TArray<class UMaterial*> Motor_materiale;
+	static TArray<class UMaterial*> Pilot_materiale;
 
 	UFUNCTION()
 		void HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked);

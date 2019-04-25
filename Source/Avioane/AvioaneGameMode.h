@@ -27,20 +27,25 @@ public:
 
 	int32 Stadiu;
 
-	virtual bool Safe(AAvioaneBlock* patrat);
+	bool Safe(AAvioaneBlock* patrat);
 
-	virtual void Colorare_Tabla(int32 nr_juc);
+	void Colorare_Tabla(int32 nr_juc);
 
-	virtual bool Lovitura(AAvioaneBlock* patrat);
+	bool Lovitura(AAvioaneBlock* patrat);
 
-	virtual void Schimb_Jucator();
+	void Schimb_Jucator();
 
-	virtual void Doborare_Avion(int32 k);
+	void Doborare_Avion(int32 k);
 
-	virtual void Final();
+	void Final();
 
-	bool ok;
+	bool safe_margine(int32 i, int32 j);
 
+	int32 ok;
+
+	int32 mod_de_joc;
+
+	FTimerHandle chronos;
 protected:
 
 	virtual void BeginPlay() override;

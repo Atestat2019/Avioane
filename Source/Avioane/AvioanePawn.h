@@ -38,6 +38,9 @@ public:
 	UFUNCTION()
 		virtual void Tura() override;
 
+	UFUNCTION()
+		virtual void delay_tura() override;
+
 	UPROPERTY(EditAnywhere)
 		float timp_s;
 

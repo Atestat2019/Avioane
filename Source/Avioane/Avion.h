@@ -30,6 +30,9 @@ public:
 
 	UFUNCTION()
 		void Coordonate(AAvioaneBlock* patrat);
+	
+	UFUNCTION()
+		void Setare_Material_PS(AAvioaneBlock* patrat, FString tip);
 
 	UPROPERTY(EditAnywhere)
 		class UStaticMeshComponent* mesh;
@@ -47,6 +50,7 @@ public:
 		float val_rot;
 	UPROPERTY(EditAnywhere)
 		int nr;
+
 
 	FName tag;
 

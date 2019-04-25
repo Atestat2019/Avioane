@@ -287,15 +287,21 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 
 				//avioane[i]->Destroy(); de studiat
 
-				
 				if (acces->ActorHasTag("Jucator") && acces->contor_avioane == 4)
 				{
-					GM->Colorare_Tabla(0);
-					GM->Jucatori[0]->intarziere();
-					GM->Stadiu = 2;
-					GM->Jucatori[0]->Tura();
+					if (GM->mod_de_joc == 1) 
+					{
+						GM->Colorare_Tabla(0);
+						GM->Jucatori[0]->intarziere();
+						GM->Stadiu = 2;
+						GM->Jucatori[0]->Tura();
+					}
+					else
+					{
+						GM->Stadiu = 2;
+						GM->Jucatori[0]->Tura();
+					}
 				}
-				
 			}
 		}
 	}

@@ -31,9 +31,9 @@ AAIPawn::AAIPawn()
 void AAIPawn::Plasare_Avioane()
 {
 	GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Blue, TEXT("Calculatorul isi plaseaza avioanele"));
-	//if (nr_jucator==1)
-		GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::intarziere, 0.2f, false);
-	//else GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::intarziere, 10.0f, false);
+	if (nr_jucator == 1)
+		GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::intarziere, 1.0f, false);
+	else GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::intarziere, 3.0f, false);
 }
 
 void AAIPawn::intarziere()
@@ -65,25 +65,6 @@ void AAIPawn::intarziere()
 
 	GM->Colorare_Tabla(nr_jucator);
 	
-	/*
-	
-	int32 k = 0;
-	AAvioaneBlock* patrat = nullptr;
-
-	for (int32 i = 0; i < 20; i++)
-	{
-		for (int32 j = 0; j < 20; j++)
-		{
-			k = acces->tabla[i][j]->nr_culoare;
-			patrat = grida->tabla[i][j];
-			patrat->tip = acces->tabla[i][j]->tip;
-			patrat->pilot = acces->tabla[i][j]->pilot;
-			patrat->motor = acces->tabla[i][j]->motor;	
-		}
-	}
-
-	*/
-
 	GetWorldTimerManager().ClearTimer(chronos);
 }
 
@@ -91,15 +72,17 @@ void AAIPawn::Tura()
 {
 	//GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Orange, TEXT("Este tura AI-ului!"));
 
-	/*     Prima dificultate  +++ variabila dificultate
+					//     Prima dificultate  +++ variabila dificultate
+	/*
 	int32 i = FMath::RandRange(0, 19);
 	int32 j = FMath::RandRange(0, 19);
-	while (GM->Lovitura(GM->gride[0]->tabla[i][j]) == false)
+	while (GM->Lovitura(GM->gride[(nr_jucator+1)%2]->tabla[i][j]) == false)
 	{
 		i = FMath::RandRange(0, 19);
 		j = FMath::RandRange(0, 19);
 	}
 	*/
+	
 
 	nr_tura++;
 	UE_LOG(LogTemp, Warning, TEXT("ture %d"), nr_tura);
@@ -139,7 +122,7 @@ void AAIPawn::Tura()
 					i_urm = l.i_lovit + dir_i[dir];
 					j_urm = l.j_lovit + dir_j[dir];
 				}
-				if (GM->safe_margine(i_urm, j_urm) == true && GM->gride[0]->tabla[i_urm][j_urm]->ocupat == false)
+				if (GM->safe_margine(i_urm, j_urm) == true && GM->gride[(nr_jucator+1)%2]->tabla[i_urm][j_urm]->ocupat == false)
 					ok = true;
 			}
 			if (ok == false)
@@ -168,11 +151,11 @@ void AAIPawn::Tura()
 			i_urm = i + dir_i[dir];
 			j_urm = j + dir_j[dir];
 
-			if (GM->safe_margine(i_urm, j_urm) == true && GM->gride[0]->tabla[i_urm][j_urm]->ocupat == true)
+			if (GM->safe_margine(i_urm, j_urm) == true && GM->gride[(nr_jucator+1)%2]->tabla[i_urm][j_urm]->ocupat == true)
 				ok_liber = false;
 		}
-		*/
-		while (GM->Lovitura(GM->gride[0]->tabla[i][j]) == false)// || ok_liber == false)
+		*///
+		while (GM->Lovitura(GM->gride[(nr_jucator+1)%2]->tabla[i][j]) == false)// || ok_liber == false)
 		{
 			//ok_liber = true;
 
@@ -184,12 +167,12 @@ void AAIPawn::Tura()
 				i_urm = i + dir_i[dir];
 				j_urm = j + dir_j[dir];
 				
-				if (GM->safe_margine(i_urm, j_urm) == true && GM->gride[0]->tabla[i_urm][j_urm]->ocupat == true)
+				if (GM->safe_margine(i_urm, j_urm) == true && GM->gride[(nr_jucator+1)%2]->tabla[i_urm][j_urm]->ocupat == true)
 					ok_liber = false;
 			}
-			*/
+			*///
 		}
-		if (GM->gride[0]->tabla[i][j]->nr_culoare != -1)
+		if (GM->gride[(nr_jucator+1)%2]->tabla[i][j]->nr_culoare != -1)
 		{
 			lovit++;
 			lovituri.Add({ i, j });
@@ -201,7 +184,7 @@ void AAIPawn::Tura()
 
 		dir=FMath::RandRange(0, 3);
 
-		if (GM->gride[0]->tabla[l.i_lovit][l.j_lovit]->BlockMesh->GetMaterial(0) == GM->gride[0]->tabla[l.i_lovit][l.j_lovit]->materiale[0] && (caz == 0 || caz == 1))
+		if (GM->gride[(nr_jucator+1)%2]->tabla[l.i_lovit][l.j_lovit]->BlockMesh->GetMaterial(0) == GM->gride[(nr_jucator+1)%2]->tabla[l.i_lovit][l.j_lovit]->materiale[0] && (caz == 0 || caz == 1))
 		{
 			i_urm = l.i_lovit + 2*dir_i[dir];
 			j_urm = l.j_lovit + 2*dir_j[dir];
@@ -217,7 +200,7 @@ void AAIPawn::Tura()
 			i_urm = l.i_lovit + dir_i[dir];
 			j_urm = l.j_lovit + dir_j[dir];
 		}
-		while (GM->safe_margine(i_urm, j_urm) == false || GM->Lovitura(GM->gride[0]->tabla[i_urm][j_urm]) == false)
+		while (GM->safe_margine(i_urm, j_urm) == false || GM->Lovitura(GM->gride[(nr_jucator+1)%2]->tabla[i_urm][j_urm]) == false)
 		{
 			dir = FMath::RandRange(0, 3);
 
@@ -237,7 +220,7 @@ void AAIPawn::Tura()
 				j_urm = l.j_lovit + dir_j[dir];
 			}
 		}
-		if (GM->gride[0]->tabla[i_urm][j_urm]->nr_culoare != -1)
+		if (GM->gride[(nr_jucator+1)%2]->tabla[i_urm][j_urm]->nr_culoare != -1)
 		{
 			if (nr_avioane_distruse != verif_distruse)
 			{
@@ -245,7 +228,7 @@ void AAIPawn::Tura()
 				{
 					for (int32 coln = 0; coln < 20; coln++)
 					{
-						if (GM->gride[0]->tabla[lin][coln]->BlockMesh->GetMaterial(0) == GM->gride[0]->tabla[lin][coln]->materiale[0])
+						if (GM->gride[(nr_jucator+1)%2]->tabla[lin][coln]->BlockMesh->GetMaterial(0) == GM->gride[(nr_jucator+1)%2]->tabla[lin][coln]->materiale[0])
 						{
 							for (int32 k = 0; k < lovituri.Num(); k++)
 							{
@@ -267,14 +250,6 @@ void AAIPawn::Tura()
 			}
 		}
 	}
-	GetWorldTimerManager().ClearTimer(chronos);
-}
-
-void AAIPawn::delay_tura()
-{
-	//if (nr_jucator==0)
-	GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::Tura, FMath::RandRange(0.2f,1.0f), false);
-	//else GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::Tura, 10.0f, false);
 }
 
 void AAIPawn::BeginPlay()
@@ -285,7 +260,9 @@ void AAIPawn::BeginPlay()
 	
 	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
 	{
-		if (it->ActorHasTag("Inamic"))
+		if (it->ActorHasTag("Inamic") && nr_jucator == 1)
+			acces = *it;
+		else if (it->ActorHasTag("Jucator") && nr_jucator == 0)
 			acces = *it;
 	}
 }

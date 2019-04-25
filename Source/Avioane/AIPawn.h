@@ -30,9 +30,6 @@ public:
 
 	UFUNCTION()
 		virtual void Tura() override;
-
-	UFUNCTION()
-		virtual void delay_tura() override;
 	
 	UPROPERTY(EditAnywhere)
 		int32 nr_tura;
@@ -46,6 +43,8 @@ public:
 	TArray<lovitura> lovituri;
 
 	class AAvioaneGameMode* GM;
+
+	FTimerHandle chronos2;
 
 
 protected:

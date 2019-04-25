@@ -29,15 +29,32 @@ void AAvioaneGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	for (TActorIterator<AAvioanePawn> it(GetWorld()); it; ++it)
+	if (mod_de_joc == 1)
 	{
-		Jucatori.Add(*it);
-		break;
+		for (TActorIterator<AAvioanePawn> it(GetWorld()); it; ++it)
+		{
+			Jucatori.Add(*it);
+			break;
+		}
+		for (TActorIterator<AAIPawn> it(GetWorld()); it; ++it)
+		{
+			Jucatori.Add(*it);
+			break;
+		}
 	}
-	for (TActorIterator<AAIPawn> it(GetWorld()); it; ++it)
+	else
 	{
-		Jucatori.Add(*it);
-		break;
+		APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
+
+		PC->bEnableClickEvents = false;
+		PC->bEnableMouseOverEvents = false;
+
+		for (TActorIterator<AAIPawn> it(GetWorld()); it; ++it)
+		{
+			Jucatori.Add(*it);
+			break;
+		}
+		Jucatori.Add(GetWorld()->SpawnActor<AAIPawn>(FVector(0, 0, 0), FRotator(0, 0, 0)));
 	}
 	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
 	{
@@ -129,6 +146,7 @@ void AAvioaneGameMode::Doborare_Avion(int32 k)
 
 bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 {
+	
 	if (Safe(patrat))
 	{
 		int32 lin = patrat->lin;
@@ -206,8 +224,13 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 			}
 		}
 		patrat->ocupat = true;
-		Schimb_Jucator();
-		//GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioaneGameMode::Schimb_Jucator, 20, false);
+		if (mod_de_joc == 0)
+		{
+			GetWorldTimerManager().ClearTimer(chronos);
+			GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioaneGameMode::Schimb_Jucator, FMath::RandRange(0.2f, 1.0f), false);
+		}
+		else Schimb_Jucator();
+
 		return true;
 	}
 	else
@@ -217,8 +240,7 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 void AAvioaneGameMode::Schimb_Jucator()
 {
 	Jucator_Actual = (Jucator_Actual + 1) % 2;
-	Jucatori[Jucator_Actual]->delay_tura();
-	//GetWorldTimerManager().ClearTimer(chronos);
+	Jucatori[Jucator_Actual]->Tura();
 }
 
 void AAvioaneGameMode::Final()

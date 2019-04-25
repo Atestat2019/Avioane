@@ -29,5 +29,4 @@ public:
 	virtual void Plasare_Avioane() {};
 	virtual void intarziere() {};
 	virtual void Tura() {};
-	virtual void delay_tura() {};
 };

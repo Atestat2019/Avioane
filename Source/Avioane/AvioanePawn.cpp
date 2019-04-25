@@ -162,7 +162,3 @@ void AAvioanePawn::Tura()
 
 }
 
-void AAvioanePawn::delay_tura()
-{
-	Tura();
-}

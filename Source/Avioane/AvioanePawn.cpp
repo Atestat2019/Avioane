@@ -65,34 +65,52 @@ void AAvioanePawn::Tick(float DeltaSeconds)
 void AAvioanePawn::intarziere()
 {
 	APlayerController* jucator = UGameplayStatics::GetPlayerController(this, 0);
+	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
 
-	if (jucator->GetViewTarget() == Camera1)
+	if (GM->mod_de_joc == "1")
 	{
-		GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioanePawn::Schimbare_Camera, timp_s, false);
+		if (jucator->GetViewTarget() == Camera1)
+		{
+			GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioanePawn::Schimbare_Camera, timp_s, false);
+		}
+	}
+	else 
+	{
+		GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioanePawn::Schimbare_Camera, 0.00000001f, false);
 	}
 }
 
 void AAvioanePawn::Schimbare_Camera()
 {
 	APlayerController* jucator = UGameplayStatics::GetPlayerController(this, 0);
-
-	jucator->SetViewTargetWithBlend(Camera2, 1.0f);
-
 	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
 
+	if (GM->mod_de_joc == "1")
+	{
+		jucator->SetViewTargetWithBlend(Camera2, 1.0f);
+	}
+	else
+	{
+		jucator->SetViewTarget(Camera3);
+	}
 	GetWorldTimerManager().ClearTimer(chronos);
 }
 
 void AAvioanePawn::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
+
 	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
 	{
 		if (it->ActorHasTag("Jucator"))
 			acces = *it;
 	}
-	
+	if (GM->mod_de_joc == "0")
+	{
+		intarziere();
+	}
 }
 
 void AAvioanePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

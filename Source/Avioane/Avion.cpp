@@ -10,11 +10,14 @@
 #include "Engine/StaticMesh.h"
 #include "Materials/MaterialInstance.h"
 #include "Avion_Fals.h"
+#include "Engine/Classes/Components/AudioComponent.h"
 
 
 AAvion::AAvion()
 {
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("mesh"));
+	sunet = CreateDefaultSubobject<UAudioComponent>(TEXT("audio"));
+
 	mesh->OnClicked.AddDynamic(this, &AAvion::Click);
 
 	val_rot = 0;
@@ -25,6 +28,13 @@ AAvion::AAvion()
 void AAvion::Click(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 {
 	//UE_LOG(LogTemp, Warning, TEXT("aproape aici?"));
+
+	if (acces->ActorHasTag("Jucator"))
+	{
+		//sunet->Activate(true);
+		//sunet->Play(2.0f);
+	}
+	
 
 	if (acces->este_avion_selectat == false)
 	{
@@ -177,6 +187,7 @@ void AAvion::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AAc
 
 void AAvion::OnOverlapExit(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
+
 	obiect_atins = Cast<AAvioaneBlock>(OtherActor);
 
 	if (obiect_atins != nullptr)

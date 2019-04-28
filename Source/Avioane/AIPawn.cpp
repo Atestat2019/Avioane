@@ -112,7 +112,7 @@ void AAIPawn::Tura()
 					i_urm = l.i_lovit + 2 * dir_i[dir];
 					j_urm = l.j_lovit + 2 * dir_j[dir];
 				}
-				else if (caz == 3)
+				else if (caz == 2)
 				{
 					i_urm = l.i_lovit + 5 * dir_i[dir];
 					j_urm = l.j_lovit + 5 * dir_j[dir];
@@ -145,33 +145,41 @@ void AAIPawn::Tura()
 		j = FMath::RandRange(2, 17);
 		
 		int ok_liber = true;
-		/*
+	
 		for (dir = 0; dir < 4; dir++)
 		{
 			i_urm = i + dir_i[dir];
 			j_urm = j + dir_j[dir];
 
-			if (GM->safe_margine(i_urm, j_urm) == true && GM->gride[(nr_jucator+1)%2]->tabla[i_urm][j_urm]->ocupat == true)
-				ok_liber = false;
+			if (GM->safe_margine(i_urm, j_urm) == true)
+			{	
+				if (GM->gride[(nr_jucator+1)%2]->tabla[i_urm][j_urm]->ocupat == true)
+					ok_liber = false;
+			}
 		}
-		*///
-		while (GM->Lovitura(GM->gride[(nr_jucator+1)%2]->tabla[i][j]) == false)// || ok_liber == false)
+		while (GM->Safe(GM->gride[(nr_jucator + 1) % 2]->tabla[i][j],ok_liber) == false)
 		{
-			//ok_liber = true;
+			ok_liber = true;
 
+			//UE_LOG(LogTemp, Warning, TEXT("a incercat la %d, %d"), i, j);
+			
 			i = FMath::RandRange(2, 17);
 			j = FMath::RandRange(2, 17);
-			/*
+
 			for (dir = 0; dir < 4; dir++)
 			{
 				i_urm = i + dir_i[dir];
 				j_urm = j + dir_j[dir];
 				
-				if (GM->safe_margine(i_urm, j_urm) == true && GM->gride[(nr_jucator+1)%2]->tabla[i_urm][j_urm]->ocupat == true)
-					ok_liber = false;
+				if (GM->safe_margine(i_urm, j_urm) == true)
+				{	
+					if (GM->gride[(nr_jucator+1)%2]->tabla[i_urm][j_urm]->ocupat == true)
+						ok_liber = false;
+				}
 			}
-			*///
 		}
+		GM->Lovitura(GM->gride[(nr_jucator + 1) % 2]->tabla[i][j]);
+		//UE_LOG(LogTemp, Warning, TEXT("a reusit la %d, %d"), i, j);
 		if (GM->gride[(nr_jucator+1)%2]->tabla[i][j]->nr_culoare != -1)
 		{
 			lovit++;
@@ -190,7 +198,7 @@ void AAIPawn::Tura()
 			j_urm = l.j_lovit + 2*dir_j[dir];
 			caz = 1;
 		}
-		else if (caz == 3)
+		else if (caz == 2)
 		{
 			i_urm = l.i_lovit + 5 * dir_i[dir];
 			j_urm = l.j_lovit + 5 * dir_j[dir];
@@ -209,7 +217,7 @@ void AAIPawn::Tura()
 				i_urm = l.i_lovit + 2 * dir_i[dir];
 				j_urm = l.j_lovit + 2 * dir_j[dir];
 			}
-			else if (caz == 3)
+			else if (caz == 2)
 			{
 				i_urm = l.i_lovit + 5 * dir_i[dir];
 				j_urm = l.j_lovit + 5 * dir_j[dir];

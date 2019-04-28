@@ -224,8 +224,6 @@ void AAvioaneBlock::BeginPlay()
 	GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
 }
 
-
-
 void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 {
 	int i, j;
@@ -284,12 +282,11 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 				avion->mesh->SetGenerateOverlapEvents(false);
 				avion->mesh_fals->Destroy();
 				avion->selectat = false;
-
-				//avioane[i]->Destroy(); de studiat
+				avion->Destroy();
 
 				if (acces->ActorHasTag("Jucator") && acces->contor_avioane == 4)
 				{
-					if (GM->mod_de_joc == 1) 
+					if (GM->mod_de_joc == "1") 
 					{
 						GM->Colorare_Tabla(0);
 						GM->Jucatori[0]->intarziere();
@@ -309,7 +306,7 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 
 void AAvioaneBlock::Evidentiere(bool bOn)
 {
-	if (GM->Safe(this))
+	if (GM->Safe(this,1))
 	{
 		Change_Mat(bOn);
 	}

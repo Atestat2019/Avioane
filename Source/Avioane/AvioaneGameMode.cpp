@@ -12,7 +12,10 @@
 #include "Materials/MaterialInstance.h"
 #include "Engine/Public/TimerManager.h"
 #include "Engine/Classes/Kismet/GameplayStatics.h"
+#include "Core/Public/Misc/FileHelper.h"
+#include "Core/Public/Misc/Paths.h"
 
+// https://midi.city/
 
 AAvioaneGameMode::AAvioaneGameMode()
 {
@@ -22,14 +25,25 @@ AAvioaneGameMode::AAvioaneGameMode()
 	Stadiu = 1;
 	ok = 0;
 
-	mod_de_joc = 1;
+	mod_de_joc = "0";
 }
 
 void AAvioaneGameMode::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (mod_de_joc == 1)
+	FString SaveTextA;
+
+	FFileHelper::LoadFileToString(SaveTextA, *(FPaths::GameDir() + "Mod_de_Joc.txt"));
+
+	mod_de_joc = SaveTextA;
+
+	if (mod_de_joc != "0" && mod_de_joc != "1")
+	{
+		mod_de_joc = "0";
+	}
+
+	if (mod_de_joc == "1")
 	{
 		for (TActorIterator<AAvioanePawn> it(GetWorld()); it; ++it)
 		{
@@ -95,10 +109,14 @@ void AAvioaneGameMode::Colorare_Tabla(int32 nr_juc)
 	}
 }
 
-bool AAvioaneGameMode::Safe(AAvioaneBlock* patrat)
+bool AAvioaneGameMode::Safe(AAvioaneBlock* patrat, int32 ok_liber)
 {
 	if (Stadiu == 2 && patrat->ocupat == false && ((patrat->acces->ActorHasTag("Copie_Jucator") && Jucator_Actual == 1) || (patrat->acces->ActorHasTag("Copie_Inamic") && Jucator_Actual == 0)))
-		return true;
+	{
+		if (ok_liber == 1)
+			return true;
+		else return false;
+	}
 	else return false;
 }
 
@@ -123,7 +141,7 @@ void AAvioaneGameMode::Doborare_Avion(int32 k)
 
 			if (patrat1->nr_culoare == k)
 			{
-				if (Jucator_Actual == 1 || mod_de_joc == 0)
+				if (Jucator_Actual == 1 || mod_de_joc == "0")
 				{
 					int dir_i[] = { 1,0,-1,0 }, dir_j[] = { 0,1,0,-1 };
 					for (int32 dir = 0; dir < 4; dir++)
@@ -147,7 +165,7 @@ void AAvioaneGameMode::Doborare_Avion(int32 k)
 bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 {
 	
-	if (Safe(patrat))
+	if (Safe(patrat,1))
 	{
 		int32 lin = patrat->lin;
 		int32 coln = patrat->coln;
@@ -224,13 +242,16 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 			}
 		}
 		patrat->ocupat = true;
-		if (mod_de_joc == 0)
+		//  IL SUN PE GHEORGHE // BINE
+		if (Stadiu < 3) 
 		{
-			GetWorldTimerManager().ClearTimer(chronos);
-			GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioaneGameMode::Schimb_Jucator, FMath::RandRange(0.2f, 1.0f), false);
+			if (mod_de_joc == "0")
+			{
+				GetWorldTimerManager().ClearTimer(chronos);
+				GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioaneGameMode::Schimb_Jucator, FMath::RandRange(0.2f, 1.0f), false);
+			}
+			else Schimb_Jucator();
 		}
-		else Schimb_Jucator();
-
 		return true;
 	}
 	else
@@ -248,6 +269,6 @@ void AAvioaneGameMode::Final()
 	if (Jucatori[Jucator_Actual]->nr_avioane_distruse == 4)
 	{
 		GEngine->AddOnScreenDebugMessage(1, 10.f, FColor::Blue, TEXT("GATAA!!!! Lincoln e mare!!"), 1, FVector2D(3, 1));
-		//Stadiu = 3;
+		Stadiu = 3;
 	}
 }

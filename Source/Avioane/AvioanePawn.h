@@ -25,6 +25,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		AActor* Camera2;
+	
+	UPROPERTY(EditAnywhere)
+		AActor* Camera3;
 
 	UFUNCTION()
 		void Schimbare_Camera();

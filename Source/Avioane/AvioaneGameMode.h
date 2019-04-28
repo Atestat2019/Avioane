@@ -27,7 +27,7 @@ public:
 
 	int32 Stadiu;
 
-	bool Safe(AAvioaneBlock* patrat);
+	bool Safe(AAvioaneBlock* patrat, int32 ok_liber);
 
 	void Colorare_Tabla(int32 nr_juc);
 
@@ -43,7 +43,7 @@ public:
 
 	int32 ok;
 
-	int32 mod_de_joc;
+	FString mod_de_joc;
 
 	FTimerHandle chronos;
 protected:

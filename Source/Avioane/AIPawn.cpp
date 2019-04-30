@@ -22,7 +22,6 @@ AAIPawn::AAIPawn()
 		piloti_doborati[i] = 0;
 
 	nr_tura = 0;
-	lovit = 0;
 	caz = 0;
 	acces = nullptr;
 	grida = nullptr;
@@ -97,49 +96,54 @@ void AAIPawn::Tura()
 
 	int dir_i[] = { 1,0,-1,0 }, dir_j[] = { 0,1,0,-1 };
 
-	if (lovit != 0)
+	if (lovituri.Num() != 0)
 	{
 		bool ok = false;
 
 		while (ok == false)
 		{
-			l = lovituri.Last();
+			if (lovituri.Num() != 0)
+			{
+				l = lovituri.Last();
 
-			for (dir = 0; dir < 4; dir++)
-			{
-				if (caz == 1)
 				{
-					i_urm = l.i_lovit + 2 * dir_i[dir];
-					j_urm = l.j_lovit + 2 * dir_j[dir];
+					for (dir = 0; dir < 4; dir++)
+					{
+						if (caz == 1)
+						{
+							i_urm = l.i_lovit + 2 * dir_i[dir];
+							j_urm = l.j_lovit + 2 * dir_j[dir];
+						}
+						else if (caz == 2)
+						{
+							i_urm = l.i_lovit + 5 * dir_i[dir];
+							j_urm = l.j_lovit + 5 * dir_j[dir];
+						}
+						else
+						{
+							i_urm = l.i_lovit + dir_i[dir];
+							j_urm = l.j_lovit + dir_j[dir];
+						}
+						if (GM->safe_margine(i_urm, j_urm) == true && GM->gride[(nr_jucator + 1) % 2]->tabla[i_urm][j_urm]->ocupat == false)
+							ok = true;
+					}
+					if (ok == false)
+					{
+						if (caz == 0)
+						{
+							lovituri.Pop();
+						}
+						else
+						{
+							caz = (caz + 1) % 4;
+						}
+					}
 				}
-				else if (caz == 2)
-				{
-					i_urm = l.i_lovit + 5 * dir_i[dir];
-					j_urm = l.j_lovit + 5 * dir_j[dir];
-				}
-				else
-				{
-					i_urm = l.i_lovit + dir_i[dir];
-					j_urm = l.j_lovit + dir_j[dir];
-				}
-				if (GM->safe_margine(i_urm, j_urm) == true && GM->gride[(nr_jucator+1)%2]->tabla[i_urm][j_urm]->ocupat == false)
-					ok = true;
 			}
-			if (ok == false)
-			{
-				if (caz == 0)
-				{
-					lovituri.Pop();
-					lovit--;
-				}
-				else
-				{
-					caz = (caz + 1) % 4;
-				}
-			}
+			else ok = true;
 		}
 	}
-	if (lovit == 0)
+	if (lovituri.Num() == 0)
 	{
 		i = FMath::RandRange(2, 17);
 		j = FMath::RandRange(2, 17);
@@ -182,7 +186,6 @@ void AAIPawn::Tura()
 		//UE_LOG(LogTemp, Warning, TEXT("a reusit la %d, %d"), i, j);
 		if (GM->gride[(nr_jucator+1)%2]->tabla[i][j]->nr_culoare != -1)
 		{
-			lovit++;
 			lovituri.Add({ i, j });
 		}
 	}
@@ -243,7 +246,6 @@ void AAIPawn::Tura()
 								if (lovituri[k].i_lovit == lin && lovituri[k].j_lovit == coln)
 								{
 									lovituri.RemoveAt(k);
-									lovit--;
 								}
 							}
 						}
@@ -254,7 +256,6 @@ void AAIPawn::Tura()
 			else if (caz == 0)
 			{	
 				lovituri.Add({i_urm, j_urm});
-				lovit++;
 			}
 		}
 	}

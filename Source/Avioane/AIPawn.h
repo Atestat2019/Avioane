@@ -35,9 +35,6 @@ public:
 		int32 nr_tura;
 
 	UPROPERTY(EditAnywhere)
-		int32 lovit;
-
-	UPROPERTY(EditAnywhere)
 		int32 caz;
 
 	TArray<lovitura> lovituri;

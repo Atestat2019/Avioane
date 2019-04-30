@@ -39,6 +39,8 @@ public:
 		class UStaticMeshComponent* BlockMesh;
 
 
+
+
 	UPROPERTY()
 		class UMaterial* BaseMaterial;
 	UPROPERTY()

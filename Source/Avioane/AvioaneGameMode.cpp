@@ -14,6 +14,7 @@
 #include "Engine/Classes/Kismet/GameplayStatics.h"
 #include "Core/Public/Misc/FileHelper.h"
 #include "Core/Public/Misc/Paths.h"
+#include "Engine/Classes/Sound/AmbientSound.h"
 
 // https://midi.city/
 
@@ -129,6 +130,8 @@ bool AAvioaneGameMode::safe_margine(int32 i, int32 j)
 
 void AAvioaneGameMode::Doborare_Avion(int32 k)
 {
+	Jucatori[1]->acces->sunet->Play();
+	
 	AAvioaneBlock* patrat1;
 	AAvioaneBlock* patrat2;
 
@@ -164,9 +167,10 @@ void AAvioaneGameMode::Doborare_Avion(int32 k)
 
 bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 {
-	
 	if (Safe(patrat,1))
 	{
+		gride[(Jucator_Actual + 1) % 2]->sunet->Play();
+		
 		int32 lin = patrat->lin;
 		int32 coln = patrat->coln;
 
@@ -208,6 +212,7 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 					if (Jucatori[Jucator_Actual]->piloti_doborati[nr_culoare] == 2)
 					{
 						Doborare_Avion(nr_culoare);
+
 					}
 				}
 				else if (patrat->motor == true)
@@ -219,6 +224,7 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 					if (Jucatori[Jucator_Actual]->motoare_distruse[nr_culoare] == 2)
 					{
 						Doborare_Avion(nr_culoare);
+
 					}
 				}
 			}
@@ -227,6 +233,7 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 				if (patrat->pilot == true)
 				{
 					Doborare_Avion(nr_culoare);
+
 				}
 				else if (patrat->motor == true)
 				{
@@ -248,9 +255,27 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 			if (mod_de_joc == "0")
 			{
 				GetWorldTimerManager().ClearTimer(chronos);
-				GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioaneGameMode::Schimb_Jucator, FMath::RandRange(0.2f, 1.0f), false);
+				GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioaneGameMode::Schimb_Jucator, FMath::RandRange(0.5f, 1.0f), false);
 			}
-			else Schimb_Jucator();
+			else
+			{
+				APlayerController* PC = UGameplayStatics::GetPlayerController(this, 0);
+
+				if (Jucator_Actual == 0)
+				{
+					PC->bEnableClickEvents = false;
+					PC->bEnableMouseOverEvents = false;
+
+					GetWorldTimerManager().ClearTimer(chronos);
+					GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioaneGameMode::Schimb_Jucator, 0.3f, false);
+				}
+				else
+				{
+					PC->bEnableClickEvents = true;
+					PC->bEnableMouseOverEvents = true;
+					Schimb_Jucator();
+				}
+			}
 		}
 		return true;
 	}

@@ -46,6 +46,8 @@ public:
 	FString mod_de_joc;
 
 	FTimerHandle chronos;
+
+	
 protected:
 
 	virtual void BeginPlay() override;

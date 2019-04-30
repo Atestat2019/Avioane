@@ -58,7 +58,8 @@ public:
 	UPROPERTY(EditAnywhere)
 		int contor_avioane;
 
-
+	UPROPERTY(EditAnywhere)
+		class AAmbientSound* sunet;
 	
 protected:
 

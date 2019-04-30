@@ -36,8 +36,7 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		class UStaticMeshComponent* mesh;
-	UPROPERTY(EditAnywhere)
-		class UAudioComponent* sunet;
+
 
 	UPROPERTY(EditAnywhere)
 		class AAvioaneBlock* obiect_atins;

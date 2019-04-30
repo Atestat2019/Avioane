@@ -6,6 +6,7 @@
 #include "EngineUtils.h"
 #include "Avion.h"
 #include "AvioanePawn.h"
+#include "Engine/Classes/Sound/AmbientSound.h"
 
 #define LOCTEXT_NAMESPACE "PuzzleBlockGrid"
 

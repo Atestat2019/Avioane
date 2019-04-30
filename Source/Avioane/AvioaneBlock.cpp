@@ -11,6 +11,7 @@
 #include "AvioanePawn.h"
 #include "Engine/Classes/GameFramework/Controller.h"
 #include "Engine/Classes/GameFramework/PlayerController.h"
+#include "Engine/Classes/Components/AudioComponent.h"
  
 
 int32 AAvioaneBlock::nr_mat;
@@ -195,6 +196,7 @@ AAvioaneBlock::AAvioaneBlock()
 	motor = false;
 	siguranta = true;
 	nr_culoare = -1;
+
 }
 
 void AAvioaneBlock::Bordare(AAvioaneBlock* patrat)

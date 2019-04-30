@@ -2,6 +2,7 @@
 #include "AvioaneBlock.h"
 #include "AvioanePawn.h"
 #include "AvioaneBlockGrid.h"
+#include "AvioaneGameMode.h"
 #include "EngineUtils.h"
 #include "Components/TextRenderComponent.h"
 #include "Engine/World.h"
@@ -10,14 +11,12 @@
 #include "Engine/StaticMesh.h"
 #include "Materials/MaterialInstance.h"
 #include "Avion_Fals.h"
-#include "Engine/Classes/Components/AudioComponent.h"
+#include "Engine/Classes/Sound/AmbientSound.h"
 
 
 AAvion::AAvion()
 {
 	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("mesh"));
-	sunet = CreateDefaultSubobject<UAudioComponent>(TEXT("audio"));
-
 	mesh->OnClicked.AddDynamic(this, &AAvion::Click);
 
 	val_rot = 0;
@@ -27,14 +26,10 @@ AAvion::AAvion()
 
 void AAvion::Click(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("aproape aici?"));
-
-	if (acces->ActorHasTag("Jucator"))
-	{
-		//sunet->Activate(true);
-		//sunet->Play(2.0f);
-	}
+	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
 	
+	//if (GM->mod_de_joc=="1" && GM->Jucator_Actual==0)
+		GM->Jucatori[0]->acces->sunet->Play();
 
 	if (acces->este_avion_selectat == false)
 	{
@@ -60,6 +55,11 @@ void AAvion::Click(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 
 void AAvion::Setare_Material_PS(AAvioaneBlock * patrat, FString tip)
 {
+	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
+
+	//if (GM->mod_de_joc == "1" && GM->Jucator_Actual == 0)
+		GM->Jucatori[0]->acces->sunet->Play();
+	
 	if (tip == "Pilot")
 	{
 		patrat->BlockMesh->SetMaterial(0, patrat->Pilot_materiale[patrat->nr_culoare - 1]);

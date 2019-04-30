@@ -40,7 +40,7 @@ void AAIPawn::intarziere()
 {
 	int32 n, m, r;
 	
-	for (int32 i = 0; i < acces->avioane.Num(); i++)
+	for (int32 i = 0; i < 4; i++)
 	{
 		n = FMath::RandRange(2, 17);
 		m = FMath::RandRange(2, 17);

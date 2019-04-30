@@ -13,6 +13,7 @@
 #include "Engine/Engine.h"
 #include "Engine/Classes/Kismet/GameplayStatics.h"
 #include "Engine/Public/TimerManager.h"
+#include "Components/TextRenderComponent.h"
 
 
 AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer)
@@ -34,7 +35,9 @@ AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer)
 
 void AAvioanePawn::Plasare_Avioane()
 {
-	GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Blue, TEXT("Plaseaza-ti avioanele"),1, FVector2D(3,1));
+	//acces->mesaj->SetText(TEXT("Plaseaza-ti avioanele!"));
+	//acces->mesaj->DestroyComponent();
+
 }
 
 void AAvioanePawn::Tick(float DeltaSeconds)
@@ -92,6 +95,8 @@ void AAvioanePawn::BeginPlay()
 		if (it->ActorHasTag("Jucator"))
 			acces = *it;
 	}
+
+	acces->mesaj->SetText(TEXT("Plaseaza-ti avioanele!"));
 }
 
 void AAvioanePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

@@ -7,6 +7,7 @@
 #include "Avion.h"
 #include "AvioanePawn.h"
 #include "Engine/Classes/Sound/AmbientSound.h"
+#include "AvioaneGameMode.h"
 
 #define LOCTEXT_NAMESPACE "PuzzleBlockGrid"
 
@@ -42,15 +43,25 @@ AAvioaneBlockGrid::AAvioaneBlockGrid()
 			tabla[i][j] = nullptr;
 		}
 	}
+
+	mesaj = CreateDefaultSubobject<UTextRenderComponent>(TEXT("mesaj"));
+	
+
+	//ScoreText->SetText(FText::Format(LOCTEXT("ScoreFmt", "Score: {0}"), FText::AsNumber(0)));
 }
 
 
 void AAvioaneBlockGrid::OnCursorOver(UPrimitiveComponent * Component)
 {
-	for (int i = 0; i < avioane.Num(); i++)
+	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
+	
+	if (GM->Stadiu == 1)
 	{
-		if (this->ActorHasTag("Jucator"))
-			avioane[i]->SetActorLocation(avioane[i]->locinit);
+		for (int i = 0; i < avioane.Num(); i++)
+		{
+			if (avioane[i]!=nullptr && this->ActorHasTag("Jucator"))
+				avioane[i]->SetActorLocation(avioane[i]->locinit);
+		}
 	}
 }
 
@@ -63,7 +74,8 @@ void AAvioaneBlockGrid::EndCursorOver(UPrimitiveComponent * Component)
 void AAvioaneBlockGrid::BeginPlay()
 {
 	Super::BeginPlay();
-
+	//mesaj->DestroyComponent();
+	
 	box->SetRelativeLocation({ 1620, 1620, -2 });
 	box->SetWorldScale3D({ 10000, 10000, 0 });
 
@@ -75,7 +87,7 @@ void AAvioaneBlockGrid::BeginPlay()
 		for (int32 j = 0; j < Size; j++)
 		{
 			const float XOffset = (nr / Size) * BlockSpacing;
-			const float YOffset = (nr%Size) * BlockSpacing;
+			const float YOffset = (nr % Size) * BlockSpacing;
 
 			nr++;
 

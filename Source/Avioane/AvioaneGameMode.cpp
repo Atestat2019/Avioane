@@ -27,6 +27,7 @@ AAvioaneGameMode::AAvioaneGameMode()
 	ok = 0;
 
 	mod_de_joc = "0";
+	sunet = "false";
 }
 
 void AAvioaneGameMode::BeginPlay()
@@ -34,16 +35,22 @@ void AAvioaneGameMode::BeginPlay()
 	Super::BeginPlay();
 
 	FString SaveTextA;
+	FString SaveTextB;
 
 	FFileHelper::LoadFileToString(SaveTextA, *(FPaths::GameDir() + "Mod_de_Joc.txt"));
+	FFileHelper::LoadFileToString(SaveTextB, *(FPaths::GameDir() + "Sunet.txt"));
 
 	mod_de_joc = SaveTextA;
+	sunet = SaveTextB;
 
+	if (sunet != "true" && sunet != "false")
+	{
+		sunet = "false";
+	}
 	if (mod_de_joc != "0" && mod_de_joc != "1")
 	{
 		mod_de_joc = "0";
 	}
-
 	if (mod_de_joc == "1")
 	{
 		for (TActorIterator<AAvioanePawn> it(GetWorld()); it; ++it)
@@ -130,7 +137,8 @@ bool AAvioaneGameMode::safe_margine(int32 i, int32 j)
 
 void AAvioaneGameMode::Doborare_Avion(int32 k)
 {
-	Jucatori[1]->acces->sunet->Play();
+	if (sunet == "true")
+		Jucatori[1]->acces->sunet->Play();
 	
 	AAvioaneBlock* patrat1;
 	AAvioaneBlock* patrat2;
@@ -169,7 +177,8 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 {
 	if (Safe(patrat,1))
 	{
-		gride[(Jucator_Actual + 1) % 2]->sunet->Play();
+		if (sunet == "true")
+			gride[(Jucator_Actual + 1) % 2]->sunet->Play();
 		
 		int32 lin = patrat->lin;
 		int32 coln = patrat->coln;

@@ -60,6 +60,9 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		class AAmbientSound* sunet;
+
+	UPROPERTY(Category = Grid, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
+		class UTextRenderComponent* mesaj;
 	
 protected:
 

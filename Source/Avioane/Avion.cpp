@@ -28,7 +28,7 @@ void AAvion::Click(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 {
 	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
 	
-	//if (GM->mod_de_joc=="1" && GM->Jucator_Actual==0)
+	if (GM->sunet == "true")
 		GM->Jucatori[0]->acces->sunet->Play();
 
 	if (acces->este_avion_selectat == false)
@@ -57,7 +57,7 @@ void AAvion::Setare_Material_PS(AAvioaneBlock * patrat, FString tip)
 {
 	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
 
-	//if (GM->mod_de_joc == "1" && GM->Jucator_Actual == 0)
+	if (GM->sunet == "true")
 		GM->Jucatori[0]->acces->sunet->Play();
 	
 	if (tip == "Pilot")

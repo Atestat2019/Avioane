@@ -44,6 +44,8 @@ public:
 	int32 ok;
 
 	FString mod_de_joc;
+	
+	FString sunet;
 
 	FTimerHandle chronos;
 

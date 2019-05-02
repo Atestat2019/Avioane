@@ -29,10 +29,9 @@ AAIPawn::AAIPawn()
 
 void AAIPawn::Plasare_Avioane()
 {
-	GEngine->AddOnScreenDebugMessage(0, 5.f, FColor::Blue, TEXT("Calculatorul isi plaseaza avioanele"));
 	if (nr_jucator == 1)
-		GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::intarziere, 1.0f, false);
-	else GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::intarziere, 3.0f, false);
+		GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::intarziere, 2.0f, false);
+	else GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::intarziere, 2.0f, false);
 }
 
 void AAIPawn::intarziere()
@@ -271,11 +270,6 @@ void AAIPawn::Ref()
 			acces = *it;
 		else if (it->ActorHasTag("Jucator") && nr_jucator == 0)
 			acces = *it;
-	}
-
-	if (acces->ActorHasTag("Inamic"))
-	{
-		UE_LOG(LogTemp, Warning, TEXT("test1, %d"), nr_jucator);
 	}
 }
 

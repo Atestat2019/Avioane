@@ -12,6 +12,7 @@
 #include "Engine/Classes/GameFramework/Controller.h"
 #include "Engine/Classes/GameFramework/PlayerController.h"
 #include "Engine/Classes/Components/AudioComponent.h"
+#include "Components/TextRenderComponent.h"
  
 
 int32 AAvioaneBlock::nr_mat;
@@ -293,6 +294,8 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 						GM->Colorare_Tabla(0);
 						GM->Jucatori[0]->intarziere();
 						GM->Stadiu = 2;
+						GM->Jucatori[0]->acces->mesaj->SetVisibility(false);
+						GM->gride[1]->mesaj->SetText(TEXT("Plaseaza-ti lovitura!"));
 						GM->Jucatori[0]->Tura();
 					}
 					else
@@ -308,9 +311,11 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 
 void AAvioaneBlock::Evidentiere(bool bOn)
 {
+	
 	if (GM->Safe(this,1))
 	{
-		Change_Mat(bOn);
+		if (GM->mod_de_joc=="1")
+			Change_Mat(bOn);
 	}
 	else
 	{

@@ -23,9 +23,11 @@ public:
 
 	//FTimerHandle chronos;
 
-	int32 Jucator_Actual;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 Jucator_Actual;
 
-	int32 Stadiu;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite)
+		int32 Stadiu;
 
 	bool Safe(AAvioaneBlock* patrat, int32 ok_liber);
 

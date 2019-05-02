@@ -34,10 +34,13 @@ AAvioanePawn::AAvioanePawn(const FObjectInitializer& ObjectInitializer)
 }
 
 void AAvioanePawn::Plasare_Avioane()
-{
-	//acces->mesaj->SetText(TEXT("Plaseaza-ti avioanele!"));
-	//acces->mesaj->DestroyComponent();
-
+{	
+	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
+	
+	if (GM->mod_de_joc == "1")
+	{
+		acces->mesaj->SetText(TEXT("Plaseaza-ti avioanele!"));
+	}
 }
 
 void AAvioanePawn::Tick(float DeltaSeconds)
@@ -87,8 +90,6 @@ void AAvioanePawn::Schimbare_Camera()
 void AAvioanePawn::BeginPlay()
 {
 	Super::BeginPlay();
-
-	
 }
 
 void AAvioanePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

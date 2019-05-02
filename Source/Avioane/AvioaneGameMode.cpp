@@ -15,6 +15,7 @@
 #include "Core/Public/Misc/FileHelper.h"
 #include "Core/Public/Misc/Paths.h"
 #include "Engine/Classes/Sound/AmbientSound.h"
+#include "Components/TextRenderComponent.h"
 
 // https://midi.city/
 
@@ -70,6 +71,7 @@ void AAvioaneGameMode::BeginPlay()
 
 		PC->bEnableClickEvents = false;
 		PC->bEnableMouseOverEvents = false;
+	
 
 		for (TActorIterator<AAIPawn> it(GetWorld()); it; ++it)
 		{
@@ -91,12 +93,18 @@ void AAvioaneGameMode::BeginPlay()
 	{
 		Jucatori[i]->nr_jucator = i;
 	}
+	
 	Jucatori[0]->Ref();
 	Jucatori[1]->Ref();
+
+	if (mod_de_joc == "0")
+	{
+		gride[1]->mesaj->SetVisibility(false);
+		Jucatori[0]->acces->mesaj->SetVisibility(false);
+	}
 	Jucator_Actual = 0;
-	
 	Jucatori[0]->Plasare_Avioane();
-	Jucatori[1W]->Plasare_Avioane();
+	Jucatori[1]->Plasare_Avioane();
 }
 
 
@@ -139,6 +147,10 @@ bool AAvioaneGameMode::safe_margine(int32 i, int32 j)
 
 void AAvioaneGameMode::Doborare_Avion(int32 k)
 {
+	if (mod_de_joc == "1" && Jucator_Actual == 0)
+	{
+		Jucatori[0]->acces->mesaj->SetText(TEXT("Ai doborat un avion!"));
+	}
 	if (sunet == "true")
 		Jucatori[1]->acces->sunet->Play();
 	
@@ -179,6 +191,21 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 {
 	if (Safe(patrat,1))
 	{
+		if (mod_de_joc == "1")
+		{
+			if (Jucator_Actual == 0)
+			{
+				gride[1]->mesaj->SetText(TEXT("AI-ul loveste!"));
+				if (Jucatori[0]->acces->mesaj->IsVisible())
+				{
+					Jucatori[0]->acces->mesaj->SetVisibility(false);
+				}
+			}
+			else gride[1]->mesaj->SetText(TEXT("Plaseaza-ti lovitura!"));
+
+			
+		}
+		
 		if (sunet == "true")
 			gride[(Jucator_Actual + 1) % 2]->sunet->Play();
 		
@@ -212,18 +239,25 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 			}
 			*/
 
-			if (patrat->tip == "Mare")
+			if (mod_de_joc == "1")
 			{
+				if ((patrat->pilot == true || patrat->motor == true) && Jucator_Actual==0)
+				{
+					Jucatori[0]->acces->mesaj->SetVisibility(true);
+					Jucatori[0]->acces->mesaj->SetText(TEXT("Ai nimerit un punct sensibil!"));
+				}
+			}
+			if (patrat->tip == "Mare")
+			{	
 				if (patrat->pilot == true)
 				{
+					
 					Jucatori[Jucator_Actual]->piloti_doborati[nr_culoare]++;
 					patrat->BlockMesh->SetMaterial(0, patrat->materiale[0]);
 					Jucatori[(Jucator_Actual + 1) % 2]->acces->tabla[lin][coln]->BlockMesh->SetMaterial(0, patrat->materiale[0]);
-					//mesaj
 					if (Jucatori[Jucator_Actual]->piloti_doborati[nr_culoare] == 2)
 					{
 						Doborare_Avion(nr_culoare);
-
 					}
 				}
 				else if (patrat->motor == true)
@@ -231,7 +265,6 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 					Jucatori[Jucator_Actual]->motoare_distruse[nr_culoare]++;
 					patrat->BlockMesh->SetMaterial(0, patrat->materiale[0]);
 					Jucatori[(Jucator_Actual + 1) % 2]->acces->tabla[lin][coln]->BlockMesh->SetMaterial(0, patrat->materiale[0]);
-					//mesaj
 					if (Jucatori[Jucator_Actual]->motoare_distruse[nr_culoare] == 2)
 					{
 						Doborare_Avion(nr_culoare);
@@ -244,14 +277,12 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 				if (patrat->pilot == true)
 				{
 					Doborare_Avion(nr_culoare);
-
 				}
 				else if (patrat->motor == true)
 				{
 					Jucatori[Jucator_Actual]->motoare_distruse[nr_culoare]++;
 					patrat->BlockMesh->SetMaterial(0, patrat->materiale[0]);
 					Jucatori[(Jucator_Actual + 1) % 2]->acces->tabla[lin][coln]->BlockMesh->SetMaterial(0, patrat->materiale[0]);
-					//mesaj
 					if (Jucatori[Jucator_Actual]->motoare_distruse[nr_culoare] == 2)
 					{
 						Doborare_Avion(nr_culoare);
@@ -266,7 +297,7 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 			if (mod_de_joc == "0")
 			{
 				GetWorldTimerManager().ClearTimer(chronos);
-				GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioaneGameMode::Schimb_Jucator, FMath::RandRange(0.5f, 1.0f), false);
+				GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioaneGameMode::Schimb_Jucator, FMath::RandRange(3.0f, 5.0f), false);
 			}
 			else
 			{
@@ -278,7 +309,7 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 					PC->bEnableMouseOverEvents = false;
 
 					GetWorldTimerManager().ClearTimer(chronos);
-					GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioaneGameMode::Schimb_Jucator, 0.3f, false);
+					GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioaneGameMode::Schimb_Jucator, 0.5f, false);
 				}
 				else
 				{
@@ -304,7 +335,6 @@ void AAvioaneGameMode::Final()
 {
 	if (Jucatori[Jucator_Actual]->nr_avioane_distruse == 4)
 	{
-		GEngine->AddOnScreenDebugMessage(1, 10.f, FColor::Blue, TEXT("GATAA!!!! Lincoln e mare!!"), 1, FVector2D(3, 1));
 		Stadiu = 3;
 	}
 }

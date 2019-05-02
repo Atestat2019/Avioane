@@ -261,12 +261,10 @@ void AAIPawn::Tura()
 	}
 }
 
-void AAIPawn::BeginPlay()
+void AAIPawn::Ref()
 {
-	Super::BeginPlay();
-
 	GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
-	
+
 	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
 	{
 		if (it->ActorHasTag("Inamic") && nr_jucator == 1)
@@ -274,6 +272,18 @@ void AAIPawn::BeginPlay()
 		else if (it->ActorHasTag("Jucator") && nr_jucator == 0)
 			acces = *it;
 	}
+
+	if (acces->ActorHasTag("Inamic"))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("test1, %d"), nr_jucator);
+	}
+}
+
+void AAIPawn::BeginPlay()
+{
+	Super::BeginPlay();
+
+	
 }
 
 void AAIPawn::Tick(float DeltaTime)

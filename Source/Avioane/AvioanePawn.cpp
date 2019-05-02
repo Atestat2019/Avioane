@@ -88,15 +88,7 @@ void AAvioanePawn::BeginPlay()
 {
 	Super::BeginPlay();
 
-	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
-
-	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
-	{
-		if (it->ActorHasTag("Jucator"))
-			acces = *it;
-	}
-
-	acces->mesaj->SetText(TEXT("Plaseaza-ti avioanele!"));
+	
 }
 
 void AAvioanePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
@@ -164,5 +156,17 @@ void AAvioanePawn::Tura()
 {
 	//GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Red, TEXT("Este tura ta!"));
 
+}
+
+void AAvioanePawn::Ref()
+{
+	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
+
+	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
+	{
+		if (it->ActorHasTag("Jucator"))
+			acces = *it;
+	}
+	acces->mesaj->SetText(TEXT("Plaseaza-ti avioanele!"));
 }
 

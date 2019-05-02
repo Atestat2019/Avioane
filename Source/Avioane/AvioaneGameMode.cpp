@@ -73,10 +73,9 @@ void AAvioaneGameMode::BeginPlay()
 
 		for (TActorIterator<AAIPawn> it(GetWorld()); it; ++it)
 		{
-			Jucatori.Add(*it);
-			break;
+			Jucatori.Add(*it);	
 		}
-		Jucatori.Add(GetWorld()->SpawnActor<AAIPawn>(FVector(0, 0, 0), FRotator(0, 0, 0)));
+		//Jucatori.Add(GetWorld()->SpawnActor<AAIPawn>(FVector(0, 0, 0), FRotator(0, 0, 0)));
 	}
 	for (TActorIterator<AAvioaneBlockGrid> it(GetWorld()); it; ++it)
 	{
@@ -88,13 +87,16 @@ void AAvioaneGameMode::BeginPlay()
 		if (it->ActorHasTag("Copie_Inamic"))
 			gride.Add(*it);
 	}
-	for (int32 i = 0; i < Jucatori.Num(); i++)
+	for (int32 i = 0; i < 2; i++)
 	{
 		Jucatori[i]->nr_jucator = i;
 	}
+	Jucatori[0]->Ref();
+	Jucatori[1]->Ref();
 	Jucator_Actual = 0;
+	
 	Jucatori[0]->Plasare_Avioane();
-	Jucatori[1]->Plasare_Avioane();
+	Jucatori[1W]->Plasare_Avioane();
 }
 
 

@@ -30,6 +30,8 @@ public:
 
 	UFUNCTION()
 		virtual void Tura() override;
+	UFUNCTION()
+		virtual void Ref() override;
 	
 	UPROPERTY(EditAnywhere)
 		int32 nr_tura;

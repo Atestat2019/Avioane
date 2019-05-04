@@ -38,9 +38,6 @@ public:
 	UPROPERTY(Category = Block, VisibleDefaultsOnly, BlueprintReadOnly, meta = (AllowPrivateAccess = "true"))
 		class UStaticMeshComponent* BlockMesh;
 
-
-
-
 	UPROPERTY()
 		class UMaterial* BaseMaterial;
 	UPROPERTY()

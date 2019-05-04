@@ -12,7 +12,7 @@ public:
 
 	int32 nr_avioane_distruse;
 
-	/*  ~~~~ Primul mod de joc
+	/*								//~~~~ Primul mod de joc
 	int32 lovituri[15] = { 0 };
 	*/
 
@@ -23,8 +23,6 @@ public:
 	FTimerHandle chronos;
 
 	class AAvioaneBlockGrid* acces;
-
-	class AAvioaneBlockGrid* grida;
 
 	virtual void Plasare_Avioane() {};
 	virtual void intarziere() {};

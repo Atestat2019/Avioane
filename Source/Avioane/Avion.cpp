@@ -21,7 +21,6 @@ AAvion::AAvion()
 
 	val_rot = 0;
 	nr = 0;
-
 }
 
 void AAvion::Click(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
@@ -58,8 +57,9 @@ void AAvion::Setare_Material_PS(AAvioaneBlock * patrat, FString tip)
 	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
 
 	if (GM->sunet == "true")
+	{
 		GM->Jucatori[0]->acces->sunet->Play();
-	
+	}
 	if (tip == "Pilot")
 	{
 		patrat->BlockMesh->SetMaterial(0, patrat->Pilot_materiale[patrat->nr_culoare - 1]);
@@ -70,9 +70,8 @@ void AAvion::Setare_Material_PS(AAvioaneBlock * patrat, FString tip)
 	}
 }
 
-void AAvion::Coordonate(AAvioaneBlock * patrat)
+void AAvion::Setare_PS(AAvioaneBlock * patrat)
 {
-	
 	int32 lin = patrat->lin;
 	int32 coln = patrat->coln;
 	int32 rotatie = ((int)val_rot / 90) % 4;
@@ -120,6 +119,7 @@ void AAvion::Coordonate(AAvioaneBlock * patrat)
 		Setare_Material_PS(acces->tabla[lin - dir_i[rotatie]][coln - dir_j[rotatie]], "Motor");
 	}
 }
+
 void AAvion::Rotire()
 {
 	if (selectat == true)
@@ -127,8 +127,6 @@ void AAvion::Rotire()
 		val_rot = val_rot + 90;
 		this->SetActorRotation({ 0, val_rot, 0 });
 		mesh_fals->SetActorRotation({ 0, val_rot, 0 });
-
-		//UE_LOG(LogTemp, Warning, TEXT("sau aici?"));
 	}
 }
 
@@ -142,9 +140,7 @@ void AAvion::BeginPlay()
 	mesh->OnComponentBeginOverlap.AddDynamic(this, &AAvion::OnOverlapBegin);
 	mesh->OnComponentEndOverlap.AddDynamic(this, &AAvion::OnOverlapExit);
 
-	locinit = GetActorLocation();
-
-	
+	locinit = GetActorLocation();	
 }
 
 void AAvion::Tick(float DeltaTime)
@@ -187,7 +183,6 @@ void AAvion::OnOverlapBegin(class UPrimitiveComponent* OverlappedComp, class AAc
 
 void AAvion::OnOverlapExit(class UPrimitiveComponent* OverlappedComp, class AActor* OtherActor, class UPrimitiveComponent* OtherComp, int32 OtherBodyIndex)
 {
-
 	obiect_atins = Cast<AAvioaneBlock>(OtherActor);
 
 	if (obiect_atins != nullptr)

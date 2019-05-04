@@ -29,7 +29,7 @@ public:
 		void Click(UPrimitiveComponent* ClickedComp, FKey ButtonClicked);
 
 	UFUNCTION()
-		void Coordonate(AAvioaneBlock* patrat);
+		void Setare_PS(AAvioaneBlock* patrat);
 	
 	UFUNCTION()
 		void Setare_Material_PS(AAvioaneBlock* patrat, FString tip);

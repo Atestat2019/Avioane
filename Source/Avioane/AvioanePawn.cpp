@@ -49,22 +49,10 @@ void AAvioanePawn::Tick(float DeltaSeconds)
 
 	if (APlayerController* PC = Cast<APlayerController>(GetController()))
 	{
-		if (UHeadMountedDisplayFunctionLibrary::IsHeadMountedDisplayEnabled())
-		{
-			if (UCameraComponent* OurCamera = PC->GetViewTarget()->FindComponentByClass<UCameraComponent>())
-			{
-				FVector Start = OurCamera->GetComponentLocation();
-				FVector End = Start + (OurCamera->GetComponentRotation().Vector() * 8000.0f);
-				TraceForBlock(Start, End, true);
-			}
-		}
-		else
-		{
-			FVector Start, Dir, End;
-			PC->DeprojectMousePositionToWorld(Start, Dir);
-			End = Start + (Dir * 8000.0f);
-			TraceForBlock(Start, End, true);
-		}
+		FVector Start, Dir, End;
+		PC->DeprojectMousePositionToWorld(Start, Dir);
+		End = Start + (Dir * 8000.0f);
+		TraceForBlock(Start, End, true);
 	}
 }
 
@@ -99,13 +87,6 @@ void AAvioanePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	PlayerInputComponent->BindAction("Rotire", EInputEvent::IE_Pressed, this, &AAvioanePawn::Rotire);
 }
 
-void AAvioanePawn::CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult)
-{
-	Super::CalcCamera(DeltaTime, OutResult);
-
-	OutResult.Rotation = FRotator(-90.0f, -90.0f, 0.0f);
-}
-
 void AAvioanePawn::Rotire()
 {
 	for (int i = 0; i < acces->avioane.Num(); i++)
@@ -119,19 +100,15 @@ void AAvioanePawn::TraceForBlock(const FVector& Start, const FVector& End, bool 
 {
 	FHitResult HitResult;
 	GetWorld()->LineTraceSingleByChannel(HitResult, Start, End, ECC_Visibility);
+	
 	if (bDrawDebugHelpers)
 	{
 		DrawDebugLine(GetWorld(), Start, HitResult.Location, FColor::Red);
 		DrawDebugSolidBox(GetWorld(), HitResult.Location, FVector(20.0f), FColor::Red);
-
-		//UE_LOG(LogTemp, Warning, TEXT("Locatie1: %s"), *Start.ToString());
-		//UE_LOG(LogTemp, Warning, TEXT("Locatie2: %s"), *End.ToString());
 	}
-	
 	if (HitResult.Actor.IsValid())
 	{
 		AAvioaneBlock* HitBlock = Cast<AAvioaneBlock>(HitResult.Actor.Get());
-		
 		
 		if (CurrentBlockFocus != HitBlock)
 		{
@@ -170,4 +147,3 @@ void AAvioanePawn::Ref()
 	}
 	acces->mesaj->SetText(TEXT("Plaseaza-ti avioanele!"));
 }
-

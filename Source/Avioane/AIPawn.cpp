@@ -24,7 +24,6 @@ AAIPawn::AAIPawn()
 	nr_tura = 0;
 	caz = 0;
 	acces = nullptr;
-	grida = nullptr;
 }
 
 void AAIPawn::Plasare_Avioane()
@@ -61,7 +60,7 @@ void AAIPawn::intarziere()
 		acces->tabla[n][m]->HandleClicked(nullptr, "null");
 	}
 
-	GM->Colorare_Tabla(nr_jucator);
+	GM->Copiere_Tabla(nr_jucator);
 	
 	GetWorldTimerManager().ClearTimer(chronos);
 }
@@ -105,7 +104,6 @@ void AAIPawn::Tura()
 			{
 				l = lovituri.Last();
 
-				{
 					for (dir = 0; dir < 4; dir++)
 					{
 						if (caz == 1)
@@ -137,7 +135,7 @@ void AAIPawn::Tura()
 							caz = (caz + 1) % 4;
 						}
 					}
-				}
+				
 			}
 			else ok = true;
 		}
@@ -276,8 +274,6 @@ void AAIPawn::Ref()
 void AAIPawn::BeginPlay()
 {
 	Super::BeginPlay();
-
-	
 }
 
 void AAIPawn::Tick(float DeltaTime)

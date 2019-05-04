@@ -21,8 +21,6 @@ public:
 
 	TArray<AAvioaneBlockGrid*> gride;
 
-	//FTimerHandle chronos;
-
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 		int32 Jucator_Actual;
 
@@ -31,7 +29,7 @@ public:
 
 	bool Safe(AAvioaneBlock* patrat, int32 ok_liber);
 
-	void Colorare_Tabla(int32 nr_juc);
+	void Copiere_Tabla(int32 nr_juc);
 
 	bool Lovitura(AAvioaneBlock* patrat);
 

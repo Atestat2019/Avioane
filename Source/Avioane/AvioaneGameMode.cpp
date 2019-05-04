@@ -107,8 +107,7 @@ void AAvioaneGameMode::BeginPlay()
 	Jucatori[1]->Plasare_Avioane();
 }
 
-
-void AAvioaneGameMode::Colorare_Tabla(int32 nr_juc)
+void AAvioaneGameMode::Copiere_Tabla(int32 nr_juc)
 {
 	int32 k=0;
 	AAvioaneBlock* patrat=nullptr;

@@ -33,10 +33,10 @@ public:
 	class AAvioaneBlock* tabla[21][21];
 
 	UPROPERTY(Category=Grid, EditAnywhere, BlueprintReadOnly)
-		int32 Size;
+		int32 nr_cuburi;
 
 	UPROPERTY(Category=Grid, EditAnywhere, BlueprintReadOnly)
-		float BlockSpacing;
+		float dist;
 
 	UPROPERTY(Category = Grid, EditAnywhere, BlueprintReadOnly)
 		float scala_x;

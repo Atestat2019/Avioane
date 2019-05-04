@@ -17,9 +17,6 @@ public:
 
 	virtual void SetupPlayerInputComponent(UInputComponent* PlayerInputComponent) override;
 
-	virtual void CalcCamera(float DeltaTime, struct FMinimalViewInfo& OutResult) override;
-
-
 	UPROPERTY(EditAnywhere)
 		AActor* Camera1;
 

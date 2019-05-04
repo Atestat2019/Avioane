@@ -23,8 +23,8 @@ AAvioaneBlockGrid::AAvioaneBlockGrid()
 
 	RootComponent = DummyRoot;
 
-	Size = 20;
-	BlockSpacing = 170.f;
+	nr_cuburi = 20;
+	dist = 170.f;
 	scala_x = scala_y = 0.6;
 	scala_z = 0;
 
@@ -45,11 +45,7 @@ AAvioaneBlockGrid::AAvioaneBlockGrid()
 	}
 
 	mesaj = CreateDefaultSubobject<UTextRenderComponent>(TEXT("mesaj"));
-	
-
-	//ScoreText->SetText(FText::Format(LOCTEXT("ScoreFmt", "Score: {0}"), FText::AsNumber(0)));
 }
-
 
 void AAvioaneBlockGrid::OnCursorOver(UPrimitiveComponent * Component)
 {
@@ -67,27 +63,25 @@ void AAvioaneBlockGrid::OnCursorOver(UPrimitiveComponent * Component)
 
 void AAvioaneBlockGrid::EndCursorOver(UPrimitiveComponent * Component)
 {
-	//UE_LOG(LogTemp, Warning, TEXT("iese?"));
-}
 
+}
 
 void AAvioaneBlockGrid::BeginPlay()
 {
 	Super::BeginPlay();
-	//mesaj->DestroyComponent();
 	
 	box->SetRelativeLocation({ 1620, 1620, -2 });
 	box->SetWorldScale3D({ 10000, 10000, 0 });
 
-	const int32 NumBlocks = Size * Size;
+	const int32 NumBlocks = nr_cuburi * nr_cuburi;
 	int32 nr=0;
 
-	for(int32 i=0; i<Size; i++)
+	for(int32 i=0; i<nr_cuburi; i++)
 	{
-		for (int32 j = 0; j < Size; j++)
+		for (int32 j = 0; j < nr_cuburi; j++)
 		{
-			const float XOffset = (nr / Size) * BlockSpacing;
-			const float YOffset = (nr % Size) * BlockSpacing;
+			const float XOffset = (nr / nr_cuburi) * dist;
+			const float YOffset = (nr % nr_cuburi) * dist;
 
 			nr++;
 
@@ -106,7 +100,6 @@ void AAvioaneBlockGrid::BeginPlay()
 			}
 		}
 	}
-
 	for (TActorIterator<AAvion> it(GetWorld()); it; ++it)
 	{
 		if (it->ActorHasTag("Mare") && it->acces==this)
@@ -117,15 +110,13 @@ void AAvioaneBlockGrid::BeginPlay()
 		if (it->ActorHasTag("Mic") && it->acces==this)
 			avioane.Add(*it);
 	}
-
-
 }
 
 void AAvioaneBlockGrid::Evidentiere_Blocuri(int ok)
 {
-	for (int32 i = 0; i < Size; i++)
+	for (int32 i = 0; i < nr_cuburi; i++)
 	{
-		for (int32 j = 0; j < Size; j++)
+		for (int32 j = 0; j < nr_cuburi; j++)
 		{
 			if (tabla[i][j]->atins == true)
 			{
@@ -134,7 +125,4 @@ void AAvioaneBlockGrid::Evidentiere_Blocuri(int ok)
 		}
 	}
 }
-
-
-
 #undef LOCTEXT_NAMESPACE

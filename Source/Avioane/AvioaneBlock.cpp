@@ -260,9 +260,9 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 				}
 				acces->frecv[nr_mat] = 1;
 
-				for (i = 0; i < acces->Size; i++)
+				for (i = 0; i < acces->nr_cuburi; i++)
 				{
-					for (j = 0; j < acces->Size; j++)
+					for (j = 0; j < acces->nr_cuburi; j++)
 					{
 						patrat = acces->tabla[i][j];
 
@@ -281,7 +281,7 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 					}
 				}
 				acces->este_avion_selectat = false;
-				avion->Coordonate(this);
+				avion->Setare_PS(this);
 				avion->mesh->SetGenerateOverlapEvents(false);
 				avion->mesh_fals->Destroy();
 				avion->selectat = false;
@@ -291,7 +291,7 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 				{
 					if (GM->mod_de_joc == "1") 
 					{
-						GM->Colorare_Tabla(0);
+						GM->Copiere_Tabla(0);
 						GM->Jucatori[0]->intarziere();
 						GM->Stadiu = 2;
 						GM->Jucatori[0]->acces->mesaj->SetVisibility(false);
@@ -311,7 +311,6 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 
 void AAvioaneBlock::Evidentiere(bool bOn)
 {
-	
 	if (GM->Safe(this,1))
 	{
 		if (GM->mod_de_joc=="1")
@@ -330,7 +329,6 @@ void AAvioaneBlock::Evidentiere(bool bOn)
 					if (acces->avioane[i]->ActorHasTag("Mare"))
 					{
 						acces->avioane[i]->SetActorLocation({ loc.X - 50 , loc.Y + 80 , 0 });
-						
 					}
 					else
 					{

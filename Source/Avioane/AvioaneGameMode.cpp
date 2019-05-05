@@ -296,7 +296,7 @@ bool AAvioaneGameMode::Lovitura(AAvioaneBlock * patrat)
 			if (mod_de_joc == "0")
 			{
 				GetWorldTimerManager().ClearTimer(chronos);
-				GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioaneGameMode::Schimb_Jucator, FMath::RandRange(3.0f, 5.0f), false);
+				GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAvioaneGameMode::Schimb_Jucator, FMath::RandRange(1.5f, 3.0f), false);
 			}
 			else
 			{

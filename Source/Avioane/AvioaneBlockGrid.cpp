@@ -19,7 +19,6 @@ AAvioaneBlockGrid::AAvioaneBlockGrid()
 	
 	box->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 	box->OnBeginCursorOver.AddDynamic(this, &AAvioaneBlockGrid::OnCursorOver);
-	box->OnEndCursorOver.AddDynamic(this, &AAvioaneBlockGrid::EndCursorOver);
 
 	RootComponent = DummyRoot;
 
@@ -31,6 +30,7 @@ AAvioaneBlockGrid::AAvioaneBlockGrid()
 	este_avion_selectat = false;
 	merge_pus = false;
 
+	avion_selectat = nullptr;
 	contor_avioane = 0;
 
 	for (int32 i = 0; i < 20; i++)
@@ -51,19 +51,15 @@ void AAvioaneBlockGrid::OnCursorOver(UPrimitiveComponent * Component)
 {
 	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
 	
-	if (GM->Stadiu == 1)
+	UE_LOG(LogTemp, Warning, TEXT("iNTRA"));
+
+	if (GM->Stadiu == 1 && GM->mod_de_joc=="1" && this->ActorHasTag("Jucator"))
 	{
-		for (int i = 0; i < avioane.Num(); i++)
+		if (este_avion_selectat == true)
 		{
-			if (avioane[i]!=nullptr && this->ActorHasTag("Jucator"))
-				avioane[i]->SetActorLocation(avioane[i]->locinit);
+			avion_selectat->SetActorLocation(avion_selectat->locinit);
 		}
 	}
-}
-
-void AAvioaneBlockGrid::EndCursorOver(UPrimitiveComponent * Component)
-{
-
 }
 
 void AAvioaneBlockGrid::BeginPlay()

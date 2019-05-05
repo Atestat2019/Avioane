@@ -85,6 +85,7 @@ void AAvioanePawn::SetupPlayerInputComponent(UInputComponent* PlayerInputCompone
 	Super::SetupPlayerInputComponent(PlayerInputComponent);
 
 	PlayerInputComponent->BindAction("Rotire", EInputEvent::IE_Pressed, this, &AAvioanePawn::Rotire);
+	PlayerInputComponent->BindAction("Deblocare", EInputEvent::IE_Pressed, this, &AAvioanePawn::Deblocare);
 }
 
 void AAvioanePawn::Rotire()
@@ -94,6 +95,17 @@ void AAvioanePawn::Rotire()
 		if (acces->avioane[i]->selectat == true)
 			acces->avioane[i]->Rotire();
 	}	
+}
+
+void AAvioanePawn::Deblocare()
+{
+	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
+	for (int i = 0; i < acces->avioane.Num(); i++)
+	{
+		if (acces->avioane[i] != nullptr && acces->ActorHasTag("Jucator"))
+				acces->avioane[i]->SetActorLocation(acces->avioane[i]->locinit);
+	}
+	
 }
 
 void AAvioanePawn::TraceForBlock(const FVector& Start, const FVector& End, bool bDrawDebugHelpers)

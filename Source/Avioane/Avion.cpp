@@ -34,6 +34,7 @@ void AAvion::Click(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 	{
 		selectat = true;
 		acces->este_avion_selectat = true;
+		acces->avion_selectat = this;
 
 		//UE_LOG(LogTemp, Warning, TEXT("aici?"));
 	}
@@ -41,6 +42,7 @@ void AAvion::Click(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 	{
 		selectat = false;
 		acces->este_avion_selectat = false;
+		acces->avion_selectat = nullptr;
 	}
 	else if (acces->este_avion_selectat == true && selectat == false)
 	{
@@ -49,6 +51,7 @@ void AAvion::Click(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 			acces->avioane[i]->selectat = false;
 		}	
 		selectat = true;
+		acces->avion_selectat = this;
 	}
 }
 

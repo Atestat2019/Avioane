@@ -27,9 +27,6 @@ public:
 	UFUNCTION()
 		void OnCursorOver(UPrimitiveComponent* Component);
 
-	UFUNCTION()
-		void EndCursorOver(UPrimitiveComponent* Component);
-
 	class AAvioaneBlock* tabla[21][21];
 
 	UPROPERTY(Category=Grid, EditAnywhere, BlueprintReadOnly)
@@ -46,6 +43,8 @@ public:
 		float scala_z;
 
 	TArray<AAvion*> avioane;
+
+	class AAvion* avion_selectat;
 
 	int frecv[20];
 

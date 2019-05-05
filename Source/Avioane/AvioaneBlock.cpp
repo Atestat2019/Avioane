@@ -241,15 +241,10 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 		{
 			if (acces->merge_pus == true)
 			{
-				AAvion* avion = nullptr;
+				
+				AAvion* avion = acces->avion_selectat;
+				acces->avion_selectat = nullptr;
 
-				for (int i = 0; i < acces->avioane.Num(); i++)
-				{
-					if (acces->avioane[i]->selectat == true)
-					{
-						avion = acces->avioane[i];
-					}
-				}
 				AAvioaneBlock* patrat;
 				acces->contor_avioane++;
 				nr_mat = FMath::RandRange(1, materiale.Num() - 1);

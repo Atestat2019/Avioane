@@ -29,8 +29,8 @@ AAIPawn::AAIPawn()
 void AAIPawn::Plasare_Avioane()
 {
 	if (nr_jucator == 1)
-		GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::intarziere, 2.0f, false);
-	else GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::intarziere, 2.0f, false);
+		GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::intarziere, 1.0f, false);
+	else GetWorld()->GetTimerManager().SetTimer(chronos, this, &AAIPawn::intarziere, 3.0f, false);
 }
 
 void AAIPawn::intarziere()
@@ -253,6 +253,10 @@ void AAIPawn::Tura()
 			else if (caz == 0)
 			{	
 				lovituri.Add({i_urm, j_urm});
+			}
+			else
+			{
+				lovituri.Insert({ i_urm,j_urm }, 0);
 			}
 		}
 	}

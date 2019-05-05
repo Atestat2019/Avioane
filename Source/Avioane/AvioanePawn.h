@@ -52,7 +52,8 @@ protected:
 	void TraceForBlock(const FVector& Start, const FVector& End, bool bDrawDebugHelpers);
 	
 	void Rotire();
-
+	
+	void Deblocare();
 	UPROPERTY(EditInstanceOnly, BlueprintReadWrite)
 		class AAvioaneBlock* CurrentBlockFocus;
 };

@@ -8,6 +8,8 @@
 #include "AvioanePawn.h"
 #include "Engine/Classes/Sound/AmbientSound.h"
 #include "AvioaneGameMode.h"
+#include "Components/StaticMeshComponent.h"
+#include "Engine/StaticMesh.h"
 
 #define LOCTEXT_NAMESPACE "PuzzleBlockGrid"
 
@@ -19,6 +21,7 @@ AAvioaneBlockGrid::AAvioaneBlockGrid()
 	
 	box->SetCollisionResponseToChannel(ECC_Visibility, ECR_Block);
 	box->OnBeginCursorOver.AddDynamic(this, &AAvioaneBlockGrid::OnCursorOver);
+	box->OnEndCursorOver.AddDynamic(this, &AAvioaneBlockGrid::EndCursorOver);
 
 	RootComponent = DummyRoot;
 
@@ -60,6 +63,11 @@ void AAvioaneBlockGrid::OnCursorOver(UPrimitiveComponent * Component)
 			avion_selectat->SetActorLocation(avion_selectat->locinit);
 		}
 	}
+}
+
+void AAvioaneBlockGrid::EndCursorOver(UPrimitiveComponent * Component)
+{
+	
 }
 
 void AAvioaneBlockGrid::BeginPlay()

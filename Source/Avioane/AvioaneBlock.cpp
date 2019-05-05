@@ -244,6 +244,7 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 				
 				AAvion* avion = acces->avion_selectat;
 				acces->avion_selectat = nullptr;
+				acces->merge_pus = false;
 
 				AAvioaneBlock* patrat;
 				acces->contor_avioane++;

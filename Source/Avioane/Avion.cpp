@@ -25,33 +25,36 @@ AAvion::AAvion()
 
 void AAvion::Click(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 {
-	AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
-	
-	if (GM->sunet == "true")
-		GM->Jucatori[0]->acces->sunet->Play();
+	if (acces->merge_pus != true)
+	{
 
-	if (acces->este_avion_selectat == false)
-	{
-		selectat = true;
-		acces->este_avion_selectat = true;
-		acces->avion_selectat = this;
+		AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
 
-		//UE_LOG(LogTemp, Warning, TEXT("aici?"));
-	}
-	else if (acces->este_avion_selectat == true && selectat == true)
-	{
-		selectat = false;
-		acces->este_avion_selectat = false;
-		acces->avion_selectat = nullptr;
-	}
-	else if (acces->este_avion_selectat == true && selectat == false)
-	{
-		for (int i=0;i<acces->avioane.Num();i++)
+		if (GM->sunet == "true")
+			GM->Jucatori[0]->acces->sunet->Play();
+
+		if (acces->este_avion_selectat == false)
 		{
-			acces->avioane[i]->selectat = false;
-		}	
-		selectat = true;
-		acces->avion_selectat = this;
+			selectat = true;
+			acces->este_avion_selectat = true;
+			acces->avion_selectat = this;
+
+			//UE_LOG(LogTemp, Warning, TEXT("aici?"));
+		}
+		else if (acces->este_avion_selectat == true && selectat == true)
+		{
+			selectat = false;
+			acces->este_avion_selectat = false;
+		}
+		else if (acces->este_avion_selectat == true && selectat == false)
+		{
+			for (int i = 0; i < acces->avioane.Num(); i++)
+			{
+				acces->avioane[i]->selectat = false;
+			}
+			selectat = true;
+			acces->avion_selectat = this;
+		}
 	}
 }
 

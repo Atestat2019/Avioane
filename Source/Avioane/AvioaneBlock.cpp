@@ -280,7 +280,7 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 				avion->mesh->SetGenerateOverlapEvents(false);
 				avion->mesh_fals->Destroy();
 				avion->selectat = false;
-				avion->Destroy();
+				//avion->Destroy();
 
 				if (acces->ActorHasTag("Jucator") && acces->contor_avioane == 4)
 				{

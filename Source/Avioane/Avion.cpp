@@ -27,33 +27,37 @@ void AAvion::Click(UPrimitiveComponent* ClickedComp, FKey ButtonClicked)
 {
 	if (acces->merge_pus != true)
 	{
-
 		AAvioaneGameMode* GM = GetWorld()->GetAuthGameMode<AAvioaneGameMode>();
 
-		if (GM->sunet == "true")
+		if (GM->sunet == "true" && ((GM->mod_de_joc == "1" && GM->Jucator_Actual == 0) || GM->mod_de_joc=="0"))
+		{
 			GM->Jucatori[0]->acces->sunet->Play();
-
+		}
 		if (acces->este_avion_selectat == false)
 		{
+			outline->mesh->SetVisibility(true);
 			selectat = true;
 			acces->este_avion_selectat = true;
 			acces->avion_selectat = this;
-
 			//UE_LOG(LogTemp, Warning, TEXT("aici?"));
 		}
 		else if (acces->este_avion_selectat == true && selectat == true)
 		{
+			outline->mesh->SetVisibility(false);
 			selectat = false;
 			acces->este_avion_selectat = false;
+			acces->avion_selectat = nullptr;
 		}
 		else if (acces->este_avion_selectat == true && selectat == false)
 		{
 			for (int i = 0; i < acces->avioane.Num(); i++)
 			{
 				acces->avioane[i]->selectat = false;
+				acces->avioane[i]->outline->mesh->SetVisibility(false);
 			}
 			selectat = true;
 			acces->avion_selectat = this;
+			outline->mesh->SetVisibility(true);
 		}
 	}
 }
@@ -132,7 +136,11 @@ void AAvion::Rotire()
 	{
 		val_rot = val_rot + 90;
 		this->SetActorRotation({ 0, val_rot, 0 });
+		//FVector loc = this->GetActorLocation();
+		//this->SetActorLocation({ loc.X + 1,loc.Y + 1,loc.Z });
+		//this->SetActorLocation({ loc.X,loc.Y,loc.Z });
 		mesh_fals->SetActorRotation({ 0, val_rot, 0 });
+		outline->SetActorRotation({ 0, val_rot, 0 });
 	}
 }
 
@@ -140,6 +148,8 @@ void AAvion::BeginPlay()
 {
 	Super::BeginPlay();
 
+	outline->mesh->SetVisibility(false);
+	
 	tag = this->Tags[0];
 
 	mesh->SetVisibility(false); // facem INVIZIBIL MESHUL

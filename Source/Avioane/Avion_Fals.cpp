@@ -4,6 +4,7 @@
 AAvion_Fals::AAvion_Fals()
 {
 	PrimaryActorTick.bCanEverTick = true;
+	mesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("mesh"));
 }
 
 void AAvion_Fals::BeginPlay()

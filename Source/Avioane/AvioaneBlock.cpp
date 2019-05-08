@@ -246,6 +246,8 @@ void AAvioaneBlock::HandleClicked(UPrimitiveComponent* ClickedComp, FKey ButtonC
 				acces->avion_selectat = nullptr;
 				acces->merge_pus = false;
 
+				avion->outline->mesh->SetVisibility(false);
+
 				AAvioaneBlock* patrat;
 				acces->contor_avioane++;
 				nr_mat = FMath::RandRange(1, materiale.Num() - 1);

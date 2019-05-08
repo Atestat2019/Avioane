@@ -13,6 +13,9 @@ public:
 
 	AAvion_Fals();
 
+	UPROPERTY(EditAnywhere)
+		class UStaticMeshComponent* mesh;
+
 
 protected:
 

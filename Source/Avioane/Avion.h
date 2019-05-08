@@ -46,6 +46,8 @@ public:
 
 	UPROPERTY(EditAnywhere)
 		class AAvion_Fals* mesh_fals;
+	UPROPERTY(EditAnywhere)
+		class AAvion_Fals* outline;
 
 	UPROPERTY(EditAnywhere)
 		float val_rot;
